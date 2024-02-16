@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>주문완료</title>
+    <style>
+
+        .orderend {
+            /* 결제완료 배경 및 테투리*/
+            background-color: rgba(36.00000165402889, 36.00000165402889, 36.00000165402889, 1);
+            width: 160px;
+            height: 40px;
+            position: relative;
+            left: 90px;
+            top: 380px;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .orderend2 { /* 결제완료*/
+            color: rgb(255, 255, 255);
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            left: 30px;
+            top: 5px;
+            font-family: Inder;
+            /* text-align: center; */
+            font-size: 25px;
+            letter-spacing: -1;
+        }
+
+        .orderend2-line { /* 결제 완료 옆 줄 */
+            border-bottom: 1px solid rgb(101, 101, 101);
+            padding-bottom: 5px;
+            /* border : 0; */
+            width: 1450px;
+            margin-top: -18px;
+            margin-left: 8px;
+        }
+
+        .ordergoods {
+            width: 1534px;
+            height: 308px;
+            position: absolute;
+            left: 250px;
+            top: 400px;
+            margin-top: 40PX;
+        }
+
+        .orderend3 { /* 주문이 완료되었습니다! */
+            padding: 10px;
+            /* 내부 여백 설정 */
+            display: inline-block;
+            color: rgb(0, 0, 0);
+            width: 755px;
+            height: 60px;
+            position: absolute;
+            left: 20%;
+            top: 90px;
+            font-family: Inder;
+            text-align: center;
+            font-size: 45px;
+            letter-spacing: -1;
+        }
+
+        .orderend3-line { /* 결제 완료 옆 줄 */
+            border-bottom: 1px solid rgb(101, 101, 101);
+            padding-bottom: 5px;
+            /* border : 0; */
+            width: 1450px;
+            margin-top: 280px;
+            margin-left: 8px;
+        }
+
+        .order-details {  /*주문정보창*/
+            border-radius: 5px; /* 둥근 테두리 */
+            border: 2px solid #adadad; /* 테두리 스타일 */
+            width: 1100px;
+            height: 341px;
+            position: relative;
+            left: 430px;
+            top: 760px;
+            padding-top: 50px;
+            font-size: 18px;
+            line-height: 30px; /* 간격을 넓히기 */
+
+        }
+        .order-number,
+        .order-date,
+        .product-information,
+        .shipping-information,
+        .recipient-name,
+        .contact,
+        .address,
+        .payment-information,
+        .order-btn,
+        .main-btn {
+            margin-bottom: 10px; /* 클래스 간격 조절 */
+        }
+        .order-number > span,
+        .order-date > span,
+        .product-information > span,
+        .payment-information > span,
+        .payment_price > span {
+            margin-left: 100px; /* span 요소 사이의 간격을 조절합니다. */
+
+        }
+        .order-details .order-number > span,
+        .order-details .order-date > span,
+        .order-details .product-information > span,
+        .order-details .payment-information > span,
+        .order-details .payment_price > span {
+            text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+        }
+
+        .order-number {
+            font-weight: bold;
+        }
+        .order-details > div,
+        .order-details > div > span {
+            margin-bottom: 30px; /* 클래스간 세로 간격 더 넓게 조절 */
+        }
+
+        .order-number,
+        .order-date,
+        .product-information,
+        .payment-information,
+        .payment_price {
+            position: relative;
+            left: 190px; /* 각 요소를 오른쪽으로 이동 */
+        }
+
+        .order-btn,
+        .main-btn {
+            margin-right: 100px;
+        }
+        .btn-group {
+            /* 버튼 그룹 스타일 */
+            position: relative;
+            width: 650px;
+            top: 820px; /* 테두리 아래에 위치 */
+            left: 0px; /* 가운데 정렬을 위한 왼쪽 위치 조정 */
+            transform: translateX(100%); /* 가운데 정렬 */
+            text-align: center;
+        }
+
+        .btn-group button {
+            /* 버튼 스타일 */
+            height: 60px;
+            width: 215px; /* 버튼 테두리*/
+            margin: 15px 40px; /* 버튼 간격 조정 */
+            display: inline-block; /* 가로로 배치하기 위한 속성 */
+            vertical-align: middle; /* 세로 가운데 정렬 */
+            padding: 15px 30px; /* 버튼 안의 내용과 테두리 간 여백 설정 */
+            font-size: 20px; /* 텍스트 크기 조정 */
+            background-color: #fff; /* 배경색 */
+            border-radius: 5px; /* 둥근 테두리 */
+            border: 2px solid #adadad; /* 테두리 스타일 */
+            color: #000; /* 텍스트 색상 */
+
+        }
+
+        /* .productinformation { 주문 상품
+            color: rgba(0, 0, 0, 1);
+            width: 110px;
+            height: 23px;
+            position: absolute;
+            left: 0px;
+            top: 60px;
+            font-family: Inter;
+            text-align: left;
+            font-size: 25px;
+            letter-spacing: 0;
+        }*/
+    </style>
+</head>
+
+<body>
+<header th:replace="/common/header.html"></header> <!-- 상단바 확인 필요함-->
+<!--<form method="get" th:action="@{/order/pay}">-->
+<div class="orderend">
+    <div class="orderend2">결제완료</div>
+</div>
+<div class="ordergoods">
+    <div class="orderend2-line"></div>
+    <div class="orderend3">주문이 성공적으로 완료되었습니다!<br></div>
+    <div class="orderend3-line"></div>
+    <div class="change_address"></div>
+</div>
+<div class="order-details">
+    <div class="order-number">주문번호<span class="order-number2" th:text="'#' + ${orderList.get(0).paymentCode}">#00000</span></div>
+    <div class="order-date">주문일자<span class="order-date2" th:text="${#dates.format(orderList.get(0).paymentDate,'yyyy-MM-dd')}">주문한 날짜</span> </div>
+
+    <div class="product-information">상품정보<span class="product-name" th:text="${orderList.get(0).productName}">상품이름</span>
+    </div>
+    <div class="payment-information">결제정보<span class="kakaoapi">카카오API</span></div>
+    <div class="payment_price">결제금액<span class="payment_price2" th:text="${orderList.get(0).price}">18,800원</span></div>
+
+</div>
+<div class="btn-group">
+    <button class="order-btn">주문 내역 조회</button>
+    <button class="main-btn">메인 가기</button>
+</div>
+<!--</form>-->
+</body>
+</html>

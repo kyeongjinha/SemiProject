@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.main.model.dao.MainPageMapper">
+    <resultMap id="mainPageResultMap" type="com.nf.not404found.main.model.dto.MainPageProductDTO">
+        <id property="name" column="name"/>
+        <result property="discountRate" column="discountRate"/>
+        <result property="price" column="price"/>
+        <result property="reviewCount" column="reviewCount"/>
+        <result property="priority" column="priority"/>
+    </resultMap>
+    <select id="showMainPageProduct" resultMap="mainPageResultMap">
+        SELECT p.name AS name,
+               e.discount_rate AS discountRate,
+               p.price AS price,
+               CASE
+                   WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                   ELSE p.price
+                   END AS discountPrice,
+               COALESCE(r.review_count, 0) AS reviewCount,
+               p.priority AS priority
+        FROM product AS p
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC
+
+    </select>
+
+    <select id="getSpecialProduct" resultMap="mainPageResultMap">
+        SELECT p.name AS name,
+               e.discount_rate AS discountRate,
+               p.price AS price,
+               CASE
+                   WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                   ELSE p.price
+                   END AS discountPrice,
+               COALESCE(r.review_count, 0) AS reviewCount,
+               p.priority AS priority
+        FROM product AS p
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
+        WHERE e.discount_rate >= 20
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC;
+    </select>
+
+    <resultMap id="getProductResultMap" type="com.nf.not404found.product.model.dto.ProductPageDTO">
+        <id property="name" column="name"/>
+        <result property="productCode" column="productCode"/>
+        <result property="reviewCount" column="reviewCount"/>
+        <result property="price" column="price"/>
+        <result property="mileage" column="mileage"/>
+        <result property="deliveryCost" column="deliveryCost"/>
+    </resultMap>
+    <select id="getProductColor" resultType="String">
+        SELECT color_code FROM options WHERE product_code = #{productCode}
+    </select>
+
+    <select id="getProduct" resultMap="getProductResultMap">
+        SELECT  p.product_code AS productCode,
+                p.name AS name,
+                p.price AS price,
+                CASE
+                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                    ELSE p.price
+                    END AS discountPrice,
+                p.price * (
+                    CASE
+                        WHEN a.account_status = 'FRIEND' THEN 0.02
+                        WHEN a.account_status = 'FAMILY' THEN 0.03
+                        WHEN a.account_status = 'VIP' THEN 0.04
+                        WHEN a.account_status = 'VVIP' THEN 0.06
+                        ELSE 0
+                        END
+                    ) AS mileage,
+                3000 AS deliveryCost,
+                COUNT(r.product_code) AS reviewCount
+        FROM product AS p
+                 LEFT JOIN review AS r ON p.product_code = r.product_code
+                 LEFT JOIN accounts AS a ON a.id = #{userName}
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+        WHERE p.name = #{name}
+        GROUP BY p.product_code;
+    </select>
+</mapper>

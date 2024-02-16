@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문/결제(비회원)</title>
+    <link rel="stylesheet" href="/src/main/resources/static/css/order/orderNonMember.css">
+</head>
+
+<body>
+<header th:replace="/common/header.html"></header> <!-- 상단바 확인 필요함-->
+<div class=topBarParent>
+    <div class=topBarParent2>
+        <div class="topBar"></div>
+        <div class="dropdown-container">
+            <span id="category">카테고리</span>
+            <div class="dropdown-menu" id="category_toggle">
+                <a href="#" data-value="list1">목록1</a>
+                <a href="#" data-value="list2">목록2</a>
+                <a href="#" data-value="list3">목록3</a>
+                <a href="#" data-value="list4">목록4</a>
+                <a href="#" data-value="list5">목록5</a>
+            </div>
+            <span id="theme">테마</span>
+            <div class="dropdown-menu" id="theme_toggle">
+                <a href="#" data-value="list1">목록6</a>
+                <a href="#" data-value="list2">목록7</a>
+                <a href="#" data-value="list3">목록8</a>
+                <a href="#" data-value="list4">목록9</a>
+                <a href="#" data-value="list5">목록10</a>
+            </div>
+            <span id="new_product">신상품</span>
+            <div class="dropdown-menu" id="new_product_toggle">
+                <a href="#" data-value="list1">목록11</a>
+                <a href="#" data-value="list2">목록12</a>
+                <a href="#" data-value="list3">목록13</a>
+                <a href="#" data-value="list4">목록14</a>
+                <a href="#" data-value="list5">목록15</a>
+            </div>
+            <span id="best">베스트</span>
+            <span id="interior_challenge">인테리어 챌린지</span>
+            <span id="board">게시판</span>
+            <div class="dropdown-menu" id="board_toggle">
+                <a href="#" data-value="list1">공지사항</a>
+                <a href="#" data-value="list2">리뷰 게시판</a>
+                <a href="#" data-value="list3">자유 게시판</a>
+            </div>
+            <span id="special_price">특가</span>
+
+        </div>
+
+    </div>
+    <div class=e1_5240>
+        <div class=e1_5241>
+            <div class=e1_5242>
+                <div class=ei1_5242_309_7322>
+                    <div class="ei1_5242_309_7323"></div>
+                    <div class="ei1_5242_309_7324"></div>
+                </div>
+            </div>
+            <div class=e1_5243>
+                <div class="ei1_5243_309_8590"></div>
+            </div>
+            <div class=e1_5244>
+                <div class="ei1_5244_309_8210"></div>
+            </div>
+            <div class=e1_5245>
+                <div class="ei1_5245_309_8633"></div>
+            </div>
+            <div class=e1_5246>
+                <div class="e1_5247"></div><span class="e1_5248"></span>
+            </div>
+        </div>
+        <div class=e1_5249>
+            <div class="e1_5250"></div>
+            <div class="e1_5251"></div>
+        </div>
+    </div>
+    <div class="e1_5252"></div>
+</div>
+<div class=e1_5253>
+    <div class="e1_5254"></div>
+    <button class="homePageImg">
+        <img src="images/image_25.png" alt="홈페이지 이미지">
+    </button>
+    <div class=e1_5256>
+        <span class="customer">고객센터</span>
+        <span class="signUp">회원가입</span>
+        <span class="logIn">로그인</span>
+    </div>
+</div>
+<div class="orderheader">
+    <div class="orderheader2">주문</div>
+</div>
+<div class="shoppingcart">
+    <div class="orderheader2-line"></div>
+</div>
+<div class="container">
+    <div class=shoppingcart3>
+        <table class="tg" style="undefined; table-layout: fixed; width: 1282px">
+            <colgroup>
+                <col style="width: 711px">
+                <col style="width: 133px">
+                <col style="width: 107px">
+                <col style="width: 116px">
+                <col style="width: 116px">
+                <col style="width: 99px">
+            </colgroup>
+            <span class="e121_2971">주문상품</span>
+            <br><br><br><br><br>
+            <thead>
+            <tr>
+                <th class="tg-7vv0">상품명(옵션)</th>
+                <th class="tg-7vv0">수량</th>
+                <th class="tg-7vv0">적립금</th>
+                <th class="tg-7vv0">상품할인</th>
+                <th class="tg-7vv0">배송비</th>
+                <th class="tg-7vv0">주문금액</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-fuxe">
+                    <div class="image-checkbox-container">
+                        <label for="imageCheckbox"></label> <!-- 체크 박스 라벨 추가 -->
+                        <input type="checkbox" id="imageCheckbox"> <!-- 체크 박스 추가 -->
+                        <div class="content-container">
+                            <img src="/resources/image/2.3.jpg" alt="영상" width="150" height="150">
+                            <div class="text-overlay">붙이는 템바보드 재단서비스(300x2400) /
+                                (600x2400)<br><br>
+                                <div class="choice_option">옵션<br><br>
+                                    <div id="optionChangeCell">
+                                        <button id="OptionButton">옵션 변경</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="tg-r2yh">1개</td>
+                <td class="tg-r2yh">로그인<br>필요</td>
+                <td class="tg-r2yh">0원</td>
+                <td class="tg-r2yh">무료</td>
+                <td class="tg-r2yh">18,800원</td>
+            </tbody>
+        </table>
+    </div>
+    <div class="shoppingcart4">
+        <table class="tg2" style="undefined; table-layout: fixed; width: 1285px;">
+            <colgroup>
+                <col style="width: 150px">
+                <col style="width: 698px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="tg-mq3s">회원 등급</th>
+                <th class="tg-tcvq">회원만 사용할 수 있습니다.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-mq3s">적립금 사용</td>
+                <td class="tg-tcvq">회원만 사용할 수 있습니다.</td>
+            </tr>
+            </tbody>
+            <tr>
+                <td class="tg-mq3s">쿠폰 할인</td>
+                <td class="tg-tcvq">회원만 사용할 수 있습니다.</td>
+            </tr>
+            <tr>
+                <td class="tg-mq3s">배송비</td>
+                <td class="tg-tcvq">배송비 무료</td>
+            </tr>
+        </table>
+    </div>
+    <div class="guidance_note">
+        <li>할인금액은 상품할인 또는 쿠폰이 적용되었을 경우 가격이므로 실제 주문시의 주문가격과 다를 수도 있습니다.</li>
+        <li>본인인증한 집꾸미 회원만 포인트 적립과 사용이 가능합니다.<br></li>
+        <li>집꾸미는 기본적으로 대한민국 내 제주도 및 도서 산간 지역 제외 전 지역, 전 상품 무료 배송입니다.<br></li>
+        <li>2개 이상의 브랜드(업체) 상품을 주문하신 경우, 각 개별 배송됩니다.<br></li>
+    </div>
+    <!-- 주문자 정보 -->
+    <div class="orderertop">
+        <div class="orderer-info">
+            <h2>주문자 정보</h2>
+            <div class="input-group">
+                <label for="nameInput" class="input-l" abel>이름</label>
+                <input type="text" id="nameInput" placeholder="이름을 입력하세요">
+            </div>
+            <div class="input-group">
+                <label for="emailInput">이메일</label>
+                <div class="email-input">
+                    <input type="text" id="emailId" placeholder="아이디">
+                    <span>@</span>
+                    <input type="text" id="emailDomain" placeholder="이메일 주소">
+                </div>
+                <div class="sendVerificationCode1">
+                    <button id="sendVerificationCode2">인증번호 발송</button>
+                </div>
+
+            </div>
+            <div class="input-group">
+                <label for="phoneInput">휴대전화</label>
+                <input type="text" id="phoneInput" placeholder="000-0000-0000">
+            </div>
+        </div>
+        <!-- 배송 정보 -->
+        <div class="delivery-info">
+            <h2>배송 정보</h2>
+            <div class="input-group">
+                <label for="recipientName">받는 사람</label>
+                <input type="text" id="recipientName" placeholder="수령인">
+            </div>
+            <div class="input-group">
+                <label for="recipientPhone">휴대전화</label>
+                <input type="text" id="recipientPhone" placeholder="000-0000-0000">
+            </div>
+            <div class="input-group">
+                <label for="zipcodeInput">배송지 주소</label>
+                <input type="text" id="zipcodeInput" placeholder="">
+                <button id="searchZipcode">우편번호 찾기</button>
+            </div>
+            <div class="input-group">
+                <label for="c"></label>
+                <input type="text" id="addressInput" placeholder="주소">
+            </div>
+            <div class="input-group">
+                <label for="addressDetails"></label>
+                <input type="text" id="addressDetails" placeholder="상세주소">
+            </div>
+        </div>
+        <div class="input-group">
+            <select id="deliveryRequest" onchange="handleDeliveryRequestChange(this.value)">
+                <option value="1">배송 시 요청 사항을 선택해주세요</option>
+                <option value="2">부재 시 문앞에 놓아주세요 </option>
+                <option value="3">부재 시 경비실에 맡겨주세요 </option>
+                <option value="4">배송전 미리 연락주세요</option>
+                <option value="5">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
+                <option value="6">직접 입력</option>
+            </select>
+            <div id="customDeliveryRequest" style="display: none;"><br>
+                <input type="text" id="customRequestInput" placeholder="직접 입력하세요">
+            </div>
+        </div>
+    </div>
+    <div class="결제-섹션">
+        <h2>최종 결제 금액</h2>
+        <hr><!-- 작은 줄 -->
+        <div class="결제-정보">
+            <div class="상세-항목">
+                <span>상품 금액</span>
+                <span>18,800원</span>
+            </div>
+            <div class="상세-항목">
+                <span>상품 할인</span>
+                <span>0원</span>
+            </div>
+            <div class="상세-항목">
+                <span>쿠폰 할인</span>
+                <span>0원</span>
+            </div>
+            <div class="상세-항목">
+                <span>적립금 사용</span>
+                <span>0원</span>
+            </div>
+            <div class="상세-항목">
+                <span>배송비</span>
+                <span>무료</span>
+            </div>
+            <hr> <!-- 작은 줄 -->
+            <div class="총-결제-금액">
+                <span>총 결제 금액</span>
+                <span>18,800원</span>
+            </div>
+        </div>
+        <button class="결제-버튼">결제하기</button>
+    </div>
+</div>
+    <script src="/resources/js/js.js"></script>
+    <script src="/js/order/orderNonMember.js"></script>
+</body>
+</html>

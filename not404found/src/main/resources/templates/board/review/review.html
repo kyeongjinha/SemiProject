@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Review</title>
+    <link rel="stylesheet" href="/css/board/all.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+
+<!-- ====================== 좌측 카테고리 사이드바 ====================== -->
+<div class="sidebar_container">
+    <span class="sidebar_container_text">게시판</span>
+    <div class="sidebar_button1">
+        <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=1\''">공지사항</span>
+    </div>
+    <div class="sidebar_button2">
+        <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review?categorycode_board=2\''">Review</span>
+    </div>
+    <div class="sidebar_button3">
+        <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=3\''">QnA</span>
+    </div>
+</div>
+
+
+
+<!-- ====================== review ====================== -->
+<div class="review_list_all">
+
+    <div class="board_title_review">
+        <strong>Review</strong>
+    </div>
+
+    <!-- ============== 리뷰 정렬 ============== -->
+    <div class="review_sort">
+        <select name="sortPosts" id="review_sortPosts">
+            <option value="latest">최신순</option>
+            <option value="popular">별점순</option>
+            <option value="popular">추천순</option>
+        </select>
+    </div>
+
+
+    <!-- ============== 리뷰 검색 ============== -->
+    <div class="search">
+        <form class="searchForm" th:action="@{/board/review/review}">
+            <select class="searchCondition_review" name="searchCondition">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="writer">작성자</option>
+            </select>
+
+            <input type="search" class="searchValue_review" name="searchValue" placeholder="">
+            <button class="btn btn-bs" id="searchButton_review" type="submit">검색</button>
+        </form>
+    </div>
+
+
+    <!-- ============== 리뷰 목록 ============== -->
+
+    <div class="review_list" th:each="review : ${ totalReviewCountByProduct }">
+
+        <input type="hidden" th:value="${ review.product.product_code }">
+        <input type="hidden" th:value="${ review.board.post_code }">
+        <input type="hidden" th:value="${ review.recommend_review }">
+        <input type="hidden" th:value="${ review.star_rating }">
+
+        <div class="review_list_lcontent">
+            <div class="review_list_review_container">
+                <div class="review_list_score_section">
+                    <div class="review_list_score_container">
+                        <div class="review_list_score_star">
+                            <div class="star-ratings">
+                                <div class="star-ratings-fill" th:style="'width: ' + (${review.star_rating} * 20) + '%'">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                </div>
+                                <div class="star-ratings-base">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:text="${ review.board.post_title }" class="review_list_score_text"></div>
+                    </div>
+                    <div class="review_list_edit_container">
+                        <div th:text="${ review.board.post_created_date }" class="review_list_date"></div>
+                    </div>
+                </div>
+                <div class="review_list_product_section">
+                    <a class="review_list_product_link" data-url="">
+                        <div class="review_list_product_container">
+                            <div class="review_list_product_image_container">
+                                <img th:src="@{|/thumbPath${review.adminProduct.attachmentList[0].getThumbnailPath()}|}" alt="이미지">
+                            </div>
+                            <div class="review_list_info_container">
+                                <div th:text="${ review.product.name }" class="review_list_product_name"></div>
+                                <div class="review_list_review_info">
+                                    <span class="review_list_score_icon">
+                                        <div class="score_star_wrapper">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
+                                                 viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star "
+                                                 style="fill: #F5A623">
+                                                <defs>
+                                                    <path id="star-full"
+                                                          d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z">
+                                                    </path>
+                                                </defs>
+                                                <use xlink:href="#star-full"></use>
+                                            </svg>
+                                        </div>
+                                    </span>
+                                    <span th:text="${ review.product.average_star_rating }" class="review_list_score"></span>
+                                    리뷰 <span th:text="${ review.reviewCount }"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="review_list_content_section">
+                    <div class="review_list_content_container">
+                        <div class="review_list_content">
+                            <div class="review_list_message_container">
+                                <div class="review_list_expand_link">
+                                    <div th:utext="${ review.board.post_content }" class="review_list_message"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review_image">
+                    <img src="/images/board/sample.jpg" alt="리뷰 이미지">
+                    <img src="/images/board/sample.jpg" alt="리뷰 이미지">
+                </div>
+
+                <div class="review_list_like_section">
+                    <div class="review_like_action_like_container">
+                        <a class="review_like_action_like_link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="review_like_action_like_icon">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M8.725 6.2c-.051.152-.026.32.068.45s.245.207.406.207h3.477c.061 0 .121.006.181.017.55.1.914.626.814 1.175l-.962 5.288c-.087.48-.505.83-.994.83H6.177c-.558 0-1.01-.453-1.01-1.011v-6.24c0-.241.086-.474.243-.657l3.619-4.223c.174-.202.463-.26.702-.141.21.105.312.35.237.573L8.725 6.2zM2.333 14V7.333">
+                                </path>
+                            </svg>
+                            <span class="review_like_action_like_text">도움돼요</span>
+                            <span class="review_like_action_like_count js-like-score-plus">0</span>
+                            <span class="review_like_action_like_count_text js-like-score-text" style="display: none;">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="review_list_review_separator"></div>
+        <div class="review_list_review_rcontent">
+            <div class="review_list_user_name_message">
+                <b th:text="${ review.board.account.id }" style="width: 100px"></b>님의 리뷰입니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- 페이지 처리 -->
+    <div class="pagingArea_review" align="center">
+        <!-- 맨 앞으로 이동 버튼 -->
+        <button
+                th:onclick="'location.href=\'/board/review/review?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <<
+        </button>
+        <!-- 이전 페이지 버튼 -->
+        <button
+                th:onclick="'location.href=\'/board/review/review?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <
+        </button>
+        <!-- 숫자 버튼 -->
+        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+            <button
+                    th:text="${ page }"
+                    th:onclick="'location.href=\'/board/review/review?currentPage='+ @{${page}} + '\''"
+                    th:disabled="${ selectCriteria.pageNo eq page }">
+            </button>
+        </th:block>
+
+        <!-- 다음 페이지 버튼 -->
+        <button
+                th:onclick="'location.href=\'/board/review/review?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+        >
+            >
+        </button>
+        <!-- 마지막 페이지로 이동 버튼 -->
+        <button
+                th:onclick="'location.href=\'/board/review/review?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+        >
+            >>
+        </button>
+    </div>
+
+    <div class="bt_wrap">
+        <button class="writeBoard" th:onclick="'location.href=\'/board/review/write\''">글쓰기</button>
+    </div>
+
+</div>
+
+
+
+<script text="javascript/text">
+    $(document).ready(function() {
+
+        $('.review_list_expand_link').each(function (){
+            const content = $(this).find('.review_list_message');
+
+            const content_txt = content.text();
+            const content_html = content.html();
+            const content_txt_short = content_txt.substring(0, 50) + "...";
+            const btn_more = $('<a href="javascript:void(0)" class="more" style="color: #6e6d6d;">리뷰 더보기▼</a>');
+
+            $(this).append(btn_more);
+
+            if (content_txt.length >= 50) {
+                content.html(content_txt_short);
+            } else {
+                btn_more.hide()
+            }
+
+            btn_more.click(toggle_content);
+            function toggle_content(){
+                if ($(this).hasClass('short')) {
+                    /* 접기 상태 */
+                    $(this).html('리뷰 더보기▼');
+                    content.html(content_txt_short);
+                    $(this).removeClass('short');
+                } else {
+                    /* 더보기 상태 */
+                    $(this).html('접기▲');
+                    content.html(content_html);
+                    $(this).addClass('short');
+                }
+            }
+        });
+    });
+
+    // JavaScript로 클릭 이벤트 핸들링
+    document.addEventListener('DOMContentLoaded', function() {
+        // a 태그 요소 가져오기
+        var likeLink = document.querySelector('.review_like_action_like_link');
+
+        // 클릭 이벤트 리스너 추가
+        likeLink.addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 동작 방지 (링크 이동)
+
+            // 현재 숫자 가져오기
+            var likeCount = document.querySelector('.js-like-score-plus');
+            var currentCount = parseInt(likeCount.innerText);
+
+            // 숫자 1 증가 후 업데이트
+            var updatedCount = currentCount + 1;
+            likeCount.innerText = updatedCount;
+        });
+    });
+</script>
+
+<script>
+
+    export default {
+        computed: {
+            starRatingPercent() {
+                const score = +this.review.star_rating * 20;
+                return score + '%';
+            }
+        }
+    }
+
+</script>
+
+</body>
+</html>

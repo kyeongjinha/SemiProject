@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/src/main/resources/static/css/mypage/myCoupon.css">
+    <title>myCoupon</title>
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+
+<div class="sidebar_container">
+    <span class="sidebar_container_text">마이 페이지</span>
+    <div class="sidebar_button1">
+        <span class="sidebar_button1_text"onclick="gohome()">내 정보</span>
+    </div>
+    <div class="sidebar_button2">
+        <span class="sidebar_button2_text">주문 목록</span>
+    </div>
+    <div class="sidebar_button3">
+        <span class="sidebar_button3_text">보유 쿠폰</span>
+    </div>
+</div>
+<div id="con_lf">
+    <h2 class="pg_tit">
+        <span>쿠폰관리</span>
+    </h2>
+
+    <nav id="tab_cate">
+        <ul id="tab_cate_ul">
+            <li class="active"><a href="/myPage/home">사용가능한 쿠폰</a></li>
+            <li><a href="">사용완료 및 기한만료 쿠폰</a></li>
+        </ul>
+    </nav>
+
+    <p class="pg_cn3t">
+        <em>총 <span th:text="${couponCount}"></span>개</em>의 쿠폰이 있습니다.
+    </p>
+
+    <div class="tbl_head02 tbl_wrap">
+        <table>
+        <colgroup>
+            <col class="w30">
+            <col>
+            <col>
+            <col>
+            <col>
+            <col class="w140">
+        </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">할인쿠폰</th>
+                <th scope="col">할인율(금액)</th>
+                <th scope="col">목록4</th>
+                <th scope="col">사용기한</th>
+                <th scope="col">취득일자</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td colspan="6" class="empty_list">자료가 없습니다.</td></tr>      </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    function gohome(){
+        window.location.href = "home.html";
+    }
+</script>
+<!--    <script src="/js/common/sideBar.js"></script>-->
+<script src="/js/common/header.js"></script>
+</body>
+</html>

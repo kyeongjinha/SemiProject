@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.admin.coupon.model.dao.AdminCouponMapper">
+
+    <resultMap id="AdminCouponMap" type="AdminCouponDTO">
+        <id property="couponNumber" column="coupon_number"/>
+        <result property="name" column="name"/>
+        <result property="rate" column="rate"/>
+        <result property="comment" column="comment"/>
+        <result property="period" column="period"/>
+    </resultMap>
+
+    <select id="selectAllCoupon" resultMap="AdminCouponMap">
+        SELECT
+            coupon_number,
+            name,
+            rate,
+            comment,
+            period
+        FROM
+            coupon
+    </select>
+
+    <insert id="insertCoupon">
+        INSERT INTO coupon
+        (name,
+         rate,
+         comment,
+         period)
+        VALUES
+            (
+             #{ name },
+             #{ rate },
+             #{ comment },
+             #{ period }
+            )
+    </insert>
+
+    <select id="selectCondition" resultMap="AdminCouponMap">
+        SELECT
+            a.coupon_number,
+            a.name,
+            a.rate,
+            a.comment,
+            a.period
+        FROM
+            coupon a
+        <where>
+            <if test="searchCondition == 'name'">
+                a.name LIKE CONCAT ( '%', #{searchCoupon}, '%')
+            </if>
+            <if test="searchCondition == 'comment'">
+                a.comment LIKE CONCAT ( '%', #{searchCoupon}, '%')
+            </if>
+            <if test="periods != 0 and periode == 0">
+                AND period >= #{periods}
+            </if>
+            <if test="periods == 0 and periode != 0">
+                AND #{periode} >= period
+            </if>
+            <if test="periods != 0 and periode != 0" >
+                AND period BETWEEN #{periods} AND #{periode}
+            </if>
+            <if test="searchRates != 0 and searchRatee == 0">
+                AND rate >= #{searchRates}
+            </if>
+            <if test="searchRates == 0 and searchRatee != 0">
+                AND #{searchRatee} >= rate
+            </if>
+            <if test="searchRates != 0 and searchRatee != 0" >
+                AND rate BETWEEN #{searchRates} AND #{searchRatee}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSection" resultMap="AdminCouponMap">
+    SELECT
+    coupon_number,
+    name,
+    rate,
+    comment,
+    period
+    FROM
+    coupon
+    <where>
+        <if test="periods != 0 and periode == 0">
+            AND period >= #{periods}
+        </if>
+        <if test="periods == 0 and periode != 0">
+            AND #{periode} >= period
+        </if>
+        <if test="periods != 0 and periode != 0" >
+            AND period BETWEEN #{periods} AND #{periode}
+        </if>
+        <if test="searchRates != 0 and searchRatee == 0">
+            AND rate >= #{searchRates}
+        </if>
+        <if test="searchRates == 0 and searchRatee != 0">
+            AND #{searchRatee} >= rate
+        </if>
+        <if test="searchRates != 0 and searchRatee != 0" >
+            AND rate BETWEEN #{searchRates} AND #{searchRatee}
+        </if>
+    </where>
+    </select>
+
+    <delete id="deleteCoupon" >
+        delete from coupon
+        where coupon_number = #{chkbox1}
+    </delete>
+
+    <insert id="supplyCoupon">
+        REPLACE INTO user_coupon
+        (id, coupon_number, expiry_date, date_of_issue, coupon_status)
+        VALUES (#{id}, #{couponNumber}, DATE(NOW()), DATE_ADD(DATE(NOW()), interval 30 day), 'Y')
+    </insert>
+
+</mapper>

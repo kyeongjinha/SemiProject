@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="/css/board/all.css">
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+<!-- ====================== 좌측 카테고리 사이드바 ====================== -->
+<div class="sidebar_container">
+  <span class="sidebar_container_text">게시판</span>
+  <div class="sidebar_button1">
+    <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=1\''">공지사항</span>
+  </div>
+  <div class="sidebar_button2">
+    <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review?categorycode_board=2\''">Review</span>
+  </div>
+  <div class="sidebar_button3">
+    <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/qna/list?categorycode_board=3\''">QnA</span>
+  </div>
+</div>
+
+
+
+
+<!-- ====================== 게시판 전체 태그 ====================== -->
+<div class="board_wrap">
+  <div class="board_title" style="margin-bottom: 30px;">
+    <strong>공지사항</strong>
+  </div>
+  <div class="board_view_wrap">
+    <div class="board_view">
+      <div class="title">
+        <p th:text="${noticeView.post_title}">
+      </div>
+      <input type="hidden" name="post_code" th:text="${noticeView.post_code}">
+      <div class="info">
+        <dl>
+            <dt>글쓴이</dt>
+            <dd th:text="${noticeView.account.id}"></dd>
+        </dl>
+        <dl>
+          <dt>작성일</dt>
+          <dd th:text="${noticeView.post_modified_date != null} ? ${noticeView.post_modified_date} : ${noticeView.post_created_date}"></dd>
+        </dl>
+        <dl>
+          <dt>조회</dt>
+          <dd th:text="${noticeView.post_views}"></dd>
+        </dl>
+      </div>
+      <div th:utext="${noticeView.post_content}" class="cont"></div>
+    </div>
+
+    <div class="bt_wrap">
+      <button type="button" th:onclick="'location.href=\'/board/notice/list\''" class="writeBoard">목록</button>
+      <th:block sec:authorize="hasRole('ADMIN')">
+        <button
+                class="writeBoard"
+                th:onclick="'location.href=\'/board/notice/modify?post_code='+ @{${ noticeView.post_code }} + '\''"
+        >
+          수정
+        </button>
+        <button
+                class="writeBoard"
+                th:onclick="'location.href=\'/board/notice/delete?post_code='+ @{${ noticeView.post_code }} + '\''"
+        >
+          삭제
+        </button>
+      </th:block>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

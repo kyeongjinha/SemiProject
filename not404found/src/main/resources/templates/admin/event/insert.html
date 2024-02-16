@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>E_insert</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/src/main/resources/static/css/admin/event/insert.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style>
+        .tab3{
+            background-color: #99A3FE;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section>
+    <div class="s_wrap">
+        <h1>이벤트 등록</h1>
+        <h2>필수입력사항</h2>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+        <form id="frm">
+        <div class="tbl_frm01">
+            <table>
+                <colgroup>
+                    <col class="w180">
+                    <col>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">이벤트명</th>
+                    <td>
+                        <input type="text" name="eventName" value="" required=""  class="required frm_input w300" style="background-repeat: no-repeat;">
+                        <span class="fc_197 marl5">( ex: 따뜻한 연말 할인 )</span>
+                        <!--required는 입력필드가 필드가 필수로 채워져야 하는지는 나타낼 떄 사용 현재는 빈값으로 설정되어 있음 -->
+                    </td>
+                </tr>
+<!--                <tr>-->
+<!--                <th scope="row">설명</th>-->
+<!--                <td>-->
+<!--                    <input type="text" name="eventComment" value="" class="frm_input w300">-->
+<!--                    <span class="fc_197 marl5">( ex: 전품목 30% 할인 )</span>-->
+<!--                </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="row">이벤트 상태</th>-->
+<!--                    <td class="td_label">-->
+<!--                        <label><input type="radio" name="cp_use" value="1" checked=""> 상태1</label>-->
+<!--                        <label><input type="radio" name="cp_use" value="0"> 상태2</label>-->
+<!--                    </td>-->
+<!--                </tr>-->
+                <!--        <tr id="ids_date">-->
+                <!--            <th scope="row">이벤트 등록일</th>-->
+                <!--            <td>-->
+                <!--                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a>-->
+                <!--            </td>-->
+                <!--        </tr>-->
+                <tr>
+                    <th scope="row">이벤트 유효 기간</th>
+                    <td class="td_label">
+                        <div id="ids_inv_type0" class="mart7">
+                            <input type="date" name="startDate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDates', '9999-99-99');" class="btn_small grey">시작일</a> ~
+                            <input type="date" name="endDate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDatee', '9999-99-99');" class="btn_small grey">종료일</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">할인율</th>
+                    <td>
+                        <p>
+<!--                            <input type="radio" name="cp_sale_type" value="0" checked="">-->
+                            (상품 판매가 x 수량) 의
+                            <input type="text" name="eventRate" value="0"  class="frm_input w80"> <!-- numeric="" itemname="할인율" -->                            % 할인
+                        </p>
+                        <!--                , 최대-->
+                        <!--                    <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원-->
+                        <!--                </p>-->
+                        <!--                <p class="mart3">-->
+                        <!--                    <input type="radio" name="cp_sale_type" value="1">-->
+                        <!--                    <input type="text" name="cp_sale_amt" value="0" numeric="" itemname="할인금액" class="frm_input w80"> 원 할인-->
+                        <!--                </p>-->
+                    </td>
+                </tr>
+                </tbody>
+                <div class="csstest">
+                </div>
+            </table>
+<!--            <form method="get" th:action="@{admin/event/insert}">-->
+            <div class="page_name2">
+                <input type="text" class="search_product" name="searchValue" placeholder="상품명을 적어주세요" id="productName" style="width: 400px; height: 30px; margin-right: 10px;">
+                <button id="btnSearch">검색</button>
+<!--                <label class="md_button" th:type="submit" th:name="searchbtn" style="height: 35px; width: 80px; margin-right: 5px; border : 1px solid black" id="btnSearch">검색</label>-->
+            </div>
+            <table style="width: 864px">
+                <thead>
+                <tr>
+                    <th scope="col"><input type="checkbox" name="chkbox1" value="" onclick="check_all1(this.form);"></th>
+                    <th scope="col">상품코드</th>
+                    <th scope="col">상품명</th>
+                    <th scope="col" style="width: 200px">상품가격</th>
+                </tr>
+                <tr th:each="product : ${ productList }" class="table_parents">
+                    <td><input type='checkbox' name='chkbox1' th:value="${product.productCode}"></td>
+                    <td th:text="${product.productCode}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                </tr>
+                </thead>
+            </table>
+<!--            </form>-->
+        </div>
+        <div class="btn_confirm"> <!-- 이벤트 등록 또는 목록 -->
+            <input type="submit" id="registBtn" name="regist" value="등록" class="btn_large">
+            <a href="/admin/event" class="btn_large bx-white">목록</a>
+        </div>
+        </form>
+    </div>
+    <script> // ============ 이벤트 유효 기간 달력 뜨게 하는 스트립트 ===============
+    $(document).ready(function () {
+        var startDate, endDate; // 변수를 선언하고 초기화해야 합니다.
+
+        // 오늘 날짜 구하기
+        var today = new Date(); // 변수에 현재 날짜를 담아줌
+
+        // datepicker 초기화 함수
+        function initDatepicker($element) {
+            $element.datepicker({ // 제이쿼리 객체를 받아 해당 객체에 datepicker를 적용 후 datepicker를 설정
+                dateFormat: 'yy-mm-dd', // 설정에는 날짜 형식
+                minDate: 0, // 최소 선택 가능한 날짜
+                defaultDate: today, // 기본 날짜
+                onSelect: function (selectedDate) { // 날짜를 선택했을 때의 동작
+                    startDate = new Date(selectedDate);
+                    updateEndDatepicker(startDate);
+                }
+            });
+            $element.val($.datepicker.formatDate('yy-mm-dd', today));
+            // datepicker에서 제공하는 formatDate 함수를 사용하여 날짜를 지정된 형식으로 포맷해줌
+            // 날짜는 'yy-mm-dd'형식으로 포맷하고 today 변수에 저장된 현재 날짜를 이형식에 맞게 변환함
+            // 그래서 $element에 현재 날짜를 yy-mm-dd형식으로 설정하는 역할을 함
+        }
+
+        // 각각의 datepicker 초기화
+        initDatepicker($('#pub_sdate, #inv_sdate')); //initDatepicker 함수 호출 후 #pub_sdate, #inv_sdate 요소에 datepicker를 적용 시킴
+        initDatepicker($('#pub_edate, #inv_edate')); //initDatepicker 함수 호출 후 #pub_sdate, #inv_sdate 요소에 datepicker를 적용 시킴
+        // 위에 있던 설정들
+
+        function updateEndDatepicker(startDate) {
+            $('#pub_edate, #inv_edate').datepicker('option', 'minDate', startDate);
+            // updateEndDatepicker 함수는 startDate를 받아 시작 날짜로 설정하고
+            // 해당 시작 날짜 이후의 날짜만 선택가능 하도록 #pub_edate, #inv_edate의 datepicker 설정을 업데이트함
+        }
+
+        $('#btnSearch').click(function(){
+            $('#frm').attr("action",'/admin/event/insert').attr("method", "get").submit();
+        });
+
+        $('#registBtn').click(function(){
+            $('#frm').attr("action",'/admin/event/insert').attr("method", "post").submit();
+        });
+
+    });
+
+    function check_all1(form) {
+        var allcheck = $('[name="chkbox1"]', form);
+        $('input[name="chkbox1"]').prop('checked', allcheck.prop('checked'));
+    }
+
+
+    //
+    // document.getElementById('btnSearch').addEventListener('click', function() {
+    //
+    //     var productName = document.getElementById("productName").value;
+    //     $.ajax({
+    //         type: "GET",
+    //         url:"/admin/product/searchData",
+    //         data: { productName : productName},
+    //         success: function (response){
+    //             if (response.length > 0){
+    //                 updateTable(response)
+    //             }
+    //             else{
+    //                 alert('검색 결과가 없습니다.')
+    //             }
+    //
+    //
+    //         },
+    //         error: function (error) {
+    //             console.error("검색에 실패하셨습니다", error);
+    //         }
+    //     });
+    //
+    //     document.getElementById('productName').value = '';
+    // });
+    //
+    //
+    //
+    // function updateTable(data){
+    //
+    //     var tbody= $('.table_parents tbody');
+    //
+    //     console.log(data[0].name)
+    //     tbody.empty();
+    //
+    //     for (var i = 0; i < data.length; i++) {
+    //         console.log('반복문 시작');
+    //         var row = '<tr>' +
+    //             "<td><input type='checkbox' name='chkbox1' value=" + data[i].productCode + "></td>" +
+    //             '<td class="td2">' + data[i].productCode + '</td>' +
+    //             '<td class="td1">' + data[i].name + '</td>' +
+    //             '<td class="td1">' + data[i].price + '</td>' +
+    //             '</tr>';
+    //         tbody.append(row);
+    //         console.log('원숭이는끢끡');
+    //     }
+    //     $('.search_product').empty();
+    //     console.log("지워졌냐")
+    // }
+
+    // $(document).ready(function () {
+    //     $('.table_parents tbody').on('dblclick', '.td2' , function () {
+    //
+    //         // 클릭한 셀의 내용 가져오기
+    //         var cellValue = $(this).text();
+    //
+    //         console.log('더블클릭한 셀의 내용: ' + cellValue);
+    //
+    //         $.ajax({
+    //             type: "GET",
+    //             url:"/admin/product/data",
+    //             data: { productCode : cellValue},
+    //             success: function (response){
+    //
+    //                 updateTable2(response)
+    //
+    //             },
+    //             error: function (error) {
+    //                 console.error("검색에 실패하셨습니다", error);
+    //             }
+    //         });
+    //         console.log("어디가 문제여")
+    //     });
+    // });
+    // // 여기까지 했음 이제 더블클릭 하면 코드 나오고 그 코드 값에 맞는 정보들이 다 내려와야 함
+    // function updateTable2(data) {
+    //
+    //     console.log("여까진 오냐")
+    //     var tbody = $('.table_parents tbody');
+    //
+    //     tbody.empty();
+    //
+    //     var headRow = '<tr>' +
+    //         '<th class="th1">상품코드</th>' +
+    //         '<th class="th1">상품명</th>' +
+    //         '<th class="th1">상품가격</th>' +
+    //         '</tr>';
+    //     console.log("여까진 오냐122222222222")
+    //     tbody.append(headRow);
+    //
+    //     var row = '<tr>' +
+    //         '<td class="td2">' + data[0].productCode + '</td>' +
+    //         '<td class="td1">' + data[0].name + '</td>' +
+    //         '<td class="td1">' + data[0].price + '</td>' +
+    //         '</tr>';
+    //     tbody.append(row);
+    //     console.log("됬냐 2222222222222222222222222222")
+    //
+    //
+    //     $('.p_name').val(data[0].name);
+    //
+    //     $('.p_price').val(data[0].price);
+    //
+    //     $('.p_amount').val(data[0].amount);
+    //
+    //     $('#productCode').val(data[0].productCode);
+    //
+    //     $('#topCategory').val(data[0].adminProductCategory.refCategoryCode);
+    //
+    //     updateSubCategories();
+    //     $('#subCategory').val(data[0].adminProductCategory.categoryCode);
+    //
+    //
+    //     $('#colorCategory').val(data[0].adminOption.colorCode);
+    //
+    //     console.log()
+    //
+    //
+    //     console.log("6")
+    //     console.log('http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
+    //
+    //     var cast = $('#titleImg');
+    //
+    //     cast.attr('src', 'http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
+    //     console.log(data[0].attachmentList[0].originalName)
+    //
+    //     cast.val("C:\\fakepath\\" + data[0].attachmentList[0].originalName)
+    //     console.log("캐스트 밸류");
+    //     console.log(cast.val());
+    //
+    //     $('#image0').val(data[0].attachmentList[0].no)
+    //     $('#image1').val(data[0].attachmentList[1].no)
+    //     $('#image2').val(data[0].attachmentList[2].no)
+    //     $('#image3').val(data[0].attachmentList[3].no)
+    //     $('#image4').val(data[0].attachmentList[4].no)
+    //
+    //
+    //     console.log("modifyName")
+    //     console.log(data[0].attachmentList[0].modifyName)
+    //
+    //     console.log("어디야")
+    //
+    //     for (var i = 1; i <= 4; i++) {
+    //         var contentImagePath = 'contentImage' + i;
+    //         console.log("반복도냐")
+    //         $('#' + contentImagePath).attr('src', 'http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
+    //         console.log("thumbnailPath")
+    //         console.log('http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
+    //
+    //     }
+
+    </script>
+
+</section>
+</body>
+</html>

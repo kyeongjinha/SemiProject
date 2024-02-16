@@ -1,0 +1,264 @@
+.s_wrap {
+    margin:65px 240px;
+}
+
+.s_wrap h1{ /* 쿠폰 관리 */
+    font-size: 17px;
+}
+
+#content h2 {
+    margin: 30px 0 0;
+    position: relative;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 1em;
+    padding: 0 0 10px 10px;
+}
+
+.btn_confirm { /* 검색, 초기화 */
+    margin-top: 21px;
+    text-align: center;
+}
+
+.btn_lsmall { /* 선택삭제 버튼과 연결된 클래스 ?*/
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 1.666;
+    font-weight: normal !important;
+}
+
+.tbl_head01 tr:not(.rows) th:first-child, .tbl_head01 tr:not(.rows) td:first-child {
+    border-left: 0 !important;
+}
+
+.local_ov { /* 0건 조회 및 위 간격 */
+    margin: 0;
+    padding: 10px;
+    border-top: 1px solid #aeaeae;
+    margin-top: 30px !important;
+}
+
+/*.mart30 {*/
+/*    margin-top: 30px !important;*/
+/*}*/
+
+.fc_red { /* 0건 조회 글씨 */
+    color: #ec0e03 !important;
+}
+
+.local_frm01 { /* 선택삭제 클래스 */
+    border-top: 1px solid #ececec;
+}
+
+.local_frm01, .local_frm02 { /* 선택삭제 위 아래 2개*/
+    overflow: hidden;
+    margin: 0;
+    padding: 7px 10px;
+    background: #fcfcfc;
+}
+
+.red { /* 쿠폰 등록에 있는 클래스 이름 뒷자리*/
+    background: #ffc771;
+    border: 1px solid #ffc771;
+    color: #000 !important;
+}
+
+.btn_medium{ /* 검색 초기화 버튼 */
+    background: #333;
+    border: 1px solid #333;
+    color: #fff !important;
+}
+
+.btn_small, .btn_lsmall, .btn_medium { /* 모든 버튼*/
+    display: inline-block;
+    text-decoration: none !important;
+    vertical-align: middle !important;
+    font-family: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: right;
+}
+
+.btn_medium { /* 검색, 초기화 버튼 */
+    padding: 8px 15px;
+    font-size: 13px;
+    line-height: 1.444;
+    font-weight: 600;
+}
+
+.bx-white { /* 석제삭제만*/
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #222
+}
+
+/* 기본 검색 폼 테이블 */
+.tbl_frm01 { /* 검색란 전체 */
+    border-top:1px solid #888;}
+
+.tbl_frm01 table {
+    width:100%;}
+
+.tbl_frm01 th,
+.tbl_frm01 td { /* 검색어, 사용기간 및 검색란*/
+    padding:8px 14px;
+    height:23px;
+    border-bottom:1px solid #e4e5e7;
+    text-align:left;
+    vertical-align:middle;
+}
+
+.tbl_head01 th{
+    vertical-align:middle;
+}
+
+.tbl_frm01 th {
+    font-weight:600;
+}
+
+.tbl_frm01 td label { /* 시작일과 종료일 글자 사이 간격과 폰트사이즈 */
+    margin-right:7px;
+    font-size: 12px
+}
+
+.tbl_head01 {
+    border-top:1px solid #aeaeae;
+    border-bottom:1px solid #e4e5e7;
+}
+
+.tbl_head01 table {
+    width:100%;
+}
+
+.tbl_head01 thead th {
+    border-top:0 !important;
+    text-align:center;
+}
+
+.tbl_head01 thead tr.rows th {
+    border-top:1px solid #e4e5e7 !important;
+}
+
+.tbl_head01 thead tr.grid th {
+    padding:8px 0 !important;
+    line-height:1.4em !important;
+}
+
+.tbl_head01 th {
+    padding:8px 10px;
+    line-height:1em;
+    font-weight:600;
+    background:#f1f1f1;
+}
+
+.tbl_head01 th a {
+    text-decoration:underline !important;}
+
+.tbl_head01 th, .tbl_head01 td {
+    border-left: 1px solid #e4e5e7;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tbl_head01 td {
+    height:22px;
+    padding:8px 8px;
+    line-height:1.6em;
+    border-top:1px solid #e4e5e7;
+}
+
+.tbl_head01 td a {
+    font-weight:600;
+}
+
+.tbl_head01 td a:focus,
+.tbl_head01 td a:hover,
+.tbl_head01 td a:active {
+    text-decoration:underline;
+}
+
+.tbl_head01 td.url a {
+    text-decoration:underline !important;
+    font-weight:normal !important;
+}
+.tbl_head01 td label {
+    margin-right:10px;
+}
+.tbl_head01 tr.grid td {
+    height:33px !important;
+    line-height:1.4em !important;
+}
+
+.tbl_head01 tbody.list tr:hover {
+    background:#ececec !important;
+}
+
+/*.tbl_head01 tfoot {*/
+/*    background:#f1f1f1 !important;*/
+/*}*/
+
+.tbl_head01 tfoot th,
+.tbl_head01 tfoot td
+{border-top:1px solid #d6d6d6 !important;
+}
+
+.tbl_head01 .frm_input {
+    width:100%;
+}
+
+.tbl_head01 .frm_refer {
+    display:block;
+    padding-top:5px;
+    color:#547eec;
+}
+
+.empty_table { /* 자료가 없습니다 글씨 */
+    color: #999;
+    padding: 50px 0 !important;
+    text-align: center;
+}
+
+.frm_input { /* 쿠폰 입력 받는 란 */
+    margin-left: 3px;
+    padding: 2px 8px 2px 8px;
+    font-size: 13px;
+    font-weight: normal;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    /*border-radius: 0;*/
+    -webkit-border-radius: 0;
+}
+
+/*table {*/
+/*    border-collapse: collapse;*/
+/*    border-spacing: 0;*/
+/*    text-indent: initial;*/
+/*}*/
+
+table th {
+    background-color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.3em;
+}
+table, th, td {
+    font-size: 12px;
+    font-style: normal;
+    color: #454545;
+}
+
+.local_frm02 {
+    border-bottom: 1px solid #e4e5e7;
+}
+
+.table_parents {
+    position: relative;
+    margin : 0 auto;
+    left: 250px;
+    top : 700px;
+    width: 1650px;
+    border-collapse: collapse;
+
+}
+

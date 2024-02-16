@@ -1,0 +1,181 @@
+.s_wrap {
+    margin:65px 240px;
+}
+
+select {
+    font-size: 12px;
+    height: 23px;
+    padding: 1px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+body, div, table, th, td, thead, input, button, ul {
+    font-weight: 400;
+    letter-spacing: -0.05em;
+}
+
+body, p, h1, h2, ul,table, input, th, td, thead, input, select {
+    margin: 0px;
+    padding: 0px;
+}
+
+h1 {
+    margin: 0 0 20px;
+    padding-bottom: 15px;
+    /*border-bottom: 1px solid #888;*/ /* 이벤트 등록 아래 밑줄*/
+    font-size: 1.5em;
+    line-height: 1em;
+    letter-spacing: -1px;
+}
+
+h2 { /* 필수입력사항*/
+    margin: 30px 0 0;
+    position: relative;
+    font-size: 1.3em;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 1em;
+    padding: 17px 0 14px 10px;
+    border-bottom: 1px solid #888;
+}
+
+th{ /* 필수입력 및 세수 입력사항에 들어가는 메뉴이름들?*/
+    padding: 20px;
+}
+
+.tbl_frm01 {
+    margin: 35px 288px 30px 0px;
+    margin-left: 250px;
+    border-bottom: 1px solid #e4e5e7;
+}
+
+.tbl_frm01 th::after,
+.tbl_frm01 td::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px; /* 가로 선의 두께를 지정합니다. */
+    /*background-color: #e4e5e7; !* 테두리 색상을 지정합니다. *!*/
+}
+
+
+.tbl_frm01 th,
+.tbl_frm01 td { /* 각 th와 td 테두리 및 높이 너비 등등~*/
+    padding: 15px 32px;
+    height: 28px;
+    border-top: 1px solid #e4e5e7;
+    border-left: 1px solid #e4e5e7;
+    /*border-block-end: 1px solid #e4e5e7;*/
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tbl_frm01 td{
+    border-right: 1px solid #e4e5e7
+}
+
+table th {
+    background-color: #f8f8f8;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.3em;
+}
+
+table, th, td{
+    font-weight: normal; /*텍스트 두깨*/
+    color: #454545;
+    font-size: 14px;
+}
+
+.frm_input { /* 입력받는 란들 */
+    padding: 4px 7px 4px 7px;
+    font-size: 14px;
+    font-weight: normal;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    height: 23px;
+}
+
+.w300 { /* 이벤트명, 설명 입력 받는 란 */
+    width: 500px !important; /*300->500수정*/
+}
+
+.fc_197 { /* 예시글들 */
+    color: #197fe0 !important;
+}
+
+.marl5 { /* 예시글들 간격 */
+    margin-left: 5px !important;
+}
+
+.tbl_frm01 td label { /* td에 있는 label간의 간격 */
+    margin-right: 7px;
+}
+
+label, input, button, select { /* 글과 체크박스 입력란 정렬*/
+    vertical-align: middle;
+}
+
+.btn_small { /* 무제한, 시작일, 종료일  */
+    padding: 6px 12px;
+    font-size: 12px;
+    line-height: 1.555;
+    font-weight: normal !important;
+    text-decoration: none;
+}
+
+.btn_small, .btn_large { /* 무제한, 시작일, 종료일 글씨와 저장 목록 글씨 */
+    display: inline-block;
+    text-decoration: none !important;
+    vertical-align: middle !important;
+    font-family: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    /* background: transparent; */
+    text-align: center;
+    border-radius: 0;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.btn_small, .btn_large { /* 무제한, 시작일, 종료일 글씨와 저장 목록 글씨 */
+    background: #333;
+    border: 1px solid #333;
+    color: #fff !important;
+}
+
+.btn_large { /*저장, 목록*/
+    padding: 10px 21px;
+    font-size: 15px;
+    line-height: 1.222;
+    font-weight: 600;
+}
+
+.btn_confirm { /*저장, 목록 잡고 있는 큰애*/
+    padding-left: 45%;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.bx-white { /* 목록*/
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #222 !important;
+}
+
+.frm_input w80{
+    text-align: right;
+}
+
+
+
+
+
+

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <link rel="stylesheet" href="/css/admin/dashboard/admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section>
+    <div class="topSection">
+
+        <div class="dash1" onclick="go_order()">
+            <div class="cell1"><div class="dashIcon1"></div></div>
+            <div class="cell2"><h3>주문 처리</h3></div>
+            <div class="cell3">
+                <tr th:each="orderProcessing : ${adminDashboardData}">
+                    <ul>
+                        <li th:text="'주문 접수 : '+${orderProcessing.getOrderReception()}+' 건'"/>
+                        <li th:text="'상품 준비 : '+${orderProcessing.getProductPreparation()}+' 건'"/>
+                        <li th:text="'출고 준비 : '+${orderProcessing.getPreparationShipment()}+' 건'"/>
+                        <li th:text="'배송 중 : '+${orderProcessing.getShipping()}+ ' 건'"/>
+                        <li th:text="'배송 완료 : '+${orderProcessing.getDeliveryCompleted()}+ ' 건'"/>
+                    </ul>
+                </tr>
+            </div>
+        </div>
+        <div class="dash2" onclick="go_product()">
+            <div class="cell1"><div class="dashIcon2"></div></div>
+            <div class="cell2"><h3>상품현황</h3></div>
+            <tr th:each="product : ${adminProductStatus}">
+            <div class="cell3">
+                <ul>
+                    <li th:text="'판매중 : '+${product.getSale()}"/>
+                    <li th:text="'판매 중지 : '+${product.getSellingStop()}"/>
+                </ul>
+            </div>
+            <div class="cell3">
+                <ul>
+                    <li th:text="'특가 상품 : '+${product.getSpecialPrice()}"/>
+                    <li th:text="'재고 부족! : '+${product.getAmountStatus()}" style="color: red; font-weight: bold"/>
+                </ul>
+            </div>
+            </tr>
+        </div>
+        <div class="dash3">
+            <div class="cell1"><div class="dashIcon3"></div></div>
+            <div class="cell2"><h3>게시판관리</h3></div>
+            <div class="cell3">
+                <ul>
+                    <li onclick="go_notice()" style="cursor: pointer; color: blue; text-decoration: underline">공지사항 작성</li>
+                    <li onclick="go_FAQ()" style="cursor: pointer;color: blue; text-decoration: underline">FAQ 작성</li>
+                </ul>
+            </div>
+            <div class="cell3">
+                <ul>
+                    <tr th:each="board : ${adminBoardStatus}">
+                        <li th:text="'QnA : '+${board.getQnA()}"/>
+                        <li th:text="'인테리어 첼린지    인기 게시글 : '+${board.getInteriorChallengeBest()}"/>
+                    </tr>
+                </ul>
+            </div>
+        </div>
+        <div class="dash4" onclick="go_member()">
+            <div class="cell1"><div class="dashIcon4 "></div></div>
+            <div class="cell2"><h3>회원관리</h3></div>
+            <div class="cell3">
+                <ul>
+                    <tr th:each="members : ${membersStatus}">
+                        <li th:text="'현재 회원 수 : '+${members.getMembers()}"/>
+                        <li th:text="'VVIP 회원 수 : '+${members.getVvipMembers()}"/>
+                        <li th:text="'VIP 회원 수 : '+${members.getVipMembers()}"/>
+                        <li th:text="'Family 회원 수 : '+${members.getFamilyMembers()}"/>
+                        <li th:text="'Friend 회원 수 : '+${members.getFriendMembers()}"/>
+                    </tr>
+                </ul>
+            </div>
+            </div>
+
+    </div>
+    <div class="centerContainer">
+        <tr th:each="statistics : ${adminStatistic}">
+        <div class="centerItem" th:text="'홈페이지 방문 수(임의 값) : '+${statistics.getVisitCount()}"/>
+        <div class="centerItem" th:text="'당일 결제 회수 : '+${statistics.getDailyPaymentCount()}"/>
+        <div class="centerItem" th:text="'당일 결제 금액 : '+${statistics.getDailyPaymentAmount()}"/>
+        <div class="centerItem" th:text="'당일 회원 가입 인원 : '+${statistics.getDailyRegistrations()}"/>
+        <div class="centerItem" th:text="'누적 회원 : '+${statistics.getTotalMembers()}"/>
+        <div class="centerItem" th:text="'휴면 예정 알림 : '+${statistics.getPendingDormantAccountNotification()}"/>
+        <div class="centerItem" th:text="'누적 적립금 : '+${statistics.getTotalAccumulatedPoints()}"/>
+        <div class="centerItem" th:text="'비정상적 접근 시도(임의 값) : '+${statistics.getSuspiciousAccessAttempts()}"/>
+        <div class="centerItem" style="cursor: pointer" onclick="resetFreeBoard()">자유 게시판 초기화 하기</div>
+        </tr>
+        <script>
+            function resetFreeBoard() {
+                const result = confirm("정말로 자유게시판을 초기화 하는게 맞습니까?");
+                if (result) {
+                    const re = confirm("진짜 정말로 모두 초기화 합니까????? 절대로 복구할 수 없습니다!!");
+                    if(re){
+                        alert("자유 게시판의 데이터를 모두 삭제합니다.");
+                        fetch('resetFreeBoard')
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data){
+                                    alert(data+"성공");
+                                } else {
+                                    alert(data+"실패");
+                                }
+                            })
+                    }
+                } else {
+                    alert("조심히 눌러주세요.");
+                }
+            }
+        </script>
+    </div>
+</section>
+</body>
+</html>

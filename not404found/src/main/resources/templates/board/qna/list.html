@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Q&A</title>
+    <link rel="stylesheet" href="/css/board/all.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+
+<!-- ====================== 좌측 카테고리 사이드바 ====================== -->
+<div class="sidebar_container">
+    <span class="sidebar_container_text">게시판</span>
+    <div class="sidebar_button1">
+        <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=1\''">공지사항</span>
+    </div>
+    <div class="sidebar_button2">
+        <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review?categorycode_board=2\''">Review</span>
+    </div>
+    <div class="sidebar_button3">
+        <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/qna/list?categorycode_board=3\''">QnA</span>
+    </div>
+</div>
+
+
+
+<!-- ====================== 게시판 전체 태그 ====================== -->
+<div class="board_wrap">
+
+    <div class="board_title">
+        <strong>Q&A</strong>
+    </div>
+
+
+    <div class="board_list">
+
+        <!-- ============== 게시글 검색 ============== -->
+        <div class="search">
+            <form class="searchForm" th:action="@{/board/qna/list}">
+                <select class="searchCondition" name="searchCondition">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                </select>
+
+                <input type="search" class="searchValue" name="searchValue" placeholder="">
+                <button class="btn btn-bs" id="searchButton" type="submit">검색</button>
+            </form>
+        </div>
+
+        <!-- ============== QnA 테이블 ============== -->
+
+        <table style="align: center" id="listArea">
+            <tr class="top">
+                <th class="list title">글제목</th>
+                <th class="list writer">작성자</th>
+                <th class="list count">조회수</th>
+                <th class="list date">작성일</th>
+                <th class="list commentColumn">댓글</th>
+            </tr>
+
+            <tr
+                    th:each="board : ${ boardList }"
+            >
+                <input type="hidden" id="hdPostCode" th:value="${board.post_code}">
+                <td class="post_title" th:text="${board.post_title}">글제목</td>
+                <td th:text="${board.account.id}">아이디</td>
+                <td th:text="${board.post_views}">조회수</td>
+                <td th:text="${board.post_modified_date != null} ? ${board.post_modified_date} : ${board.post_created_date}">작성일</td>
+                <td th:text="${board.comment_cnt}">댓글수</td>
+            </tr>
+        </table>
+
+        <!-- 페이지 처리 -->
+        <div class="pagingArea" align="center">
+            <!-- 맨 앞으로 이동 버튼 -->
+            <button
+                    th:onclick="'location.href=\'/board/qna/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                    th:disabled="${selectCriteria.pageNo == 1}"
+            >
+                <<
+            </button>
+            <!-- 이전 페이지 버튼 -->
+            <button
+                    th:onclick="'location.href=\'/board/qna/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                    th:disabled="${selectCriteria.pageNo == 1}"
+            >
+                <
+            </button>
+            <!-- 숫자 버튼 -->
+            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                <button
+                        th:text="${ page }"
+                        th:onclick="'location.href=\'/board/qna/list?currentPage='+ @{${page}} + '\''"
+                        th:disabled="${ selectCriteria.pageNo eq page }">
+                </button>
+            </th:block>
+
+            <!-- 다음 페이지 버튼 -->
+            <button
+                    th:onclick="'location.href=\'/board/qna/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                    th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+            >
+                >
+            </button>
+            <!-- 마지막 페이지로 이동 버튼 -->
+            <button
+                    th:onclick="'location.href=\'/board/qna/list?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                    th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+            >
+                >>
+            </button>
+        </div>
+
+            <div class="bt_wrap">
+                <button class="writeBoard" th:onclick="'location.href=\'/board/qna/write\''">글쓰기</button>
+            </div>
+
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    let message = '[[${message}]]';
+
+    if(message != null && message !== 'null') {
+        alert(message);
+    }
+
+    /* 게시글 리스트에서 해당 게시글에 마우스를 올릴 때에 대한 스타일 처리 */
+    if (document.querySelectorAll("#listArea td")) {
+        const $tds = document.querySelectorAll("#listArea td");
+        for (let i = 0; i < $tds.length; i++) {
+
+            $tds[i].onmouseenter = function() {
+                this.parentNode.style.backgroundColor = "rgba(211, 211, 211, 0.3)";
+                this.parentNode.style.cursor = "pointer";
+            }
+
+            $tds[i].onmouseleave = function() {
+                this.parentNode.style.backgroundColor = ""; // 원래의 색상으로 변경 (비움)
+                this.parentNode.style.cursor = "auto"; // 기본 커서로 변경
+            }
+
+            // $tds[i].onmouseout = function() {
+            //     this.parentNode.style.backgroundColor = "black";
+            // }
+
+            $tds[i].onclick = function() {
+                const post_code = this.parentNode.children[0].value;
+                location.href = "/board/qna/view?post_code=" + post_code;
+            }
+        }
+    }
+</script>
+</body>
+</html>
+
+

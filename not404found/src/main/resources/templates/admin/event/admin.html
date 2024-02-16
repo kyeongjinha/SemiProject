@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>admin_page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="/src/main/resources/static/css/admin/event/admin.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section style="position: relative">
+  <div class="s_wrap">
+  </div>
+  <h2>이벤트 관리</h2>
+  <div class="event_search_bar">
+
+    <form id="selectAccounts" th:action="@{event}" method="get">
+      <div class="searchtotal">
+      <div class="event_list">
+        <input type="submit" name="act_button" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">
+        <a href="event/insert" class="fr btn_lsmall red"><i class="ionicons ion-android-add" onclick="go_event_insert()"></i> 이벤트 등록</a>
+      </div>
+
+      <div class="search_bar">
+      <select id="searchCondition" name="searchCondition">
+        <option value="Ecode">이벤트코드</option> <!--Aid-->
+        <option value="Eproduct">상품코드</option> <!--Atype-->
+        <option value="Ename">이벤트명</option> <!--Aname-->
+        <option value="EdiscountRate">할인율</option> <!--Aemail-->
+        <option value="EregistrationDate">이벤트 등록일</option>
+        <option value="EstartDate">이벤트 시작날짜</option> <!--AregistDate-->
+        <option value="EendDate">이벤트 종료날짜</option> <!--ApayAmount-->
+        <option value="Estaus">이벤트상태</option> <!--Amileage-->
+      </select>
+      <input type="text" placeholder="이벤트코드, 상품코드, 이벤트명 등" id="searchValue" name="searchValue" class="searchEvent">
+      <button type="submit" class="mem_search_icon">
+        <i class="fas fa-search"></i>
+      </button>
+      </div>
+  </div>
+    </form>
+  <table class="search_one" style="position: relative; left: 10px; top: 0px;">
+    <tr>
+      <th><input type="checkbox" name="selectedEvents" value=""></th>
+      <th>이벤트코드</th>
+      <th>상품코드</th>
+      <th>이벤트명</th>
+      <th>할인율</th>
+      <th>이벤트 등록일</th>
+      <th>이벤트 시작날짜</th>
+      <th>이벤트 종료날짜</th>
+      <th>이벤트상태</th>
+    </tr>
+
+    <tr th:if="${#lists.isEmpty(eventList)}" style="text-align:center;">
+      <td colspan="9">검색 결과가 없습니다.</td>
+    </tr>
+
+    <tr th:each="events : ${ eventList }">
+      <td><input type="checkbox" name="selectedEvents" value="" th:value="${events.eventCode}"></td>
+      <td th:text="${ events.eventCode }"></td>
+      <td th:text="${ events.productCode }"></td>
+      <td th:text="${ events.name }"></td>
+      <td th:text="${ events.discountRate }"></td>
+      <td th:text="${ #dates.format(events.registEventDate,'yyyy-MM-dd')}"></td>
+      <td th:text="${ #dates.format(events.startDate,'yyyy-MM-dd')}"></td>
+      <td th:text="${ #dates.format(events.endDate,'yyyy-MM-dd')}"></td>
+      <td th:text="${ events.status }"></td>
+    </tr>
+  </table>
+<!--  <div class="event_list2" style="margin-top: 10px">-->
+<!--    <input type="submit" name="act_button" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">-->
+<!--    <a href="event/insert" class="fr btn_lsmall red"><i class="ionicons ion-android-add" onclick="go_event_insert()"></i>이벤트 등록</a></div>-->
+</div>
+
+<!--  <table class="table_parents">-->
+<!--    <tr>-->
+<!--      <th style="width: 120px">-->
+<!--        이벤트코드-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 100px">-->
+<!--        상품코드-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트명-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 100px">-->
+<!--        할인율-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트 등록일-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트 시작날짜-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트 종료날짜-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 100px">-->
+<!--        이벤트상태-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--    </tr>-->
+<!--    <tr th:if="${#lists.isEmpty(accountList)}" style="text-align:center;">-->
+<!--      <td colspan="9">검색 결과가 없습니다.</td>-->
+<!--    </tr>-->
+<!--    <tr-->
+<!--            th:each="accounts : ${ accountList }">-->
+<!--      <td th:text="${ accounts.id }"></td>-->
+<!--      <td th:text="${ accounts.accountTypeName.typeName }"></td>-->
+<!--      <td th:text="${ accounts.name }"></td>-->
+<!--      <td th:text="${ accounts.email }"></td>-->
+<!--      <td th:text="${ accounts.registDate }"></td>-->
+<!--      <td th:text="${ accounts.payAmount }"></td>-->
+<!--      <td th:text="${ accounts.mileage }"></td>-->
+<!--      <td th:text="${ accounts.lastLogin }"></td>-->
+<!--      <td th:text="${ accounts.halfYearAccumulatedAmount }"></td>-->
+<!--    </tr>-->
+<!--  </table>-->
+  <script>
+
+    function go_event_insert(){
+      window.location.href = "/admin/event/insert"
+    }
+    // function go_delete(){
+    //   window.location.href = "/admin//event/delete"
+    // }
+  </script>
+</section>
+</body>
+</html>

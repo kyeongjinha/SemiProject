@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.order.model.dao.OrderMapper">
+    <resultMap id="orderResultMap" type="com.nf.not404found.order.model.dto.OrderDTO">
+        <id property="grade" column="grade"/>
+        <result property="mileageRate" column="mileageRate"/>
+        <result property="mileage" column="mileage"/>
+        <result property="price" column="price"/>
+        <result property="paymentDate" column="payment_date"/>
+        <result property="paymentCode" column="payment_code"/>
+        <result property="productName" column="name"/>
+    </resultMap>
+    <select id="getOrderInfor" resultMap="orderResultMap">
+        SELECT a.account_status AS grade,
+               m.discount_rate AS mileageRate,
+               a.mileage
+        FROM accounts AS a
+                 JOIN account_status AS m ON a.account_status = m.account_status
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="getorderInfo" resultMap="orderResultMap">
+        SELECT
+            a.price,
+            a.payment_code,
+            a.payment_date,
+            a.price,
+            b.name
+        FROM payment a
+                 LEFT JOIN product b ON a.product_code = b.product_code
+        ORDER BY a.payment_code DESC
+            LIMIT 1;
+    </select>
+</mapper>

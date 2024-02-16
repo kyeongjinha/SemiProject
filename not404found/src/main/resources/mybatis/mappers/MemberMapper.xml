@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.member.model.dao.MemberMapper">
+    
+    <resultMap id="memberResultMap" type="LoginUserDTO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="role" property="role"/>
+    </resultMap>
+    
+    <select id="findId" resultMap="memberResultMap">
+        SELECT a.id, a.name, a.password, b.type_name as role
+        FROM accounts as a
+        JOIN account_type as b on (a.account_type_code = b.type_code)
+        WHERE a.id = #{username}
+    </select>
+    
+</mapper>

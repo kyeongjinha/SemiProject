@@ -1,0 +1,152 @@
+상품 쪽 db모음
+
+=================================================
+--상품 카테고리
+use 404df;
+
+DROP TABLE IF EXISTS `product_category`;
+CREATE TABLE `product_category` (
+	`category_code`	INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`cateproduct_categorygory_name`	VARCHAR(20)	NULL,
+	`ref_category_code`	INT	,
+    FOREIGN KEY (`ref_category_code`) REFERENCES  `product_CATEGORY`(`category_code`)
+);
+alter table product_category auto_increment = 1;
+insert  into product_category (`category_name`, `ref_category_code`) values ('가구', null);
+insert  into product_category (`category_name`, `ref_category_code`) values ('자재', null);
+insert  into product_category (`category_name`, `ref_category_code`) values ('의자', 1);
+insert  into product_category (`category_name`, `ref_category_code`) values ('책상', 1);
+insert  into product_category (`category_name`, `ref_category_code`) values ('조명', 1);
+insert  into product_category (`category_name`, `ref_category_code`) values ('시트지', 2);
+insert  into product_category (`category_name`, `ref_category_code`) values ('벽지', 2);
+insert  into product_category (`category_name`, `ref_category_code`) values ('공구', 2);
+
+select * from product_category;
+
+===============================================
+
+--상품
+
+
+DROP TABLE IF EXISTS `PRODUCT`;
+
+CREATE TABLE `product` (
+	`product_code`	INT	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`price`	INT	NULL,
+	`name`	VARCHAR(255)	NULL,
+	`amount`	INT	NULL,
+	`enter_date`	DATE	NULL,
+	`delete_status`	VARCHAR(1)	NULL	DEFAULT 'N',
+	`category_code`	INT	NOT NULL,
+    
+     FOREIGN KEY (`category_code`) REFERENCES  `product_CATEGORY`(`category_code`)
+);
+alter table product auto_increment = 1;
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (21000, '식탁의자', 55, '2023-12-04', 3);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (26000, '게이밍의자', 55, '2023-12-04', 3);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (27000, '사무용의자', 22, '2023-12-04', 3);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (15000, '인테리어의자', 123, '2023-12-04', 3);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (30000, '사무용책상', 21, '2023-12-04', 4);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (35000, '게이밍책상', 23, '2023-12-04', 4);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (53000, '러버식탁', 28, '2023-12-04', 4);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (60000, '발렌티스탠드', 41, '2023-12-04', 5);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (9900, '무선LED센서등', 31, '2023-12-04', 5);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (230000, '우물천장조명', 54, '2023-12-04', 5);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (1600, '창문시트지', 31, '2023-12-04', 6);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (8700, '유리시트지', 28, '2023-12-04', 6);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (900, '풀바른벽지', 66, '2023-12-04', 7);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (33000, '포인트벽지', 10, '2023-12-04', 7);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (36000, '무선충전드라이버', 25, '2023-12-04', 8);
+INSERT INTO product (`price`, `name`, `amount`, `enter_date`, `category_code`) VALUES (21000, '쇠망치', 31, '2023-12-04', 8);
+
+===============================================
+이벤트
+
+DROP TABLE IF EXISTS `event`;
+
+CREATE TABLE `event` (
+	`event_code`	INT	NOT NULL AUTO_INCREMENT,	-- 오토
+	`product_code`	INT	NOT NULL,
+	`name`	VARCHAR(50)	NULL,	-- 이벤트 이름
+	`discount_rate`	DOUBLE	NULL,   -- 할인율
+	`start_date`	DATE	NULL, -- 지금날짜
+	`end_date`	DATE	NULL, 	-- 한달 뒤 쯤
+	`status`	VARCHAR(1)	NULL DEFAULT 'N',	
+	FOREIGN KEY (`product_code`) REFERENCES  `product`(`product_code`),
+    PRIMARY KEY (`event_code`, `product_code`)
+
+);
+alter table event auto_increment = 1;
+INSERT INTO event (`product_code`, `name`, `discount_rate`, `start_date`, `end_date`, `status`) VALUES (2, '신규오픈이벤트', 0.3, '2023-12-04', DATE_ADD('2023-12-04', INTERVAL 1 MONTH), 'Y');
+INSERT INTO event (`product_code`, `name`, `discount_rate`, `start_date`, `end_date`, `status`) VALUES (5, '종료된', 0.2, '2023-10-04', DATE_ADD('2023-10-04', INTERVAL 1 MONTH), 'N');
+===============================================이미지(첨부파일)
+DROP TABLE IF EXISTS `image`;
+
+CREATE TABLE `image` (
+	`image_code`	INT	NOT NULL,
+	`product_code`	INT	NOT NULL,
+	`thumnail_path`	VARCHAR(255)	NULL,		-- 경로넣는거
+	`field_name`	VARCHAR(255)	NULL,
+	`originalImage`	VARCHAR(255)	NULL,
+	`modify_image`	VARCHAR(255)	NULL,
+	`modify_image_name`	VARCHAR(255)	NULL,
+	`is_delete`	VARCHAR(1)	NULL DEFAULT 'N',
+	`status`	VARCHAR(1)	NULL,
+    FOREIGN KEY (`product_code`) REFERENCES  `product`(`product_code`),
+    PRIMARY KEY (`image_code`, `product_code`)
+);
+===============================================
+옵션(색상)
+DROP TABLE IF EXISTS `options`;
+
+CREATE TABLE `options` (
+	`color_code`	VARCHAR(20)	NOT NULL,
+	`product_code`	INT	NOT NULL,
+    FOREIGN KEY (`product_code`) REFERENCES  `product`(`product_code`),
+    PRIMARY KEY (`color_code`, `product_code`)
+);
+
+insert into options (`color_code`, `product_code`) value ('레드와인', 2);
+insert into options (`color_code`, `product_code`) value ('스카이블루', 2);
+insert into options (`color_code`, `product_code`) value ('오렌지', 2);
+insert into options (`color_code`, `product_code`) value ('코발트화이트', 5);
+insert into options (`color_code`, `product_code`) value ('지섭이흰머리색', 4);
+insert into options (`color_code`, `product_code`) value ('핫핑크', 8);
+insert into options (`color_code`, `product_code`) value ('블루베리블루', 3);
+============================================
+상품 입고 내역
+DROP TABLE IF EXISTS `product_arrival_details`;
+
+CREATE TABLE `product_arrival_details` (
+	`receive_code`	INT	NOT NULL auto_increment,
+	`product_code`	INT	NOT NULL,
+	`receive_Date`	DATE	NULL,
+	`receive_amount`	INT	NULL,
+    FOREIGN KEY (`product_code`) REFERENCES  `product`(`product_code`),
+    PRIMARY KEY (`receive_code`, `product_code`)
+);
+
+insert into product_arrival_details (`product_code`, `receive_Date`, `receive_amount`) value(1, '2023-12-04', 32);
+insert into product_arrival_details (`product_code`, `receive_Date`, `receive_amount`) value(2, '2023-12-04', 30);
+insert into product_arrival_details (`product_code`, `receive_Date`, `receive_amount`) value(3, '2023-12-04', 30);
+insert into product_arrival_details (`product_code`, `receive_Date`, `receive_amount`) value(4, '2023-12-04', 30);
+insert into product_arrival_details (`product_code`, `receive_Date`, `receive_amount`) value(5, '2023-12-04', 30);
+==============================================
+장바구니
+
+DROP TABLE IF EXISTS `SHOPPING_CART`;
+
+CREATE TABLE `shopping_cart` (
+	`id`	VARCHAR(30)	NOT NULL,
+	`product_code`	INT	NOT NULL,
+	`enter_date`	DATE	NULL,
+	`amount`	INT	NULL	DEFAULT 1,
+    foreign key (`id`) references `accounts`(`id`),
+    foreign key (`product_code`) references `product`(`product_code`),
+    primary key (`id`,`product_code`)
+);
+
+insert into shopping_cart (`id`, `product_code`, `enter_date`, `amount`) value ('hk', 5, '2023-12-04', 2);
+insert into shopping_cart (`id`, `product_code`, `enter_date`, `amount`) value ('hk', 6, '2023-12-04', 1);
+insert into shopping_cart (`id`, `product_code`, `enter_date`, `amount`) value ('hk', 1, '2023-12-04', 4);
+

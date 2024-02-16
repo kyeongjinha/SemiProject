@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.not404found.admin.account.model.dao.AdminAccountsMapper">
+
+
+    <resultMap id="AdminAccountsMap" type="AdminAccountDTO">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="registDate" column="regist_date"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="mileage" column="mileage"/>
+        <result property="lastLogin" column="last_login"/>
+        <result property="accountStatus" column="account_status"/>
+        <result property="halfYearAccumulatedAmount" column="half_year_accumulated_amount"/>
+        <association property="accountStatusList" resultMap="accountStatusMap"/>
+        <association property="accountTypeName" resultMap="accountTypeMap"/>
+    </resultMap>
+
+    <resultMap id="accountStatusMap" type="AdminAccountStatusDTO">
+        <id property="accountStatus" column="account_status"/>
+        <result property="discountRate" column="discount_rate"/>
+    </resultMap>
+
+    <resultMap id="accountTypeMap" type="AdminAccountTypeDTO">
+        <id property="typeCode" column="type_code"/>
+        <result property="typeName" column="type_name"/>
+    </resultMap>
+
+    <resultMap id="BlackListMap" type="AdminBlackDTO">
+        <id property="id" column="id"/>
+        <result property="blackDate" column="blacked_date"/>
+        <result property="reason" column="reason"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <resultMap id="DormantListMap" type="AdminDormantDTO">
+        <id property="id" column="id"/>
+        <result property="enterDate" column="enter_date"/>
+        <result property="status" column="status"/>
+        <result property="dormantTerminationDate" column="dormant_termination_date"/>
+    </resultMap>
+
+    <select id="selectAllAccountsList" resultMap="AdminAccountsMap">
+        SELECT
+            a.id,
+            a.name,
+            a.email,
+            a.regist_date,
+            a.pay_amount,
+            a.mileage,
+            a.last_login,
+            a.half_year_accumulated_amount,
+            a.account_status,
+            b.type_name,
+            c.account_status,
+            c.discount_rate
+        FROM
+            accounts a
+        JOIN account_type b ON a.account_type_code = b.type_code
+        JOIN account_status c ON a.account_status = c.account_status
+        ORDER BY name
+    </select>
+
+    <select id="selectOneAccount" resultMap="AdminAccountsMap">
+        SELECT
+            a.id,
+            a.name,
+            a.email,
+            a.regist_date,
+            a.pay_amount,
+            a.mileage,
+            a.last_login,
+            a.half_year_accumulated_amount,
+            a.account_status,
+            b.type_name,
+            c.account_status,
+            c.discount_rate
+        FROM
+            accounts a
+                JOIN account_type b ON a.account_type_code = b.type_code
+                JOIN account_status c ON a.account_status = c.account_status
+        <where>
+            <if test="searchCondition == 'Aid'">
+                a.id LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Aname'">
+                a.name LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Aemail'">
+                a.email LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'AregistDate'">
+                a.regist_date LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'ApayAmount'">
+                a.pay_amount LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Amileage'">
+                a.mileage LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'AlastLogin'">
+                a.last_login LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'AhalfYearAccumulatedAmount'">
+                a.half_year_accumulated_amount LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Atype'">
+                b.type_name LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+        </where>
+        ORDER BY name
+    </select>
+
+    <select id="selectAllBlackList" resultMap="BlackListMap">
+        SELECT
+            id,
+            blacked_date,
+            reason,
+            email
+        FROM
+            blacklist
+        ORDER BY id
+    </select>
+
+    <select id="selectOneBlackList" resultMap="BlackListMap">
+        SELECT
+            id,
+            blacked_date,
+            reason,
+            email
+        FROM
+            blacklist
+        <where>
+            <if test="searchCondition == 'Aid'">
+                id LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Aemail'">
+                email LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Areason'">
+                reason LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'AblackDate'">
+                blacked_date LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+
+    <select id="selectAllDormant" resultMap="DormantListMap">
+        SELECT
+            id,
+            enter_date,
+            status,
+            dormant_termination_date
+        FROM
+            dormant_account
+        ORDER BY id
+    </select>
+
+    <select id="selectDormantOne" resultMap="DormantListMap">
+        SELECT
+            id,
+            enter_date,
+            status,
+            dormant_termination_date
+        FROM
+            dormant_account
+        <where>
+            <if test="searchCondition == Aid">
+                id LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == AenterDate">
+                enter_date LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == Astatus">
+                status LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == AdormantTerminationDate">
+                dormant_termination_date LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+
+
+</mapper>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>인테리어 챌린지</title>
+    <link rel="stylesheet" href="/css/board/all.css">
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+
+
+
+
+<!-- ====================== 게시판 전체 태그 ====================== -->
+<div class="board_wrap">
+  <div class="board_title" style="margin-bottom: 30px;">
+    <strong>인테리어 챌린지</strong>
+  </div>
+  <div class="board_view_wrap">
+    <div class="board_view">
+      <div class="title">
+        <p th:text="${ icView.post_title }">
+      </div>
+      <input type="hidden" name="post_code" th:text="${ icView.post_code }">
+      <div class="info">
+        <dl>
+            <dt>글쓴이</dt>
+            <dd th:text="${icView.account.id}"></dd>
+        </dl>
+        <dl>
+          <dt>작성일</dt>
+          <dd th:text="${icView.post_modified_date != null} ? ${icView.post_modified_date} : ${icView.post_created_date}"></dd>
+        </dl>
+        <dl>
+          <dt>조회</dt>
+          <dd th:text="${icView.post_views}"></dd>
+        </dl>
+      </div>
+
+      <div class="img-box">
+        <label>대표 사진</label>
+        <img id="ic_thumbnail" th:src="@{|/thumbPath${icView.attachmentList[0].getThumbnail_path()}|}">
+      </div>
+
+      <div th:utext="${icView.post_content}" class="cont"></div>
+    </div>
+
+    <div class="bt_wrap">
+      <button type="button" th:onclick="'location.href=\'/board/ic/list\''" class="writeBoard">목록</button>
+      <th:block sec:authorize="isAuthenticated()"
+                th:if="${ #authentication.getPrincipal().getUsername() == icView.account.id }">
+        <button
+                class="writeBoard"
+                th:onclick="'location.href=\'/board/ic/modify?post_code='+ @{${ icView.post_code }} + '\''"
+        >
+          수정
+        </button>
+        <button
+                class="writeBoard"
+                th:onclick="'location.href=\'/board/ic/delete?post_code='+ @{${ icView.post_code }} + '\''"
+        >
+          삭제
+        </button>
+      </th:block>
+    </div>
+
+    <div class="bt_recommend_area">
+      <button type="button" class="bt_recommend">추천👍🏻</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

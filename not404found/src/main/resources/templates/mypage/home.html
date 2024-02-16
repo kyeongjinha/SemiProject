@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        *{font-family: 'Pretendard-Regular';}
+
+        .sidebar_container {
+            background-color: white;
+            width: 236px;
+            height: 467px;
+            position: absolute;
+            top: 230px;
+            z-index: 2;
+        }
+
+        .sidebar_container_text {
+            font-weight: bold;
+            color: black;
+            width: 140px;
+            height: 50px;
+            position: absolute;
+            left: 28px;
+            top: -5px;
+            text-align: left;
+            font-size: 18px;
+            border-bottom: 2px solid #000;
+        }
+        .sidebar_button1, .sidebar_button2, .sidebar_button3{
+            cursor: pointer;
+            background-color: white;
+            width: 236px;
+            height: 43px;
+            position: absolute;
+            left: 0px;
+        }
+        .sidebar_button1 {top: 80px;}
+        .sidebar_button2 {top: 120px;}
+        .sidebar_button3 {top: 160px;}
+
+        .sidebar_button1_text, .sidebar_button2_text, .sidebar_button3_text{
+            position: absolute;
+            text-align: center;
+            color: black;
+            height: 27px;
+            width: 144px;
+            left: 28px;
+            text-align: left;
+            font-size: 15px;
+            letter-spacing: 0;
+        }
+        .sidebar_button1_text:hover, .sidebar_button2_text:hover, .sidebar_button3_text:hover{
+            font-weight: bold;
+        }
+        .main-grid{
+            display: grid;
+            margin-top: 200px;
+            margin-left: 250px;
+            grid-template-rows: 100px 30px 30px 30px 30px 30px 30px;
+            grid-template-columns: 100px 200px 100px 100px 100px 100px 100px 100px 100px;
+        }
+        .main-text{
+            font-weight: bold;
+            text-align: center;
+            font-size: 22px;
+            margin-top: 30px;
+            grid-column: 4;
+            grid-row: 1;
+            border-bottom: 3px solid #000000;
+        }
+        .myId, .myPwd, .myGrade, .myAddress, .myEmail, .myPhone{
+            text-align: center;
+        }
+        .myId{
+            grid-column: 1/2;
+            grid-row: 3;
+        }
+        .myIdField{
+            margin-right: 10px;
+            grid-column: 2;
+            grid-row: 3;
+        }
+        .myPwd{
+            grid-column: 5;
+            grid-row: 3;
+        }
+        .myPwdField{
+            margin-right: 10px;
+            grid-column: 6/8;
+            grid-row: 3;
+        }
+        .changePwd{
+            grid-column: 8;
+            grid-row: 3;
+            margin-right: 10px;
+        }
+        .myPhone{
+            grid-column: 1;
+            grid-row: 5;
+        }
+        .myPhoneField{
+            margin-right: 10px;
+            grid-column: 2;
+            grid-row: 5;
+        }
+        .changePhone{
+            grid-column: 3;
+            grid-row: 5;
+        }
+        .myAddress{
+            text-align: center;
+            grid-column: 5;
+            grid-row: 5;
+        }
+        .myAddressDropDown{
+            margin-right: 10px;
+            grid-column: 6/8;
+            grid-row: 5;
+        }
+        .addAddress{
+            grid-column: 8;
+            grid-row: 5;
+            margin-right: 10px;
+        }
+        .deleteAddress{
+            grid-column: 9;
+            grid-row: 5;
+            margin-right: 10px;
+        }
+        .myEmail{
+            grid-column: 1;
+            grid-row: 7;
+        }
+        .myEmailField{
+            margin-right: 10px;
+            grid-column: 2;
+            grid-row: 7;
+        }
+        .changeEmail{
+            grid-column: 3;
+            grid-row: 7;
+        }
+        .myGrade{
+            grid-column: 5;
+            grid-row: 7;
+        }
+        .myGradeImg{
+            text-align: center;
+            grid-column: 6/8;
+            grid-row: 7;
+        }
+        .dbsChangeEmail{
+            position: relative;
+            top: 500px;
+            left: 40px;
+            cursor: pointer;
+            color: red;
+        }
+        .myMileageText{
+            text-align: center;
+            grid-column: 8/9;
+            grid-row: 7;
+        }
+        .myMileage{
+            text-align: center;
+            grid-column: 9/10;
+            grid-row: 7;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+<div class="sidebar_container">
+    <span class="sidebar_container_text">마이 페이지</span>
+    <div class="sidebar_button1">
+        <span class="sidebar_button1_text">내 정보</span>
+    </div>
+    <div class="sidebar_button2">
+        <span class="sidebar_button2_text" onclick="goOrder()">주문 목록</span>
+    </div>
+    <div class="sidebar_button3">
+        <span class="sidebar_button3_text" onclick="goCoupon()">보유 쿠폰</span>
+    </div>
+</div>
+<div class="main-grid">
+    <tr th:each="infor : ${id}">
+    <div class="main-text">내 정보</div>
+    <span class="myId">내 아이디</span>
+    <input type="text" readonly="true" class="myIdField" th:value="${id.getId()}">
+
+    <span class="myPwd">내 비밀번호</span>
+    <input type="password" readonly="true" id="myPwdField" class="myPwdField" value="EasterEggs">
+    <button type="submit" id="changePwd" class="changePwd" onclick="changePwd()">비밀번호 변경</button>
+
+    <span class="myPhone">내 전화번호</span>
+    <input type="text" readonly="true" class="myPhoneField" id="myPhoneField"  th:value="${id.getPhone()}">
+    <button type="submit" class="changePhone" id="changePhone" onclick="changePhone()">전화번호 변경</button>
+
+    <span class="myAddress">내 주소</span>
+    <select id="myAddressDropDown" class="myAddressDropDown">
+        <tr th:each="addra : ${addr}">
+        <option th:text="|${addra.getAddress()} ${addra.getName()}|"></option>
+        </tr>
+    </select>
+    <button type="submit" class="addAddress" onclick="sample6_execDaumPostcode()">내 주소 추가</button>
+    <button type="submit" class="deleteAddress" onclick="deleteAddr()">이 주소 삭제</button>
+
+    <span class="myEmail">내 이메일</span>
+    <input type="text" readonly="true" class="myEmailField" id="myEmailField" th:value="${id.getEmail()}">
+    <button type="submit" id="changeEmail" class="changeEmail" onclick="changeEmail()">이메일 변경</button>
+    <!--    dbs 추가-->
+    <span class="dbsChangeEmail">이메일 변경?</span>
+
+    <span class="myGrade">내 계정 등급</span>
+    <span class="myGradeImg">30x200이미지가 들어감</span>
+        <span class="myMileageText">내 마일리지 : </span>
+        <span th:text="${mileage}" class="myMileage"></span>
+    </tr>
+    <script>
+        //주석
+        function changeMyData(url, value, btn,inputField){
+            if(btn.textContent === '변경하기'){
+                fetch(url,{
+                    method: "POST",
+                    headers:{
+                        'Content-Type': 'text/plain'
+                    },
+                    body: value
+                })
+                    .then(response =>{
+                        return response.text();
+                    })
+                    .then(data => {
+                        alert(data)
+                    })
+                    .catch((error) =>{
+                        alert(error);
+                    });
+            } else {
+                btn.textContent = '변경하기';
+                inputField.readOnly = false;
+                inputField.type = 'text';
+            }
+        }
+        // function go(url, value){
+        //         fetch(url,{
+        //             method: "POST",
+        //             headers:{
+        //                 'Content-Type': 'text/plain'
+        //             },
+        //             body: value
+        //         })
+        //             .then(response =>{
+        //                 return response.text();
+        //             })
+        //             .then(data => {
+        //                 alert(data)
+        //             })
+        //             .catch((error) =>{
+        //                 alert(error);
+        //             });
+        // }
+        function changePhone(){
+            const phoneBtn = document.getElementById('changePhone');
+            const phoneInputField = document.getElementById('myPhoneField');
+            changeMyData("/myPage/changePhone",phoneInputField.value,phoneBtn,phoneInputField);
+        }
+        function changeEmail(){
+            const emailBtn = document.getElementById('changeEmail');
+            const emailInputField = document.getElementById('myEmailField');
+            changeMyData("/myPage/changeEmail",emailInputField.value,emailBtn,emailInputField);
+        }
+        function changePwd(){
+            const pwdBtn = document.getElementById('changePwd');
+            const pwdInputField = document.getElementById('myPwdField');
+            console.log(pwdBtn.className);
+            changeMyData("/myPage/changePwd",pwdInputField.value,pwdBtn,pwdInputField);
+        }
+        function deleteAddr(){
+            const myAddressDropDown = document.getElementById('myAddressDropDown');
+            const slice = myAddressDropDown.value.split(" ");
+            const name = slice[slice.length -1];
+            go("/myPage/deleteAddr",name,function(data){
+                alert("data = "+data);
+            });
+        }
+        function goCoupon(){
+            window.location.href = "coupon"
+        }
+
+        const dbsChangeEmail = document.querySelector('.dbsChangeEmail');
+
+        dbsChangeEmail.addEventListener('click',function(){
+
+            window.location.href= '/member/send-email-form2';
+        });
+        function goOrder(){
+            window.location.href = "order";
+        }
+
+
+    </script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/common/v2.js"></script>
+</div>
+</body>
+</html>

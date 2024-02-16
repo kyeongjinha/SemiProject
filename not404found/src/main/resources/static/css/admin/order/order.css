@@ -1,0 +1,226 @@
+.page_body{
+	position: relative;
+	padding:30px;
+	font-size: 17px;
+	line-height: 1.5;
+}
+
+.main_hd{
+	position: relative;
+	width : 150px;
+	height: 30px;
+	left : 100px;
+}
+.top_section{
+	position: relative;
+	width: 1650px;
+	height: 500px;
+	left : 30px;
+	margin-top: 30px;
+}
+#search_form{
+	border: 2px solid gray;
+	background-color: white;
+}
+.w140{
+	width: 140px !important;
+}
+table{
+	table-layout: fixed;
+	width: 1650px;
+	height: 350px;
+}
+tr{
+	display: table-row;
+
+}
+.arr-align {
+    overflow: hidden;
+}
+option {
+    font-weight: normal;
+    display: block;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+    white-space: nowrap;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+	list-style: none;
+}
+th, td {
+    border: 3px solid lightgray;
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+    word-wrap: break-word;
+}
+.txt-1{
+	border-top: none;
+}
+.arr-align li {
+    float: left;
+    padding-right: 10px;
+    box-sizing: border-box;
+	border-top :none;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+select {
+    width: 250px;
+    height: 36px;
+    padding-left: 10px;
+    border: 1px solid #d8d8d8;
+    box-sizing: border-box;
+    font-size: 15px;
+	background: #eef1f4;
+}
+.w20per {
+    width: 20% !important;
+}
+input[type=text], input[type=password] {
+	position: relative;
+    width: 400px;
+    height: 36px;
+    padding: 0 15px;
+    border: 1px solid #d8d8d8;
+    background: #eef1f4;
+    box-sizing: border-box;
+    font-size: 15px;
+	left : 40px;
+}
+hr{
+	width: 1300px;
+	right : 300px;
+
+}
+.period-4x {
+    overflow: hidden;
+}
+
+.w40per {
+    width: 40% !important;
+}
+
+.btn-toggle {
+    display: inline-block;
+    width: 105px;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #86909c;
+    background: #fff;
+    font-size: 15px;
+    color: #858f9b;
+    box-sizing: border-box;
+    text-align: center;
+}
+input[type=text], input[type=password] {
+	position: relative;
+    width: 300px;
+    height: 36px;
+    padding: 0 15px;
+    border: 1px solid #d8d8d8;
+    background: #eef1f4;
+    box-sizing: border-box;
+    font-size: 15px;
+	left: -20px;
+}
+.date_space{
+	position: relative;
+	margin: 0 20px;
+	left: -17px
+}
+.btn{
+	background-color: #99A3FE;
+	color: white;
+	width: 100px;
+	height: 50px;
+	text-align: center;
+	display: flex;
+	align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center;
+	margin : 0 auto;
+}
+
+.textbar{
+	width : 250px
+	
+}
+
+.select_result{
+	width: 1600px;
+	height: 400px;
+	/* background-color: lightgray; */
+	position: relative;
+	margin : 0 auto;
+	left : 0px;
+	top : 50px;
+}
+.search_hd{
+	position: relative;
+}
+.h33, span {
+	display: inline; /* 인라인 요소로 설정 */
+  }
+
+.ppap{
+	margin-top: 30px;
+}
+hr{
+	width : 1650px;
+}
+.btn3{
+	width: 100px;
+    background-color: #99A3FE;
+    color: white;
+    height: 32px;
+    font-size: 17px;
+	position: relative;
+	top:2px;
+}
+
+.table_parents{
+	position: relative;
+	top : 20px;
+	border-top: none;
+}
+
+.time3 {
+	display: flex;
+	justify-content: flex-start; 
+	margin-right: 20px;
+  }
+
+.search_product{
+	width : 150px;
+	height: 50px;
+}
+
+.insert_button{
+	border: none;
+	
+}
+
+input[type=text].search_div{
+	background: rgb(233, 230, 230);
+	width:810px;
+	height:41px;
+	top : 15px;
+	position : relative;
+	text-align: center;
+	border: 2px solid #a1a1a1;
+	border-width: 2px;
+	border-style: inset;
+	border-color: black;
+	left: 0px;
+	font-size: 13px;
+	padding: 0px;
+}

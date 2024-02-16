@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin/member/dormant.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .tab1{
+            background-color: #99A3FE;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <header th:replace="/admin/common/adminHeader.html"></header>
+    <section style="position: relative">
+        <div class="member_list">
+            <ul class="tab_parents">
+                <li class="tab3" onclick="go_admin()">회원 관리</li>
+                <li class="tab1">휴면계정관리</li>
+                <li class="tab2" onclick="go_blacked()">블랙계정관리</li>
+            </ul>
+        </div>
+        <div class="member_search_bar">
+            <form id="selectAccounts" th:action="@{member/dormant}"
+                  method="get">
+                <select id="searchCondition" name="searchCondition">
+                    <option value="Aid">아이디</option>
+                    <option value="AenterDate">휴면시작일</option>
+                    <option value="Astatus">휴면상태</option>
+                    <option value="AdormantTerminationDate">휴면종료일</option>
+                </select>
+                <input type="text" placeholder="아이디, 휴면상태 등" id="searchValue" name="searchValue" class="searchMember">
+                <button type="submit" class="mem_search_icon"></button>
+            </form>
+        <table class="search_one">
+            <tr>
+                <th>아이디</th>
+                <th>휴면 시작일</th>
+                <th>휴면상태</th>
+                <th>휴면종료일</th>
+            </tr>
+            <tr th:if="${#lists.isEmpty(dormantOneList)}" style="text-align:center;">
+                <td colspan="4">검색 결과가 없습니다.</td>
+            </tr>
+            <tr th:each=" dormantOne : ${ dormantOneList } ">
+                <td th:text="${dormantOne.id}"></td>
+                <td th:text="${dormantOne.enterDate}"></td>
+                <td th:text="${dormantOne.status}"></td>
+                <td th:text="${dormantOne.dormantTerminationDate}"></td>
+            </tr>
+        </table>
+        <table class="table_parents">
+            <tr>
+                <th>아이디
+                    <button>↧</button>
+                </th>
+                <th>휴면 시작일
+                    <button>↧</button>
+                </th>
+                <th>휴면상태
+                    <button>↧</button>
+                </th>
+                <th>휴면종료일
+                    <button>↧</button>
+                </th>
+            </tr>
+            <tr th:if="${#lists.isEmpty(dormantList)}" style="text-align:center;">
+                <td colspan="4">검색 결과가 없습니다.</td>
+            </tr>
+            <tr th:each=" dormant : ${ dormantList } ">
+                <td th:text="${dormant.id}"></td>
+                <td th:text="${dormant.enterDate}"></td>
+                <td th:text="${dormant.status}"></td>
+                <td th:text="${dormant.dormantTerminationDate}"></td>
+            </tr>
+        </table>
+        </div>
+        <script>
+            function go_admin(){
+                window.location.href = "/admin/member"
+            }
+            function go_blacked(){
+                window.location.href = "/admin/member/blacked"
+            }
+        </script>
+
+    </section>
+</form>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.not404found.admin.product.model.dao.AdminProductMapper">
+
+    <resultMap id="AdminProductMap" type="AdminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+        <result property="amount" column="amount"/>
+        <result property="enterDate" column="enter_date"/>
+        <result property="deleteStatus" column="delete_status"/>
+        <association property="adminProductCategory" resultMap="AdminProductCategoryMap"/>
+        <association property="attachmentList" resultMap="AdminProductImageMap"/>
+        <association property="adminOption" resultMap="AdminProductOptionMap"/>
+    </resultMap>
+
+    <resultMap id="AdminProductOptionMap" type="AdminOptionDTO">
+        <id property="productCode" column="product_code"/>
+        <id property="colorCode" column="color_code"/>
+    </resultMap>
+
+    <resultMap id="AdminProductImageMap" type="AdminAttachmentDTO">
+        <id property="productCode" column="product_code"/>
+        <id property="no" column="image_code"/>
+        <result property="originalName" column="original_name"/>
+        <result property="ModifyName" column="modify_name"/>
+        <result property="savedPath" column="saved_path"/>
+        <result property="fileType" column="file_type"/>
+        <result property="thumbnailPath" column="thumnail_path"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <resultMap id="AdminProductCategoryMap" type="AdminProductCategoryDTO">
+        <id property="categoryCode" column="category_code"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="refCategoryCode" column="ref_category_code"/>
+    </resultMap>
+
+    <select id="selectAllProduct" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.enter_date,
+            b.ref_category_code,
+            b.category_name,
+            a.delete_status,
+            a.amount,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type,
+            a.priority
+        FROM
+            product a
+        JOIN product_category b ON a.category_code = b.category_code
+        LEFT JOIN image c ON a.product_code = c.product_code
+        LEFT JOIN event e ON a.product_code = e.product_code
+        GROUP BY a.product_code, a.name, a.price, e.discount_rate, e.status, a.priority
+        ORDER BY a.priority DESC;
+    </select>
+
+    <select id="selectConditionProduct" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.enter_date,
+            b.ref_category_code,
+            b.category_name,
+            a.delete_status,
+            a.amount
+        FROM
+            product a
+                JOIN product_category b ON a.category_code = b.category_code
+        <where>
+            <if test="name != ''">
+                AND a.name LIKE CONCAT('%' , #{ name }, '%')
+            </if>
+            <if test="prices != 0 and priceb == 0">
+                AND a.price >= #{prices}
+            </if>
+            <if test="prices != 0 and priceb != 0" >
+                AND a.price BETWEEN #{prices} AND #{priceb}
+            </if>
+            <if test="amounts != 0 and amountb == 0">
+                AND a.amount >= #{amounts}
+            </if>
+            <if test="amounts != 0 and amountb != 0" >
+                AND a.amount BETWEEN #{amounts} AND #{amountb}
+            </if>
+            <if test="enterDates != null and enterDateb == null">
+                AND a.enter_date >= #{enterDates}
+            </if>
+            <if test="enterDates != null and enterDateb != null" >
+                AND a.enter_date BETWEEN #{enterDates} AND #{enterDateb}
+            </if>
+            <if test="adminProductCategory.refCategoryCode != 0 " >
+                AND b.ref_category_code LIKE CONCAT('%' , #{ adminProductCategory.refCategoryCode } , '%')
+            </if>
+            <if test="adminProductCategory.categoryName != null " >
+                AND b.category_name LIKE CONCAT('%' , #{ adminProductCategory.categoryName }, '%')
+            </if>
+            <if test="deleteStatus != null " >
+                AND a.delete_status LIKE CONCAT('%' , #{ deleteStatus }, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertProduct" parameterType="AdminProductDTO" useGeneratedKeys="true" keyProperty="productCode">
+    <selectKey keyProperty="productCode" order="AFTER" resultType="long">
+        SELECT LAST_INSERT_ID() as productCode;
+    </selectKey>
+        INSERT INTO product
+        (
+         price,
+         name,
+         amount,
+         enter_date,
+         delete_status,
+         category_code
+        )
+        VALUES
+            (
+             #{ price },
+             #{ name },
+             #{ amount },
+             #{ enterDate },
+             #{ deleteStatus },
+             #{ adminProductCategory.categoryCode }
+            )
+    </insert>
+
+
+    <insert id="insertOptions" parameterType="AdminOptionDTO">
+        INSERT INTO options (product_code, color_code)
+        VALUES (
+                   #{productCode},
+                   #{adminOption.colorCode}
+               )
+    </insert>
+
+    <insert id="insertAttachment" parameterType="AdminAttachmentDTO">
+        INSERT INTO image ( product_code, thumnail_path, file_type, original_name, saved_path, modify_name, status)
+
+        VALUES ( #{productCode}, #{thumbnailPath}, #{fileType}, #{originalName}, #{savedPath}, #{ModifyName}, #{status})
+    </insert>
+
+
+    <select id="selectOneProduct" resultMap="AdminProductMap">
+    SELECT
+        product_code,
+        name,
+        price
+    FROM
+        product
+    WHERE
+        name LIKE CONCAT('%', #{productName}, '%')
+    </select>
+
+    <select id="selectOneProduct2" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.amount,
+            a.delete_status,
+            b.ref_category_code,
+            b.category_code,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type,
+            c.original_name,
+            d.color_code
+        FROM
+            product a
+            JOIN product_category b ON a.category_code = b.category_code
+            LEFT JOIN image c ON a.product_code = c.product_code
+            LEFT JOIN options d ON a.product_code = d.product_code
+        WHERE
+            a.product_code = #{productCode}
+    </select>
+
+    <select id="selectOneProductName" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.amount,
+            a.delete_status,
+            b.ref_category_code,
+            b.category_code,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type,
+            c.original_name,
+            d.color_code
+        FROM
+            product a
+                JOIN product_category b ON a.category_code = b.category_code
+                LEFT JOIN image c ON a.product_code = c.product_code
+                LEFT JOIN options d ON a.product_code = d.product_code
+        WHERE
+            a.product_code = #{productName}
+    </select>
+
+    <update id="modifyProduct">
+        UPDATE product
+        SET
+            category_code = #{adminProductCategory.categoryCode}
+        WHERE product_code = #{productCode}
+    </update>
+
+    <insert id="modifyProduct2">
+        REPLACE INTO options
+        (product_code, color_code)
+            VALUES (#{productCode}, #{adminOption.colorCode})
+    </insert>
+
+    <update id="modifyProduct3">
+        update image
+            SET saved_path = #{savedPath},
+                modify_name = #{ModifyName},
+                thumnail_path = #{thumbnailPath},
+                file_type = #{fileType},
+                original_name = #{originalName},
+                status = 'Y'
+        WHERE image_code = #{ no }
+    </update>
+
+    <update id="modifyProduct4">
+        UPDATE   product
+        SET
+            delete_status = #{ deleteStatus},
+            name = #{ name },
+            price = #{ price },
+            amount = #{ amount }
+
+        WHERE product_code = #{ productCode }
+    </update>
+
+    <select id="selectAttach" resultMap="AdminProductImageMap">
+        SELECT
+            modify_name
+        from image
+        WHERE product_code = #{ productCode }
+    </select>
+
+    <select id="selectOneProductMain" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.amount,
+            a.delete_status,
+            b.ref_category_code,
+            b.category_code,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type,
+            c.original_name,
+            d.color_code
+        FROM
+            product a
+                JOIN product_category b ON a.category_code = b.category_code
+                LEFT JOIN image c ON a.product_code = c.product_code
+                LEFT JOIN options d ON a.product_code = d.product_code
+        WHERE
+            a.name = #{name}
+    </select>
+
+
+</mapper>

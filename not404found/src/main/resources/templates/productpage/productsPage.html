@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/productpage/productsPage.css">
+    <title>Title</title>
+</head>
+<body>
+
+<header th:replace="/common/header.html"></header>
+
+<h2 th:text="${chooseCategory}">카테고리 이름</h2>
+
+<div class="category-tit">
+    <span class="total_num">
+        <span th:text="'총 '+${products.size()} + '개'" class="col555">총 n개</span>의 상품</span>
+
+    <div class="second-square-icon-container-1">
+        <!-- 아이콘과 텍스트 중앙정렬 -->
+        <div th:each="p,status : ${products}" class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Y4.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div th:text="${p.getName()}" class="product_name">상품 이름</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                    <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                         <span th:text="${p.getDiscountRate()}+'% '" class="number" style="color: red;">할인율</span>
+                         <span class="percent" style="color: red;">%　</span>
+                                <div class="price-original">
+                                <span th:text="${p.getPrice()}" class="price-original" style="text-decoration: line-through;">가격</span>
+                                <span class="won">원</span>
+                                </div>
+                    </span>
+                <div class="price">
+                    <span th:text="${p.getDiscountPrice()}" class="price2">할인 금액</span>
+                    <span class="won">원</span>
+                </div> <!--price -->
+                <div class="review">
+                    <span th:text="${p.getReviewCount()}" class="review1">리뷰 수</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+        <div th:if="${status.count % 4 == 0}" style="margin-top: 200px;">
+            <hr>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

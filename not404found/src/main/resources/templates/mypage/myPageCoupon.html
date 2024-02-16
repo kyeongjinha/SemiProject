@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/src/main/resources/static/css/mypage/myCoupon.css">
+    <title>myCoupon</title>
+</head>
+<body>
+<header th:replace="/common/header.html"></header>
+<div class="sidebar_container">
+    <span class="sidebar_container_text">마이 페이지</span>
+    <div class="sidebar_button1">
+        <span class="sidebar_button1_text"onclick="goHome()">내 정보</span>
+    </div>
+    <div class="sidebar_button2">
+        <span class="sidebar_button2_text" onclick="goOrder()">주문 목록</span>
+    </div>
+    <div class="sidebar_button3">
+        <span class="sidebar_button3_text">보유 쿠폰</span>
+    </div>
+</div>
+<div id="con_lf">
+    <h2 class="pg_tit">
+        <span>쿠폰관리</span>
+    </h2>
+
+    <nav id="tab_cate">
+        <ul id="tab_cate_ul">
+            <li id="usage" class="active"><a onclick="switchTab('activate')">사용가능한 쿠폰</a></li>
+            <li id="useless" class="inactivate"><a onclick="switchTab('inactivate')">사용완료, 기한만료 쿠폰</a></li>
+        </ul>
+    </nav>
+
+    <p class="pg_cnt">
+        <em>총 <span th:text="${couponCount}"></span>개</em>의 쿠폰이 있습니다.
+    </p>
+
+    <div class="tbl_head02 tbl_wrap">
+        <table id="couponTable">
+            <colgroup>
+                <col class="w50">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col class="w140">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">할인쿠폰</th>
+                <th scope="col">사용가능</th>
+                <th scope="col">할인율(%)</th>
+                <th scope="col">설명</th>
+                <th scope="col">취득일자</th>
+                <th scope="col">만료일자</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="coupon : ${userCoupon}">
+                    <td colspan="1" th:text="${coupon.getCoupon_name()}"/>
+                    <td colspan="1" th:text="${coupon.getCoupon_status()}"/>
+                    <td colspan="1" th:text="${coupon.getRate()}"/>
+                    <td colspan="1" th:text="${coupon.getComment()}"/>
+                    <td colspan="1" th:text="${coupon.getExpiry_date()}"/>
+                    <td colspan="1" th:text="${coupon.getDate_of_issue()}"/>
+                </tr>
+                <tr th:if="${userCoupon.isEmpty()}">
+                    <td colspan="6" class="empty_list">보유 쿠폰이 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const userCoupon = [[${userCoupon}]]; // 서버에서 받은 데이터
+    const couponCount = [[${couponCount}]]; // 서버에서 받은 데이터
+    const coupons = [[${json}]]; // 서버에서 받은 데이터
+    /*]]>*/
+</script>
+<script>
+    function goHome(){
+        window.location.href = "home";
+    }
+    function goOrder(){
+        window.location.href = "order";
+    }
+    function switchTab(event) {
+        const usage = document.getElementById("usage");
+        const useless = document.getElementById("useless");
+        const couponTable = document.getElementById("couponTable");
+
+        if (event === "activate" && usage.classList.contains("inactivate")) {
+            // 사용 가능 쿠폰 탭을 활성화
+            usage.classList.remove("inactivate");
+            usage.classList.add("active");
+            useless.classList.remove("active");
+            useless.classList.add("inactivate");
+            printUsageCoupon(couponTable, "Y");
+        } else if (event === "inactivate" && useless.classList.contains("inactivate")) {
+            // 만료된 쿠폰 탭을 활성화
+            useless.classList.remove("inactivate");
+            useless.classList.add("active");
+            usage.classList.remove("active");
+            usage.classList.add("inactivate");
+            printUsageCoupon(couponTable, "N");
+        }
+    }
+    function printUsageCoupon(tb,status){
+        while (tb.rows.length > 1) {
+            tb.deleteRow(1);                                                    // 첫 번째 행을 반복적으로 삭제
+        }
+        let coupon = JSON.parse(coupons);                                       //json 형식
+        for(let i=0; i<couponCount; i++){                                       // 쿠폰 개수 만큼 반복 돈다.
+            if(coupon[i]["coupon_status"] === status) {
+                let newRow = tb.insertRow(-1);                                  // 새 행 추가
+                newRow.insertCell(0).innerHTML = coupon[i]["coupon_name"];      //Key 값이 ["이거"] 인 데이터를 새로운 cell 에 추가
+                if(coupon[i]["coupon_status"]==="Y") {
+                    newRow.insertCell(1).innerHTML = "사용 가능";
+                } else {
+                    newRow.insertCell(1).innerHTML = "기간 만료";
+                }
+                newRow.insertCell(2).innerHTML = coupon[i]["rate"]+"% 할인";
+                newRow.insertCell(3).innerHTML = coupon[i]["comment"];
+                newRow.insertCell(4).innerHTML = coupon[i]["expiry_date"];
+                newRow.insertCell(5).innerHTML = coupon[i]["date_of_issue"];
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

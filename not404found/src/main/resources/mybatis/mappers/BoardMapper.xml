@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.board.model.dao.BoardMapper">
+
+    <resultMap id="generalBoardResultMap" type="BoardDTO">
+        <id property="post_code" column="post_code"/>
+        <result property="post_title" column="post_title"/>
+        <result property="post_content" column="post_content"/>
+        <result property="post_created_date" column="post_created_date"/>
+        <result property="post_modified_date" column="post_modified_date"/>
+        <result property="post_views"  column="post_views"/>
+        <result property="comment_cnt" column="comment_cnt"/>
+        <association property="boardCategory" resultMap="boardCategoryResultMap"/>
+        <association property="account" resultMap="accountResultMap"/>
+    </resultMap>
+
+    <resultMap id="interiorChallengeResultMap" type="InteriorChallengeDTO">
+        <id property="post_code" column="post_code"/>
+        <result property="post_title" column="post_title"/>
+        <result property="post_content" column="post_content"/>
+        <result property="post_created_date" column="post_created_date"/>
+        <result property="post_modified_date" column="post_modified_date"/>
+        <result property="post_views"  column="post_views"/>
+        <result property="recommend_count" column="recommend_count"/>
+        <association property="account" resultMap="accountResultMap"/>
+        <collection property="attachmentList" resultMap="attachmentResultMap"/>
+    </resultMap>
+
+    <resultMap id="reviewResultMap" type="ReviewDTO">
+        <id property="post_code" column="post_code"/>
+        <id property="category_code" column="category_code"/>
+        <id property="product_code" column="product_code"/>
+        <id property="id" column="id"/>
+        <result property="recommend_review" column="recommend_review"/>
+        <result property="star_rating" column="star_rating"/>
+        <association property="board" resultMap="generalBoardResultMap"/>
+        <association property="product" resultMap="productResultMap"/>
+        <collection property="adminProduct" resultMap="AdminProductMap"/>
+    </resultMap>
+
+    <resultMap id="productCategoryResultMap" type="ProductCategoryDTO">
+        <id property="category_code" column="category_code"/>
+        <result property="category_name" column="category_name"/>
+        <result property="ref_category_code" column="ref_category_code"/>
+    </resultMap>
+
+    <resultMap id="productResultMap" type="ProductDTO">
+        <id property="product_code" column="product_code"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+        <result property="amount" column="amount"/>
+        <result property="enter_date" column="enter_date"/>
+        <result property="delete_status" column="delete_status"/>
+        <result property="average_star_rating" column="average_star_rating"/>
+        <association property="productCategory" resultMap="productCategoryResultMap"/>
+    </resultMap>
+
+    <resultMap id="AdminProductMap" type="AdminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+        <result property="amount" column="amount"/>
+        <result property="enterDate" column="enter_date"/>
+        <result property="deleteStatus" column="delete_status"/>
+        <association property="attachmentList" resultMap="AdminProductImageMap"/>
+    </resultMap>
+
+    <resultMap id="AdminProductImageMap" type="AdminAttachmentDTO">
+        <id property="productCode" column="product_code"/>
+        <id property="no" column="image_code"/>
+        <result property="originalName" column="original_name"/>
+        <result property="ModifyName" column="modify_name"/>
+        <result property="savedPath" column="saved_path"/>
+        <result property="fileType" column="file_type"/>
+        <result property="thumbnailPath" column="thumnail_path"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <resultMap id="boardCategoryResultMap" type="BoardCategoryDTO">
+        <id property="categorycode_board" column="categorycode_board"/>
+        <result property="categoryname_board" column="categoryname_board"/>
+    </resultMap>
+
+    <resultMap id="accountResultMap" type="AccountDTO">
+        <id property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="phone_number" column="phone_number"/>
+        <result property="regist_date" column="regist_date"/>
+        <result property="pay_amount" column="pay_amount"/>
+        <result property="mileage" column="mileage"/>
+        <result property="last_login" column="last_login"/>
+        <result property="half_year_accumulated_amount" column="half_year_accumulated_amount"/>
+        <result property="account_status" column="account_status"/>
+        <association property="accountType" resultMap="accountTypeResultMap"/>
+    </resultMap>
+    
+    <resultMap id="accountTypeResultMap" type="AccountTypeDTO">
+        <id property="type_code" column="type_code"/>
+        <result property="type_name" column="type_name"/>
+    </resultMap>
+
+    <resultMap id="commentResultMap" type="CommentDTO">
+        <id property="comment_code" column="comment_code"/>
+        <result property="comment_body" column="comment_body"/>
+        <result property="comment_date" column="comment_date"/>
+        <association property="board" resultMap="generalBoardResultMap"/>
+    </resultMap>
+
+    <resultMap id="attachmentResultMap" type="AttachmentDTO">
+        <id property="attachment_code" column="attachment_code"/>
+        <result property="original_attachment_name" column="original_attachment_name"/>
+        <result property="attachment_name" column="attachment_name"/>
+        <result property="saved_path" column="saved_path"/>
+        <result property="file_type" column="file_type"/>
+        <result property="thumbnail_path" column="thumbnail_path"/>
+        <result property="status" column="status"/>
+<!--        <association property="boardInfo" resultMap="interiorChallengeResultMap"/>-->
+    </resultMap>
+
+
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        select count(*)
+        from   board A
+        <where>
+            <!-- 검색 조건 -->
+            <if test="searchCondition == 'title'">
+                A.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'content'">
+                A.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <!-- 게시판 카테고리별로 추가되는 조건 -->
+            <choose>
+                <!-- 공지사항 카테고리 -->
+                <when test="categorycode_board == 1">
+                    AND A.categorycode_board = 1
+                </when>
+                <!-- Review 카테고리 -->
+                <when test="categorycode_board == 2">
+                    AND A.categorycode_board = 2
+                </when>
+                <!-- qna 카테고리 -->
+                <when test="categorycode_board == 3">
+                    AND A.categorycode_board = 3
+                </when>
+                <!-- 인테리어 챌린지 카테고리 -->
+                <when test="categorycode_board == 4">
+                    AND A.categorycode_board = 4
+                </when>
+            </choose>
+        </where>
+    </select>
+
+
+
+    <select id="selectBoardList" resultMap="generalBoardResultMap" parameterType="java.util.Map">
+        select  A.post_code,
+                A.categorycode_board,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views,
+                (select count(comment_code) from comment where post_code = A.post_code) as comment_cnt
+        from    (
+                select  B.post_code,
+                        B.categorycode_board,
+                        B.id,
+                        B.post_title,
+                        B.post_content,
+                        B.post_created_date,
+                        B.post_modified_date,
+                        B.post_views
+                from    board B
+                <where>
+                    <!-- 검색 조건 -->
+                    <if test="selectCriteria.searchCondition == 'title'">
+                        B.post_title LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+                    </if>
+                    <if test="selectCriteria.searchCondition == 'content'">
+                        B.post_content LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+                    </if>
+                    <!-- 게시판 카테고리별로 추가되는 조건 -->
+                    <choose>
+                        <!-- 공지사항 카테고리 -->
+                        <when test="categorycode_board == 1">
+                            AND B.categorycode_board = 1
+                        </when>
+                        <!-- Review 카테고리 -->
+                        <when test="categorycode_board == 2">
+                            AND B.categorycode_board = 2
+                        </when>
+                        <!-- qna 카테고리 -->
+                        <when test="categorycode_board == 3">
+                            AND B.categorycode_board = 3
+                        </when>
+                        <!-- 인테리어 챌린지 카테고리 -->
+                        <when test="categorycode_board == 4">
+                            AND B.categorycode_board = 4
+                        </when>
+                    </choose>
+                </where>
+                ) A
+        join     category_board C on (A.categorycode_board = C.categorycode_board)
+        join     accounts D on (A.id = D.id)
+        order by A.post_code DESC
+        limit    #{ selectCriteria.startRow }, 10
+    </select>
+
+    <select id="selectTotalIcCount" resultType="_int" parameterType="hashmap">
+        select count(*)
+        from   interior_challenge A
+        <where>
+            <!-- 검색 조건 -->
+            <if test="searchCondition == 'title'">
+                A.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'content'">
+                A.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectIcList" resultMap="interiorChallengeResultMap" parameterType="java.util.Map">
+        select  A.post_code,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views,
+                A.recommend_count,
+                D.attachment_code,
+                D.original_attachment_name,
+                D.attachment_name,
+                D.saved_path,
+                D.thumbnail_path
+        from    (
+                select  B.post_code,
+                        B.id,
+                        B.post_title,
+                        B.post_content,
+                        B.post_created_date,
+                        B.post_modified_date,
+                        B.post_views,
+                        B.recommend_count
+                from    interior_challenge B
+                <where>
+                    <!-- 검색 조건 -->
+                    <if test="searchCondition == 'title'">
+                        B.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                    <if test="searchCondition == 'content'">
+                        B.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                </where>
+                ) A
+        join     accounts C on (A.id = C.id)
+        JOIN attachment D
+            ON (A.post_code = D.post_code
+                    AND D.status = 'Y')
+        order by A.post_code DESC
+        limit    #{ startRow }, 9
+    </select>
+
+    <insert id="insertIc">
+        insert
+        into interior_challenge (id,
+                                 post_title,
+                                 post_content,
+                                 post_created_date,
+                                 post_modified_date)
+        values ( #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+        <selectKey keyProperty="post_code" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="insertAttachment">
+        insert
+        into attachment (post_code,
+                        original_attachment_name,
+                        attachment_name,
+                        saved_path,
+                        thumbnail_path)
+        values
+            (#{post_code},
+            #{original_attachment_name},
+            #{attachment_name},
+            #{saved_path},
+            #{thumbnail_path})
+    </insert>
+
+    <update id="incrementBoardCount">
+        update board
+        set    post_views = post_views + 1
+        where  post_code = #{ post_code }
+    </update>
+
+    <update id="incrementIcCount">
+        update interior_challenge
+        set    post_views = post_views + 1
+        where  post_code = #{ post_code }
+    </update>
+
+    <select id="selectIcView" resultMap="interiorChallengeResultMap">
+        select  A.post_code,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views,
+                A.recommend_count,
+                C.thumbnail_path
+        from    interior_challenge A
+        join    accounts B on (A.id = B.id)
+        join    attachment C on (A.post_code = C.post_code)
+        where   A.post_code = #{ post_code }
+    </select>
+
+    <select id="selectNoticeView" resultMap="generalBoardResultMap">
+        select  A.post_code,
+                A.categorycode_board,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views
+        from    board A
+        join     category_board C on (A.categorycode_board = C.categorycode_board)
+        join     accounts D on (A.id = D.id)
+        where   A.post_code = #{ post_code }
+    </select>
+
+    <select id="selectQnaView" resultMap="generalBoardResultMap">
+        select  A.post_code,
+                A.categorycode_board,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views
+        from    board A
+        join     category_board C on (A.categorycode_board = C.categorycode_board)
+        join     accounts D on (A.id = D.id)
+        where   A.post_code = #{ post_code }
+    </select>
+
+    <select id="selectReviewList" resultMap="reviewResultMap">
+        select      A.post_code,
+                    A.categorycode_board,
+                    A.product_code,
+                    A.id,
+                    A.recommend_review,
+                    A.star_rating,
+                    F.post_title,
+                    F.post_created_date,
+                    F.post_content,
+                    E.name,
+                    G.thumnail_path
+        from       (
+                    select      B.post_code,
+                                B.categorycode_board,
+                                B.product_code,
+                                B.id,
+                                B.recommend_review,
+                                B.star_rating
+                    from        review B
+                    ) A
+        join        category_board C on (A.categorycode_board = C.categorycode_board)
+        join        accounts D on (A.id = D.id)
+        join        product E on (A.product_code = E.product_code)
+        join        board F on (A.post_code = F.post_code)
+        left join   image G on (E.product_code = G.product_code AND file_type='TITLE')
+        <where>
+            <!-- 검색 조건 -->
+            <if test="selectCriteria.searchCondition == 'title'">
+                AND F.post_title LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+            </if>
+            <if test="selectCriteria.searchCondition == 'content'">
+                AND F.post_content LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+            </if>
+            <if test="selectCriteria.searchCondition == 'writer'">
+                AND A.id LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+            </if>
+            AND A.categorycode_board = 2
+        </where>
+        order by     A.post_code DESC
+        limit       #{ selectCriteria.startRow }, 5
+    </select>
+
+    <select id="getTotalReviewCountByProduct" resultType="_int" parameterType="_int">
+        SELECT COUNT(*) AS review_count
+        FROM review A
+        JOIN product E ON (A.product_code = E.product_code)
+        WHERE E.product_code = #{ product_code };
+    </select>
+
+
+    <insert id="insertNotice">
+        insert into board (categorycode_board,
+                           id,
+                           post_title,
+                           post_content,
+                           post_created_date,
+                           post_modified_date)
+        values (1,
+                #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+    </insert>
+
+    <insert id="insertReview">
+        insert into  review (post_code,
+                             id,
+                             star_rating,
+                             categorycode_board,
+                             product_code)
+        values              (#{post_code},
+                             #{id},
+                             #{star_rating},
+                             2,
+                             3)
+    </insert>
+
+    <insert id="insertBoard">
+        insert into board (categorycode_board,
+                           id,
+                           post_title,
+                           post_content,
+                           post_created_date,
+                           post_modified_date)
+        values (2,
+                #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+        <selectKey keyProperty="post_code" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="insertQna">
+        insert into board (categorycode_board,
+                           id,
+                           post_title,
+                           post_content,
+                           post_created_date,
+                           post_modified_date)
+        values (3,
+                #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+    </insert>
+
+    <select id="selectQnaCommentList" resultMap="commentResultMap">
+        select      A.comment_code,
+                    A.post_code,
+                    A.categorycode_board,
+                    A.id,
+                    A.comment_body,
+                    A.comment_date
+        from        comment A
+                        join        board B on (A.post_code = B.post_code)
+                        join        category_board C on (A.categorycode_board = C.categorycode_board)
+                        join        accounts D on (A.id = D.id)
+        where       A.categorycode_board = 3
+          AND A.post_code = #{ board.post_code }
+        order by    A.comment_code DESC
+    </select>
+
+    <insert id="insertQnaComment">
+        insert
+        into    comment (
+            post_code,
+            categorycode_board,
+            id,
+            comment_body,
+            comment_date)
+        values  (
+                    #{post_code},
+                    3,
+                    #{id},
+                    #{comment_body},
+                    now()
+                )
+    </insert>
+
+    <delete id="deleteQnaComment" parameterType="_int">
+        delete
+        from     comment
+        where    comment_code = #{ comment_code }
+    </delete>
+    
+    <update id="updateNotice" parameterType="BoardDTO">
+        update   board
+        set      post_title = #{ post_title }
+                , post_content = #{ post_content }
+                , post_modified_date = NOW()
+        where    post_code = #{ post_code }
+    </update>
+
+    <update id="updateQna" parameterType="BoardDTO">
+        update   board
+        set      post_title = #{ post_title }
+                , post_content = #{ post_content }
+                , post_modified_date = NOW()
+        where    post_code = #{ post_code }
+    </update>
+
+    <update id="updateIc" parameterType="InteriorChallengeDTO">
+        update   interior_challenge
+        set      post_title = #{ post_title }
+                , post_content = #{ post_content }
+                , post_modified_date = NOW()
+        where    post_code = #{ post_code }
+    </update>
+
+    <delete id="deleteIc" parameterType="_int">
+        delete
+        from    interior_challenge
+        where   post_code = #{ post_code }
+    </delete>
+
+    <delete id="deleteNotice" parameterType="_int">
+        delete
+        from    board
+        where   post_code = #{ post_code }
+    </delete>
+
+    <delete id="deleteQnaCommentByPostCode">
+        delete
+        from    comment
+        where   post_code = #{ post_code }
+    </delete>
+
+    <delete id="deleteQna" parameterType="_int">
+        delete
+        from    board
+        where   post_code = #{ post_code }
+    </delete>
+
+</mapper>

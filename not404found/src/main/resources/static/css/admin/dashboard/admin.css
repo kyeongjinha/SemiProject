@@ -1,0 +1,98 @@
+.topSection{
+	display: grid;
+	grid-template-columns: repeat(4,1fr);
+	grid-auto-rows: 375px;
+	margin-left: 200px;
+	margin-top: 0;
+}
+
+.dash1,.dash2,.dash3,.dash4{
+	border : 1px solid black;
+	border-left: none;
+	align-items: center;
+
+	
+}
+
+.centerContainer{
+	display: grid;
+	grid-template-columns: repeat(3,1fr);
+	grid-auto-rows: repeat(3,65px);
+	margin-left: 250px;
+	margin-top: 50px;
+	gap: 70px;
+}
+
+.centerItem{
+	width: 480px;
+	height: 65px;
+	background-color: #D9D9D9;
+	display: flex;
+    justify-content: center;
+	align-items: center;
+}
+
+.dashIcon1{
+	position: relative;
+	width: 85px;
+	height: 80px;
+	background-image: url(/images/admin/order.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.dashIcon2{
+	position: relative;
+	width: 85px;
+	height: 80px;
+	background-image: url(/images/admin/product.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.dashIcon3{
+	position: relative;
+	width: 85px;
+	height: 80px;
+	background-image: url(/images/admin/board.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.dashIcon4{
+	position: relative;
+	width: 85px;
+	height: 80px;
+	background-image: url(/images/admin/member.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+
+.dash1, .dash2, .dash3, .dash4 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); /* 2개의 열, 각 열은 1fr로 설정 */
+	grid-template-rows: repeat(2, 1fr); /* 2개의 행, 각 행은 1fr로 설정 */
+	align-items: center;
+	flex-direction: row-reverse;
+  }
+  
+  .dash1 h3 {
+	margin: 0;
+  }
+  
+  .cell1,.cell2,.cell3 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 187px;
+  }
+  
+  .cell2{
+	justify-content: left;
+  }
+  .cell3{
+	justify-content: left;
+
+  }

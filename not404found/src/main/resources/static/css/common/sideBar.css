@@ -1,0 +1,254 @@
+
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+.side_button {
+    cursor: grab;
+    overflow: hidden;
+    width: 120px;
+    height: 526px;
+    position: fixed;
+    z-index: 999;
+    left: 90%;
+    top: 258px;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 64px;
+    border-bottom-left-radius: 34px;
+    border-bottom-right-radius: 34px;
+    z-index: 999;
+}
+.side_bar_menus {
+    box-shadow: 7px 7px 12.699999809265137px rgba(0, 0, 0, 0.25);
+    display: block; /* 기본적으로 display는 block으로 설정 */
+    position: absolute;
+    background: rgb(161, 199, 255);
+    top: 110px;
+    left: 9px;
+    width: 90px;
+    height: 320px;
+    border-radius: 24px;
+    opacity: 0; /* 처음에는 보이지 않게 설정 */
+    visibility: hidden; /* 처음에는 보이지 않게 설정 */
+    transform: translateY(-100%);
+    transition: visibility 0s, opacity 0.5s linear; /* transition을 사용하여 부드러운 변화 적용 */
+
+}
+
+.fallDown {
+    animation: fallDown 0.5s ease forwards;
+}
+
+.up_animation {
+    animation: up_animation 0.5s ease forwards;
+}
+
+@keyframes fallDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: visible;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes up_animation {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+.side_button_container {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    left: 5px;
+    top: 7px;
+}
+.side_button_container:hover {
+    transform: scale(1.1); /* 마우스 오버 시 크기 10% 증가 */
+}
+.side_button_background {
+    box-shadow: 7px 7px 12.699999809265137px rgba(0, 0, 0, 0.25);
+    background-color: rgba(156.53281331062317, 188.63142371177673, 226.31249696016312, 1);
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
+    border-bottom-left-radius: 34px;
+    border-bottom-right-radius: 34px;
+}
+.side_button_face_container {
+    width: 57.68505096435547px;
+    height: 64.19374084472656px;
+    position: absolute;
+    left: 21.152587890625px;
+    top: 21.15234375px;
+}
+.side_button_face {
+    border-radius: 500px;
+    background-color: rgba(255, 255, 255, 1);
+    width: 53.694915771484375px;
+    height: 53.694915771484375px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.side_button_left_eye {
+    border-radius: 500px;
+    background-color: rgba(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+    width: 8.949152946472168px;
+    height: 14.644067764282227px;
+    position: absolute;
+    left: 8.135498046875px;
+    top: 19.525390625px;
+}
+
+.side_button_right_eye {
+    border-radius: 500px;
+    background-color: rgba(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+    width: 8.949152946472168px;
+    height: 14.644067764282227px;
+    position: absolute;
+    left: 22.779661178588867px;
+    top: 19.525423049926758px;
+}
+
+
+.side_bar_text {
+    color: rgba(0, 0, 0, 1);
+    width: 48px;
+    height: 19px;
+    position: absolute;
+    left: 36px;
+    top: 75px;
+    font-family: Inknut Antiqua;
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0;
+}
+.oneOnOne{
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    top: 20px;
+    transition: transform 0.3s ease;
+}
+#oneOnOneButton{
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
+    border-bottom-left-radius: 34px;
+    border-bottom-right-radius: 34px;
+    position: relative;
+    box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.25);
+}
+#oneOnOneText{
+    margin: 0 auto;
+    text-align: center;
+    font-family: Pretendard-Regular;
+
+}
+#oneOnOneIcon{
+    font-family: GangwonEdu_OTFBoldA;
+    color: rgb(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+    font-size: 22px;
+    font-weight: bold;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%)
+}
+#faqIcon{
+    font-family: GangwonEdu_OTFBoldA;
+    color: rgb(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+    font-size: 35px;
+    font-weight: bold;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%)
+}
+
+#faq{
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    top: 50px;
+    transition: transform 0.3s ease;
+
+}
+#faqButton{
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
+    border-bottom-left-radius: 34px;
+    border-bottom-right-radius: 34px;
+    box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.25);
+}
+#faqText{
+    margin: 0 auto;
+    text-align: center;
+    font-family: Pretendard-Regular;
+}
+#customerCenter{
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    top: 80px;
+    transition: transform 0.3s ease;
+}
+#customerCenterButton{
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
+    border-bottom-left-radius: 34px;
+    border-bottom-right-radius: 34px;
+    box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.25);
+}
+#customerCenterIcon{
+    position: absolute;
+    top: 16px;
+    left: 24px;
+    color: rgb(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+    font-family: GangwonEdu_OTFBoldA;
+    font-size: 20px;
+}
+
+#customerCenterText{
+    margin: 0 auto;
+    text-align: center;
+    font-family: Pretendard-Regular;
+}

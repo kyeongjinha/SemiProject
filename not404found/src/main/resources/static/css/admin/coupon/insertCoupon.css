@@ -1,0 +1,277 @@
+.s_wrap {
+    margin:65px 240px;
+}
+
+form {
+    margin: -1px;
+    padding: 0;
+    display: block;
+}
+
+select {
+    font-size: 12px;
+    height: 23px;
+    padding: 1px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+/*colgroup{*/
+/*    left: 20px;*/
+/*}*/
+body, div, table, th, td, thead, input, button, li, ul, dd {
+    font-weight: 400;
+    letter-spacing: -0.05em;
+}
+
+
+body, p, h1, h2, ul,table, input, th, td, thead, input, select {
+    margin: 0px;
+    padding: 0px;
+}
+
+th{ /* 필수입력 및 세수 입력사항에 들어가는 메뉴이름들?*/
+    padding: 20px;
+}
+
+table, th, td{
+    font-weight: normal; /*텍스트 두깨*/
+    /*font-style: normal;*/ /*글꼴*/
+    color: #454545;
+    font-size: 12px;
+}
+
+label, input, button, select { /* 글과 체크박스 입력란 정렬*/
+    vertical-align: middle;
+}
+
+/*input{ !* input 간격*!*/
+/*    margin: 0px;*/
+/*}*/
+
+.marl5 { /* 예시글 간격*/ margin-left: 5px !important;}
+
+.mart3 {margin-top: 3px !important;}
+
+.fc_197 { /* 예시글 색상 */ color: #197fe0 !important;}
+
+h1{
+    font-weight: 600;
+    padding: 0;
+    display: block;
+    margin-block-start: -0.33em; /* 텍스트 세로 방향 -값일수록 위로 올라감 */
+    margin-block-end: 0.67em; /* 블록 축의 끝 부분에 대한 여백*/
+    margin-inline-start: 0px; /* 텍스트 가로 방향 숫자가 높을 수록 축에서 멀어짐*/
+    margin-inline-end: 0px; /* 축의 끝부분에 대한 여백*/
+}
+
+#content h1 {
+    margin: 0 0 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #888;
+    font-size: 20px;
+    line-height: 1em;
+    letter-spacing: -1px;
+}
+
+/*h2 {*/
+/*    margin: 30px 0 0;*/
+/*    position: relative;*/
+/*    font-size: 16px;*/
+/*    font-weight: 600;*/
+/*    letter-spacing: -1px;*/
+/*    line-height: 1em;*/
+/*    padding: 0 0 11px 10px;*/
+/*}*/
+
+#content h2 {
+    margin: 30px 0 0;
+    position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 1em;
+    padding: 0px 0 10px 10px;
+}
+
+.tal { /*발행날짜지정, 회원생일자발급, 신규회원가입 발급 글씨 왼쪽으로 정렬*/
+    left: 20px;
+    text-align: left !important;
+}
+
+.list0 {
+    background-color: #ffffff !important;
+}
+table th {
+    background-color: #f8f8f8;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.3em;
+}
+.w80 { /*누적 다운로드 횟수 입력 받는란 */
+    width: 80px !important;
+}
+.grey { /*grey들어가는 얘들(무제한글씨)*/
+    background: #888;
+    border: 1px solid #888;
+    color: #fff !important;
+}
+
+.btn_small { /*무제한 */
+    padding: 2px 8px;
+    font-size: 11px;
+    line-height: 1.555; /* 텍스트 줄간격*/
+    font-weight: normal !important;
+    text-decoration: none; /*글씨 밑줄 없애기*/
+}
+
+#cp_dlevel0,
+#cp_dlevel1{ /* 제한 없음 드롭다운 */
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+/*thead 한 줄 테이블*/
+.tbl_head01 { /* 쿠폰발급 유형 전체칸의 위 아래 선*/
+    border-top:1px solid #aeaeae;
+    border-bottom:1px solid #e4e5e7;
+}
+.tbl_head01 table {width:100%;} /* 쿠폰발급 유형 칸 비율 */
+
+.tbl_head01 thead th {
+    border-top:0 !important; /* 위쪽테두리 없앰 */
+    text-align:center; /*요소들 내의 텍스트를 가운데 정렬 */
+}
+.tbl_head01 th { /* 쿠폰발급유형, 누적다운, 제한 행 */
+    padding:8px 10px;
+    line-height:1em;
+    font-weight:600;
+    background:#f1f1f1;
+}
+/*.tbl_head01 th a {text-decoration:underline !important;}*/
+
+.tbl_head01 tr:not(.rows) th:first-child,
+.tbl_head01 tr:not(.rows) td:first-child {
+    border-left:0 !important;}
+
+.tbl_head01 th,
+.tbl_head01 td { /* 쿠폰유형선택 목록에 있는 세로줄*/
+    border-left:1px solid #e4e5e7;
+    text-align:center;
+    vertical-align:middle;
+}
+.tbl_head01 td { /* 쿠폰유형 선택 목록 칸 너비 및 높이 */
+    height:40px;
+    padding:0px 15px;
+    line-height:1.6em;
+    border-top:1px solid #e4e5e7;
+}
+.tbl_head01 td a {font-weight:600;}
+
+
+.tbl_head01 td.url a {
+    text-decoration:underline !important;
+    font-weight:normal !important; /* 텍스트 두깨*/
+}
+.tbl_head01 td label {margin-right: 10px;} /* 쿠폰발급 유형 목록들과 뒤에 붙은 예시의 간격 */
+
+
+.tbl_head01 .frm_input {width:50%;} /*누적다운로드횟수 입력란 길이*/
+
+.w300 { /*쿠폰명, 설명 입력 받는 란 */
+    width: 300px !important;}
+
+.frm_input { /*입력 받는 요소들 */
+    padding: 0 4px 1px 4px; /*요소 안쪽 위 오른쪽 아래 왼쪽 */
+    font-size: 12px;
+    font-weight: normal;/*텍스트 두깨*/
+    border: 1px solid #ddd; /* 선의 두께, 종류 및 색상*/
+    background-color: #fff;
+    border-radius: 0; /* 테투리 모서리 둥글게 만드는 것*/
+    -webkit-border-radius: 0; /*테두리 모서리 */
+    height: 23px; /* 입력 받는 칸 높이*/
+}
+
+.tbl_frm01 th, .tbl_frm01 td { /*필수입력사항 */
+    padding: 8px 14px;
+    height: 23px;
+    border-bottom: 1px solid #e4e5e7;
+    text-align: left;
+    vertical-align: middle; /* 수직정렬*/
+}
+
+.tbl_frm01 { /* 필수입력사항, 세부입력사항 밑에 줄*/
+    border-top: 1px solid #888;
+}
+
+.tbl_frm01 td label{ /* 세부입력사항부터 아래 항목들*/
+    margin-right: 7px;
+}
+.mart7 { /* 시작일,종료일과 아래 입력받는 칸 간격*/
+    margin-top: 7px !important;
+}
+
+.fSelect { /* 시간 선택하는 부분부터~*/
+    margin-left: 6px;
+}
+
+#start_min{ /* 몇분인지 선택하는 부분부터~ */
+    margin-left: -5px;
+}
+
+#start_min1{ /* 몇분인지 선택하는 부분부터~ */
+    margin-left: -5px;
+}
+
+
+.btn_confirm{ /* 저장, 목록*/
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.btn_small, .btn_large { /* 무제한과 저장, 목록*/
+    background: #333;
+    border: 1px solid #333;
+    color: #fff !important;
+}
+
+.btn_large { /* 저장, 목록*/
+    padding: 10px 21px;
+    font-size: 15px;
+    line-height: 1.222;
+    font-weight: 600;
+}
+
+.bx-white { /* 목록 */
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #222 !important;
+}
+
+.btn_small, .btn_large{
+    display: inline-block;
+    text-decoration: none !important; /* 텍스트 장식 제거(밑줄)*/
+    vertical-align: middle !important; /* 수직 정렬을 가운데로 설정  !important는 우선 적용되도록 강제함*/
+    font-family: inherit; /*부모로부터 요소 상속받음*/
+    white-space: nowrap; /* 요소 내의 텍스트 줄바꿈 안 되도록 설정*/
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭가능한 요소임을 나타냄*/
+    /*background: transparent;*/
+    text-align: center; /* 텍스트 가운데 정렬*/
+    border-radius: 0; /* 테두리 직각으로 유지*/
+    outline: 0; /* 포커스시 나타나는 외곽선을 제거*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.h100 { /* 쿠폰 적용 카테고리 목록 저장하는란*/
+    height: 100px !important;
+}
+
+.wfull {
+    width: 100%;
+}
+
+
+
+

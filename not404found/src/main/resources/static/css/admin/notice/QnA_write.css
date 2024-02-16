@@ -1,0 +1,390 @@
+/* ============================== 게시판 ============================== */
+
+/* --------------------- 게시판 전체 --------------------- */
+.board_wrap {
+    width: 1600px;
+    margin: 250px 20px 100px 250px;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 260px;
+}
+
+
+/* --------------------- 게시판 제목 --------------------- */
+.board_title {
+    margin-bottom: 30px;
+}
+
+.board_title strong {
+    font-size: 3rem;
+}
+
+/* --------------------- 게시글 정렬 & 검색 --------------------- */
+#sortPosts {
+    width: 80px;
+    height: 30px;
+    margin-bottom: 10px;
+    position: absolute;
+    left : 0;
+    
+}
+
+#searchType {
+    width: 80px;
+    height: 31px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 260px;
+}
+#searchInput {
+    width: 180px;
+    height: 27px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 58px;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#searchButton {
+    width: 50px;
+    height: 30px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    border-radius: 2px;
+    border-color: #000000;
+    border-style: solid;
+    border-width: 0.3px;
+}
+
+/* --------------------- 글쓰기 버튼 --------------------- */
+.bt_wrap.list{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    top: 650px;
+    left: 46%;
+}
+
+.bt_wrap.write{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    top: 500px;
+    left: 41.5%;
+}
+
+.bt_wrap.view{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    top: 500px;
+    left: 46%;
+}
+
+.bt_wrap.edit{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    top: 500px;
+    left: 38%;
+}
+
+.bt_wrap a {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size: 1.4rem;
+}
+
+.bt_wrap a:first-child {
+    margin-left: 0;
+}
+
+.bt_wrap a.on {
+    background: #000;
+    color: #fff;
+}
+
+/* --------------------- 게시물 --------------------- */
+.board_list {
+    width: 100%;
+    border-top: 2px solid #000;
+    position: absolute;
+    top: 120px;
+}
+
+.board_list > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.board_list > div.top {
+    border-bottom: 1px solid #999;
+}
+
+.board_list > div:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.board_list > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.board_list > div.top > div {
+    font-weight: 600;  /* 폰트 굵기 */
+    font-size: 1.5rem;
+}
+
+.board_list .title {
+    width: 60%;
+    text-align: left;
+}
+
+.board_list .title a {
+    margin-left: 3%;
+}
+
+.board_list .top .title {
+    text-align: center;
+}
+
+.board_list .writer {
+    width: 10%;
+}
+
+.board_list .date {
+    width: 10%;
+}
+
+.board_list .count {
+    width: 10%;
+}
+
+.board_list .comment {
+    width: 10%;
+}
+
+/* --------------------- 페이지 넘기기 --------------------- */
+.board_page {
+    margin-top: 30px;
+    margin-bottom: 500px;
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    top: 600px;
+    left: 39%;
+}
+
+.board_page a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    border-left: 0;
+    line-height: 100%;
+}
+
+.board_page a.bt {
+    padding-top: 10px;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+}
+
+.board_page a.num {
+    padding-top: 9px;
+    font-size: 1.4rem;
+}
+
+.board_page a.num.on {
+    border-color: #000;
+    background: #000;
+    color: #fff;
+}
+
+.board_page a:first-child {
+    border-left: 1px solid #ddd;
+}
+
+/* --------------------- 게시물 내용 --------------------- */
+.board_view {
+    width: 100%;
+    border-top: 2px solid #000;
+}
+
+.board_view .title {
+    padding: 20px 15px;
+    border-bottom: 1px dashed #ddd;
+    font-size: 2rem;
+}
+
+.board_view .info {
+    padding: 15px;
+    border-bottom: 1px solid #999;
+    font-size: 0;
+}
+
+.board_view .info dl {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.board_view .info dl:first-child {
+    padding-left: 0;
+}
+
+.board_view .info dl::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 13px;
+    background: #ddd;
+}
+
+.board_view .info dl:first-child::before {
+    display: none;
+}
+
+.board_view .info dl dt,
+.board_view .info dl dd {
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.board_view .info dl dd {
+    margin-left: 10px;
+    color: #777;
+}
+
+.board_view .cont {
+    padding: 15px;
+    border-bottom: 1px solid #000;
+    line-height: 160%;
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+/* --------------------- 댓글 --------------------- */
+.comment textarea {
+    height: 50px;
+    width: 92%;
+    text-align: left;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 10px;
+    padding-top: 8px;
+    margin-top: 15px;
+    border-radius: 5px;
+    resize: none;
+    position: relative;
+}
+
+.comment p {
+    position:absolute;
+    z-index: 1;
+    bottom: 17px;
+    font-size: 14px;
+    color: #4d4d4d;
+    right: 0;
+    padding-right: 15px;
+
+}
+
+/* --------------------- 게시물 작성 --------------------- */
+.board_write {
+    border-top: 2px solid #000;
+}
+
+.board_write .title {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.board_write .title dl {
+    font-size: 0;
+}
+
+
+.board_write .title dt,
+.board_write .title dd {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.5rem;
+}
+
+.board_write .title dt{
+    width: 75px;
+    padding-right: 15px;
+}
+
+.board_write .title dd {
+    width: calc(100% - 90px);
+}
+
+.board_write .title input[type="text"] {
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.board_write .title input[type="text"] {
+    width: 100%;
+}
+
+.board_write .cont {
+    border-bottom: 1px solid #000;
+}
+
+
+.board_write .cont textarea {
+    display: block;
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 0;
+    /* resize: vertical; 사용자가 웹 페이지에서 세로 크기 조정할 수 있도록 함 */
+    resize: none;
+    text-align: left;
+}
+
+/* --------------------- 게시물 첨부파일 업로드 --------------------- */
+.board_write_wrap .fileUpload {
+    height: 30px;
+    background: lightgray;
+    text-align: left;
+    vertical-align: middle;
+    padding: 15px;
+    padding-top: 23px;
+    margin-top: 10px;
+    border-radius: 5px
+}
+
+.commit{
+    position: relative;
+    height: 25px;
+    top: 45px;
+    left: 630px;
+}
+.on{
+    position: relative;
+    top: 150px;
+}

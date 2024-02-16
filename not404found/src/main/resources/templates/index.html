@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 집꾸미 - 초보 인테리어러도 대 환영 회원가입 이벤트 중!</title>
+    <link rel="stylesheet" href="/css/footter.css">
+    <style>
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'Pretendard-Regular';
+            text-align: center;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        /* 드롭다운 select 스타일링 */
+        .dropdown select {
+            padding: 8px;
+            border: 1px solid  rgba(203.62924933433533, 203.62924933433533, 203.62924933433533, 1);
+            border-radius: 4px;
+            background-color:  rgba(203.62924933433533, 203.62924933433533, 203.62924933433533, 1);
+            appearance: none;
+        }
+        /* section 부모 */
+        /* footer(하단 배경) 화면 */
+        .e1_5196 {
+            background-color: rgba(255, 255, 255, 1);
+            width: 100%;
+            /*position: relative;*/
+        }
+        /* section article - 1 (상단배경)*/
+
+        .main_img {
+            background-color: rgba(203.62924933433533, 203.62924933433533, 203.62924933433533, 1);
+            background-repeat: no-repeat; /* 이미지 반복 방지*/
+            background-size: cover; /* 이미지를 전체 화면으로 확장 */
+            width: 100%; /* 너비 */
+            height: 581px; /* 뷰포트 높이를 100%로 설정 */
+            position: absolute;
+            left: -10px;
+            top: -10px;
+        }
+        .e1_5198 {
+            background-color: rgba(203.62924933433533, 203.62924933433533, 203.62924933433533, 1);
+            background-repeat: no-repeat; /* 이미지 반복 방지*/
+            background-size: cover; /* 이미지를 전체 화면으로 확장 */
+            width: 100%; /* 너비 */
+            height: 581px; /* 뷰포트 높이를 100%로 설정 */
+            position: absolute;
+            left: -10px;
+            top: -10px;
+        }
+
+        .e1_5199 {
+            color: rgba(0, 0, 0, 1);
+            width: 139px;
+            height: 26.84842872619629px;
+            position: absolute;
+            left: 891px;
+            top: 330.77264404296875px;
+            font-family: Inter;
+            text-align: left;
+            font-size: 10px;
+            letter-spacing: 0;
+        }
+
+        .main_img_bar {
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 1);
+            width: 879px;
+            height: 47.25323486328125px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            left: 50%;
+            top: 735px;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+        }
+
+        .main_img_bar_text {
+            cursor: pointer;
+            transition: font-size 0.5s ease;
+            color: rgba(0, 0, 0, 1);
+            width: 368px;
+            height: 23.626617431640625px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 15px;
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+        .main_img_bar_text:hover {
+            color: rgb(118, 69, 69);
+            font-size: 15px;
+
+        }
+
+        .main_img_text {
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%; /* 또는 원하는 너비 */
+            color: white;
+            width: 224px;
+            height: 59px;
+            position: absolute;
+            transform: translateX(-50%);
+            left: 50%;
+            top: 682px;
+            font-family: Inknut Antiqua;
+            font-size: 25px;
+            letter-spacing: 0;
+        }
+
+        .product_container {
+            height: 250px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            top: 40px;
+        }
+
+        .product1 {
+            cursor: pointer;
+            background-color: rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+            width: 50px;
+            height: 250px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin: 10px;
+        }
+
+        .product2 {
+            cursor: pointer;
+            background-color: rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+            width: 250px;
+            height: 250px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin: 10px;
+        }
+
+        .product3 {
+            cursor: pointer;
+            background-color: rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+            width: 250px;
+            height: 250px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin: 10px;
+        }
+
+        .product4 {
+            cursor: pointer;
+            background-color: rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+            width: 250px;
+            height: 250px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin: 10px;
+        }
+
+        .product5 {
+            cursor: pointer;
+            background-color: rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+            width: 250px;
+            height: 250px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin: 10px;
+        }
+
+        .product6 {
+            cursor: pointer;
+            background-color: rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+            width: 250px;
+            height: 250px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin: 10px;
+        }
+
+        @font-face {
+            font-family: 'GangwonEdu_OTFBoldA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        .side_button {
+            cursor: grab;
+            overflow: hidden;
+            width: 120px;
+            height: 526px;
+            position: fixed;
+            left: 1800px;
+            top: 258px;
+            border-top-left-radius: 34px;
+            border-top-right-radius: 64px;
+            border-bottom-left-radius: 34px;
+            border-bottom-right-radius: 34px;
+        }
+        .side_bar_menus {
+            box-shadow: 7px 7px 12.699999809265137px rgba(0, 0, 0, 0.25);
+            display: block; /* 기본적으로 display는 block으로 설정 */
+            position: absolute;
+            background: rgb(161, 199, 255);
+            top: 110px;
+            left: 9px;
+            width: 90px;
+            height: 320px;
+            border-radius: 24px;
+            opacity: 0; /* 처음에는 보이지 않게 설정 */
+            visibility: hidden; /* 처음에는 보이지 않게 설정 */
+            transform: translateY(-100%);
+            transition: visibility 0s, opacity 0.5s linear; /* transition을 사용하여 부드러운 변화 적용 */
+
+        }
+
+        .fallDown {
+            animation: fallDown 0.5s ease forwards;
+        }
+
+        .up_animation {
+            animation: up_animation 0.5s ease forwards;
+        }
+
+        @keyframes fallDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: visible;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        @keyframes up_animation {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            to {
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        .side_button_container {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            width: 96px;
+            height: 96px;
+            position: absolute;
+            left: 5px;
+            top: 7px;
+        }
+        .side_button_container:hover {
+            transform: scale(1.1); /* 마우스 오버 시 크기 10% 증가 */
+        }
+        .side_button_background {
+            box-shadow: 7px 7px 12.699999809265137px rgba(0, 0, 0, 0.25);
+            background-color: rgba(156.53281331062317, 188.63142371177673, 226.31249696016312, 1);
+            width: 96px;
+            height: 96px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            border-top-left-radius: 34px;
+            border-top-right-radius: 34px;
+            border-bottom-left-radius: 34px;
+            border-bottom-right-radius: 34px;
+        }
+        .side_button_face_container {
+            width: 57.68505096435547px;
+            height: 64.19374084472656px;
+            position: absolute;
+            left: 21.152587890625px;
+            top: 21.15234375px;
+        }
+        .side_button_face {
+            border-radius: 500px;
+            background-color: rgba(255, 255, 255, 1);
+            width: 53.694915771484375px;
+            height: 53.694915771484375px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        .side_button_left_eye {
+            border-radius: 500px;
+            background-color: rgba(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+            width: 8.949152946472168px;
+            height: 14.644067764282227px;
+            position: absolute;
+            left: 8.135498046875px;
+            top: 19.525390625px;
+        }
+
+        .side_button_right_eye {
+            border-radius: 500px;
+            background-color: rgba(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+            width: 8.949152946472168px;
+            height: 14.644067764282227px;
+            position: absolute;
+            left: 22.779661178588867px;
+            top: 19.525423049926758px;
+        }
+
+
+        .side_bar_text {
+            color: rgba(0, 0, 0, 1);
+            width: 48px;
+            height: 19px;
+            position: absolute;
+            left: 36px;
+            top: 75px;
+            font-family: Inknut Antiqua;
+            text-align: left;
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+
+        .oneOnOne{
+            cursor: pointer;
+            margin: 0 auto;
+            position: relative;
+            top: 20px;
+            transition: transform 0.3s ease;
+        }
+        #oneOnOneButton{
+            margin: 0 auto;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-top-left-radius: 34px;
+            border-top-right-radius: 34px;
+            border-bottom-left-radius: 34px;
+            border-bottom-right-radius: 34px;
+            position: relative;
+            box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.25);
+        }
+        #oneOnOneText{
+            margin: 0 auto;
+            text-align: center;
+            font-family: Pretendard-Regular;
+
+        }
+        #oneOnOneIcon{
+            font-family: GangwonEdu_OTFBoldA;
+            color: rgb(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+            font-size: 22px;
+            font-weight: bold;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-50%)
+        }
+        #faqIcon{
+            font-family: GangwonEdu_OTFBoldA;
+            color: rgb(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+            font-size: 35px;
+            font-weight: bold;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-50%)
+        }
+
+        #faq{
+            cursor: pointer;
+            margin: 0 auto;
+            position: relative;
+            top: 50px;
+            transition: transform 0.3s ease;
+        }
+        #faqButton{
+            margin: 0 auto;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-top-left-radius: 34px;
+            border-top-right-radius: 34px;
+            border-bottom-left-radius: 34px;
+            border-bottom-right-radius: 34px;
+            box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.25);
+        }
+        #faqText{
+            margin: 0 auto;
+            text-align: center;
+            font-family: Pretendard-Regular;
+        }
+        #customerCenter{
+            cursor: pointer;
+            margin: 0 auto;
+            position: relative;
+            top: 80px;
+            transition: transform 0.3s ease;
+        }
+        #customerCenterButton{
+            margin: 0 auto;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-top-left-radius: 34px;
+            border-top-right-radius: 34px;
+            border-bottom-left-radius: 34px;
+            border-bottom-right-radius: 34px;
+            box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.25);
+        }
+        #customerCenterText{
+
+            margin: 0 auto;
+            text-align: center;
+            font-family: Pretendard-Regular;
+        }
+        .topBarParent {
+            width: 100%;
+            height: 184px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        .topBarParent2 {
+            width: 100%;
+            height: 73px;
+            position: absolute;
+            left: 0px;
+            top: 111px;
+        }
+
+        .topBar { /* 상단 메뉴 바 */
+            position: relative;
+            background-color: #FFF5E7;
+            background-size: cover;
+            width: 100%;
+            height: 50px;
+            left: 0px;
+            top: 0px;
+        }
+
+        .e1_5240 {
+            width: 392.6364440917969px;
+            height: 55.999977111816406px;
+            position: absolute;
+            left: 1421px;
+            top: 9px;
+        }
+
+        .e1_5241 {
+            width: 315.6364440917969px;
+            height: 55.999977111816406px;
+            position: absolute;
+            left: 77px;
+            top: 0px;
+        }
+
+        .e1_5242 {
+            width: 40.727272033691406px;
+            height: 40.727272033691406px;
+            position: absolute;
+            left: 183.272705078125px;
+            top: 15.272705078125px;
+        }
+
+        .ei1_5242_309_7322 {
+            width: 31.159753799438477px;
+            height: 32.242427825927734px;
+            position: absolute;
+            left: 4.78375768661499px;
+            top: 3.393935441970825px;
+        }
+
+        .ei1_5242_309_7323 {
+            background-color: rgba(0, 0, 0, 1);
+            width: 16.96969985961914px;
+            height: 16.96969985961914px;
+            position: absolute;
+            left: 7.095029354095459px;
+            top: 0px;
+        }
+
+        .ei1_5242_309_7324 {
+            background-color: rgba(0, 0, 0, 1);
+            width: 31.159753799438477px;
+            height: 13.600839614868164px;
+            position: absolute;
+            left: 0px;
+            top: 18.64158821105957px;
+        }
+
+        .e1_5243 {
+            width: 40.727272033691406px;
+            height: 40.727272033691406px;
+            position: absolute;
+            left: 274.9091796875px;
+            top: 15.272705078125px;
+        }
+
+        .ei1_5243_309_8590 {
+            background-color: rgba(0, 0, 0, 1);
+            width: 30.545455932617188px;
+            height: 33.93780517578125px;
+            position: absolute;
+            left: 5.090909004211426px;
+            top: 3.393939256668091px;
+        }
+
+        .e1_5244 {
+            width: 40.727272033691406px;
+            height: 40.727272033691406px;
+            position: absolute;
+            left: 0px;
+            top: 15.272705078125px;
+        }
+
+        .ei1_5244_309_8210 {
+            background-color: rgba(0, 0, 0, 1);
+            width: 34.75729751586914px;
+            height: 31.781108856201172px;
+            position: absolute;
+            left: 2.9821619987487793px;
+            top: 4.824222564697266px;
+        }
+
+        .e1_5245 {
+            width: 40.727272033691406px;
+            height: 40.727272033691406px;
+            position: absolute;
+            left: 91.63623046875px;
+            top: 15.272705078125px;
+        }
+
+        .ei1_5245_309_8633 {
+            background-color: rgba(0, 0, 0, 1);
+            width: 31.09866714477539px;
+            height: 32.2431755065918px;
+            position: absolute;
+            left: 5.090909004211426px;
+            top: 5.090909004211426px;
+        }
+
+        .e1_5246 {
+            width: 30.545454025268555px;
+            height: 30.545454025268555px;
+            position: absolute;
+            left: 119.63623046875px;
+            top: 0px;
+        }
+
+        .e1_5247 {
+            border-radius: 500px;
+            background-color: rgba(255, 245.00000059604645, 231.00000143051147, 1);
+            width: 30.545454025268555px;
+            height: 30.545454025268555px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        .e1_5248 {
+            color: rgba(255, 255, 255, 1);
+            width: 12.727272987365723px;
+            height: 24.18181800842285px;
+            position: absolute;
+            left: 8.908980369567871px;
+            top: 3.8181817531585693px;
+            font-family: DM Sans;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .e1_5249 {
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            width: 31px;
+            height: 30px;
+            position: absolute;
+            left: 0px;
+            top: 23px;
+        }
+
+        .e1_5250 {
+            border-radius: 500px;
+            width: 28px;
+            height: 28px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        .e1_5250 {
+            border: 2px solid rgba(0, 0, 0, 1);
+        }
+
+        .e1_5251 {
+            transform: rotate(-135deg);
+            width: 9.899494171142578px;
+            height: 0px;
+            position: absolute;
+            left: 31px;
+            top: 30px;
+        }
+
+        .e1_5251 {
+            border: 5px solid rgba(0, 0, 0, 1);
+        }
+        .e1_5254 {
+            background-color: rgba(255, 255, 255, 1);
+            width: 100%;
+            height: 111px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        @font-face {
+
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .slider {
+            /*position: relative;*/
+            /*left: 35px;*/
+            /*width: 1614px;*/
+            /*overflow: hidden;*/
+            position: relative;
+            display: flex;
+            width: 100vw;
+            height: 750px;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .slides {
+            /*display: flex;*/
+            /*transition: transform 0.5s ease;*/
+            display: flex;
+            transition: transform 0.7s ease;
+            max-height: 100%;
+        }
+
+        .slides img {
+            object-fit: cover;
+            width: 100vw;
+            max-height: 100%;
+
+            /*width: 100%;*/
+            flex-shrink: 0;
+        }
+        /*-------------------------------------- 메인 수정 중 ----------------------------------*/
+        /*second_icon {*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*    border-radius: 5%;*/
+        /*}*/
+
+        /* 두 번째 정사각형 아이콘 */
+        .second-container {
+            margin-bottom: 10%;
+            padding-top: 7%;
+        }
+
+        .second-container-title {
+            margin-left: 7%;
+            margin-bottom: 3%
+        }
+
+        /* 메인 이번주 딜 사진 4개*/
+        .second-square-icon-container-1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .second-square-icon-wrapper-1 {
+            text-align: center;
+            width: 380px;
+            height: 320px;
+            padding: 1vw;
+            transition: all 0.3s ease;
+            object-fit: cover;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 100px;
+            cursor: pointer;
+        }
+
+        .second-square-icon-1 {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 5px;
+            border-radius: 5%;
+        }
+
+        /* 메인 작은 사진들 (5개씩) */
+        .second-square-icon-container {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .second-square-icon-wrapper {
+            text-align: center;
+            width: 300px;
+            height: 250px;
+            padding: 1vw;
+            transition: all 0.3s ease;
+            object-fit: cover;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 100px;
+            cursor: pointer;
+        }
+
+        .second-square-icon {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 5px;
+            border-radius: 5%;
+        }
+        .product_name{
+            margin-top: 10px;
+        }
+        .production-item-price{ /* 할인퍼센트*/
+            margin-top: 5px;
+        }
+
+        .review1,
+        .review2 { /* 리뷰 글씨*/
+            font-size: 15px;
+            color: #0ab3e3;
+        }
+    </style>
+</head>
+<body>
+
+<div class=e1_5196>
+    <div class="slider">
+        <div class="slides">
+            <img src="/images/main/mainIMG.png" alt="이미지 설명">
+            <img src="/images/main/mainIMG2.png" alt="이미지 설명">
+            <img src="/images/main/mainIMG3.png" alt="이미지 설명">
+            <img src="/images/main/mainIMG4.png" alt="이미지 설명">
+        </div>
+    </div>
+    <div class="main_img_bar"><span class="main_img_bar_text">집꾸미가 처음이신가요? 요즘 진행 중인 이벤트 알아보세요. ></span></div>
+
+    <div>
+        <button sec:authorize="isAnonymous()" id="admin-button">유저 테스트 관리자 버튼</button>
+        <button sec:authorize="isAuthenticated()" id="admin-button2">관리자 테스트 관리자 버튼</button>
+    </div>
+
+    <br><br><br><br><br><br><br><br><br><br>
+
+    <!-- 메인 아이콘 -1 -->
+    <h2>이번주 초특가 상품</h2>
+
+        <div class="second-square-icon-container-1">
+            <th:block th:if="${sp[0].getName() != null}">
+                <!-- 아이콘과 텍스트 중앙정렬 -->
+                <div class="second-square-icon-wrapper-1">
+                    <img class="second-square-icon-1" src="/images/productpage/product2.jpg" alt="아이콘 1">
+                    <i class="fas fa-heart"></i>
+                    <div th:text="${sp[0].getName()}" class="product_name">셀프시공 붙이는 켐바보드 재단서비스(300X2400 / 600X2400)</div>
+                    <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                         <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                              <span th:text="${sp[0].getDiscountRate()}" class="number" style="color: red;">48</span>
+                              <span class="percent" style="color: red;">%　</span>
+                            <div class="price-original">
+                              <span th:text="${sp[0].getPrice()}" class="price-original" style="text-decoration: line-through;">36,800</span>
+                              <span class="won">원</span>
+                            </div>
+                         </span>
+
+                      <div class="price">
+                          <span th:text="${sp[0].getDiscountPrice()}" class="price2"></span>
+                          <span class="won"></span>
+                          <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                              <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                              <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                      </div>
+
+                      <div class="review">
+                          <span th:text="${sp[0].getReviewCount()}" class="review1">63</span>
+                          <span class="review2">개 리뷰</span>
+                      </div>
+                  </div>
+                </div>
+            </th:block>
+
+    <th:block th:if="${sp[1].getName() != null}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Z1.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div th:text="${sp[1].getName()}" class="product_name">[~12/31 딜특가] 플레인 플로어 스탠드 램프 조명</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${sp[1].getDiscountRate()}" class="number" style="color: red;">77</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${sp[1].getPrice()}" class="price-original" style="text-decoration: line-through;">166,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${sp[1].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span th:text="${sp[1].getReviewCount()}" class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+    </th:block>
+        <th:block th:if="${sp[1].getName() == null}">
+            <div class="second-square-icon-wrapper-1">
+                <img class="second-square-icon-1" src="/images/productpage/Z1.jpg" alt="아이콘 1">
+                <i class="fas fa-heart"></i>
+                <div class="product_name">상품 정보 없음</div>
+                <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="number" style="color: red;">1</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">0</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                    <div class="price">
+                        <span class="price2">0</span>
+                        <span class="won">원</span>
+                        <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                            <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                            <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                    </div>
+                    <div class="review">
+                        <span class="review1">0</span>
+                        <span class="review2">개 리뷰</span>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+
+    <th:block th:if="${sp[2].getName() != null}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/y1.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div th:text="${sp[2].getName()}" class="product_name">아이와비 폴테와이드 아쿠아텍스 4단 접이식 소파베드 1450</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${sp[2].getDiscountRate()}" class="number" style="color: red;">60</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${sp[2].getPrice()}" class="price-original" style="text-decoration: line-through;">286,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${sp[2].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span th:text="${sp[2].getReviewCount()}" class="review1">89</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:if="${sp[2].getName() == null}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/y1.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div class="product_name">상품 정보 없음</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="number" style="color: red;">1</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">0</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2">0</span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span class="review1">0</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${sp.size() > 3}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">
+            <div th:text="${sp[3].getName()}" class="product_name">[~12/31 딜특가] 제이픽스 어반 화이트 원형 식탁 테이블</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${sp[3].getDiscountRate()}" class="number" style="color: red;">77</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${sp[3].getPrice()}" class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${sp[3].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff"
+                              d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295
+                              3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.
+                              725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736
+                              4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span th:text="${sp[3].getReviewCount()}" class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:if="${!(sp.size() > 3)}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">
+            <div class="product_name">상품 정보 없음</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="number" style="color: red;">0</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">0</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2">0</span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff"
+                              d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295
+                              3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.
+                              725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736
+                              4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span class="review1">0</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    </div> <!-- second-square-icon-container-header -->
+
+    <br><br><br><br><br>
+
+    <!--  메인 아이콘 2 -->
+    <h2>인기 상품</h2>
+    <div class="second-square-icon-container">
+        <!-- 아이콘과 텍스트 중앙정렬 -->
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}">
+            <div th:text="${products[0].getName()}" class="product_name">부드러운 카스테라 향균 옥수수솜 간절기/사계절 차렵이불 세트</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[0].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[0].getDiscountRate()}" class="number" style="color: red;">37</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[0].getPrice()}" class="price-original" style="text-decoration: line-through;">57,300</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[0].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.9
+28V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.
+24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[0].getReviewCount()}" class="review1">125</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[1].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[1].getName()}" class="product_name">비침없는 도톰 레이스/쉬폰커튼(나비주름/핀형/봉집)</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[1].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[1].getDiscountRate()}" class="number" style="color: red;">41</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[1].getPrice()}" class="price-original" style="text-decoration: line-through;">28,600</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[1].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.
+93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.
+264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[1].getReviewCount()}" class="review1">236</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[2].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[2].getName()}" class="product_name">아트라인 라이 블루밍 러그</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[2].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[2].getDiscountRate()}" class="number" style="color: red;">70</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[2].getPrice()}" class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[2].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.
+93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.2
+64V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[2].getReviewCount()}" class="review1">102</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[3].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[3].getName()}" class="product_name">감성을 더해주는 캠핑 전용 워셔블 프리 러그</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[3].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[3].getDiscountRate()}" class="number" style="color: red;">20</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[3].getPrice()}" class="price-original" style="text-decoration: line-through;">97,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[3].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.
+928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.
+24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[3].getReviewCount()}" class="review1">57</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[4].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[4].getName()}" class="product_name">공간분리 가벽인테리어 무타공/타공 파티션</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[4].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[4].getDiscountRate()}" class="number" style="color: red;">60</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[4].getPrice()}" class="price-original" style="text-decoration: line-through;">132,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[4].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.
+992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-
+1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[4].getReviewCount()}" class="review1">65</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- second-square-icon-container -->
+
+    <br><br><br><br><br>
+
+    <div class="second-square-icon-container">
+        <!-- 아이콘과 텍스트 중앙정렬 -->
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[5].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[5].getName()}" class="product_name">어반 아치형 전신거울 3size(거치대 2개증정)</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[5].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[5].getDiscountRate()}" class="number" style="color: red;">55</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[5].getPrice()}" class="price-original" style="text-decoration: line-through;">89,900</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[5].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.
+992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1
+.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.
+259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[5].getReviewCount()}" class="review1">109</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[6].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[6].getName()}" class="product_name">1+1 루윈카페트 DIY 타일카페트 50x50 LTseries</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[6].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[6].getDiscountRate()}" class="number" style="color: red;">37</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[6].getPrice()}" class="price-original" style="text-decoration: line-through;">5,400</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[6].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.
+928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[6].getReviewCount()}" class="review1">333</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[7].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[7].getName()}" class="product_name">마감재/신규색상 출시! 조립식 데크타일 - 스토니(Stony) 9P</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[7].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[7].getDiscountRate()}"  class="number" style="color: red;">50</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[7].getPrice()}"  class="price-original" style="text-decoration: line-through;">29,900</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[7].getDiscountPrice()}"  class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[7].getReviewCount()}"  class="review1">486</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[8].attachmentList[0].modifyName}" alt="아이콘 1">
+            <div th:text="${products[8].getName()}"  class="product_name">이안빅1200/1600 옷장 슬라이딩 수납장 (행거/선반/서랍형)</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[8].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[8].getDiscountRate()}"  class="number" style="color: red;">55</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[8].getPrice()}" class="price-original" style="text-decoration: line-through;">194,900</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[8].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[8].getReviewCount()}" class="review1">134</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[9].attachmentList[0].modifyName}" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div th:text="${products[9].getName()}" class="product_name">풀바른벽지 초간단 셀프도배 합지벽지(사은품증정)</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[9].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[9].getDiscountRate()}" class="number" style="color: red;">38</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[9].getPrice()}" class="price-original" style="text-decoration: line-through;">800</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${products[9].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span th:text="${products[9].getReviewCount()}" class="review1">356</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </div> <!-- second-square-icon-container -->
+</div> <!-- section -->
+<br><br><br><br>
+
+<div class="second-square-icon-container">
+    <!-- 아이콘과 텍스트 중앙정렬 -->
+    <div class="second-square-icon-wrapper">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[10].attachmentList[0].modifyName}" alt="아이콘 1">
+        <div th:text="${products[10].getName()}" class="product_name">품절주의! 프리미엄 크리스마스 가랜드트리 풀세트 앰버 2size (전구+오너먼트+리모컨)</div>
+        <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span th:if="${products[10].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[10].getDiscountRate()}" class="number" style="color: red;">55</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[10].getPrice()}" class="price-original" style="text-decoration: line-through;">89,900</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+            <div class="price">
+                <span th:text="${products[10].getDiscountPrice()}" class="price2"></span>
+                <span class="won">원</span>
+                <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+                <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+                <!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+            </div>
+            <div class="review">
+                <span th:text="${products[10].getReviewCount()}" class="review1">513</span>
+                <span class="review2">개 리뷰</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="second-square-icon-wrapper">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[11].attachmentList[0].modifyName}" alt="아이콘 1">
+        <div th:text="${products[11].getName()}" class="product_name">움직이는 LED 크리스마스 오르골/스노우볼/캔들 6종 (캐롤8곡)</div>
+        <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[11].getDiscountRate()}" class="number" style="color: red;">17</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[11].getPrice()}" class="price-original" style="text-decoration: line-through;">25,400</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+            <div class="price">
+                <span th:text="${products[11].getDiscountPrice()}" class="price2"></span>
+                <span class="won">원</span>
+                <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+                <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+                <!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+            </div>
+            <div class="review">
+                <span th:text="${products[11].getReviewCount()}" class="review1">213</span>
+                <span class="review2">개 리뷰</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="second-square-icon-wrapper">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[12].attachmentList[0].modifyName}" alt="아이콘 1">
+        <div th:text="${products[12].getName()}" class="product_name">LED 크리스마스 스노우볼 워터볼 무드등 조명</div>
+        <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[12].getDiscountRate()}" class="number" style="color: red;">30</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[12].getPrice()}" class="price-original" style="text-decoration: line-through;">35,900</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+            <div class="price">
+                <span th:text="${products[12].getDiscountPrice()}" class="price2"></span>
+                <span class="won">원</span>
+                <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+                <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+                <!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+            </div>
+            <div class="review">
+                <span th:text="${products[12].getReviewCount()}" class="review1">486</span>
+                <span class="review2">개 리뷰</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="second-square-icon-wrapper">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[13].attachmentList[0].modifyName}" alt="아이콘 1">
+        <div th:text="${products[13].getName()}" class="product_name">캐롤 나오는 움직이는 크리스마스 기차 장식 소품 장난감 선물 트리스커트</div>
+        <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[13].getDiscountRate()}"  class="number" style="color: red;">40</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[13].getPrice()}" class="price-original" style="text-decoration: line-through;">50,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+            <div class="price">
+                <span th:text="${products[13].getDiscountPrice()}" class="price2"></span>
+                <span class="won">원</span>
+                <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+                <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+                <!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+            </div>
+            <div class="review">
+                <span class="review1">71</span>
+                <span th:text="${products[13].getReviewCount()}" class="review2">개 리뷰</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="second-square-icon-wrapper">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[14].attachmentList[0].modifyName}" alt="아이콘 1">
+        <i class="fas fa-heart"></i>
+        <div th:text="${products[14].getName()}" class="product_name">[1+1] LED 크리스마스 LED 캔들 회전 오르골 무드등(캐롤 8곡))</div>
+        <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${products[14].getDiscountRate()}"  class="number" style="color: red;">42</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${products[14].getPrice()}"  class="price-original" style="text-decoration: line-through;">57,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+            <div class="price">
+                <span th:text="${products[14].getDiscountPrice()}"  class="price2"></span>
+                <span class="won">원</span>
+                <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+                <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+                <!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+            </div>
+            <div class="review">
+                <span th:text="${products[14].getReviewCount()}"  class="review1">356</span>
+                <span class="review2">개 리뷰</span>
+            </div>
+        </div>
+    </div>
+</div> <!-- second-square-icon-container -->
+</div> <!-- section -->
+<br><br><br><br>
+<script>
+    const productButtons = document.querySelectorAll('.second-square-icon-wrapper');
+    productButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const choose = this.querySelector('.product_name').textContent;
+            window.location.href = 'productPage?product_name='+choose;
+        });
+    });
+</script>
+<script>
+    const specialProductButtons = document.querySelectorAll('.second-square-icon-wrapper-1');
+    specialProductButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const choose = this.querySelector('.product_name').textContent;
+            window.location.href = 'productPage?product_name='+choose;
+        });
+    });
+</script>
+
+
+
+
+
+<div class="footer">
+    <div class=footer-group>
+        <div class=footer-group-design>
+            <div class=footer-up>
+                <div class="upContainer">
+             <div class="footer-up-right">
+                 고객센터 이용안내<br>
+                 평일 09:00 - 18:00 , 토요일 09:00 - 13:00<br>(일요일,공휴일 휴무)
+                 <br>
+                 회사명 집꾸미
+                 <br>
+                 서울 종로구 인사동길 12 대일빌딩 7층 집꾸미
+                 <br>
+                 사업자 등록번호 1234-56-7890
+                   </div>
+                    <div class="footer-up-leftContainer">
+                        <div class="footer-up-left">
+                            이메일 상담 zipggumi@gmail.com<br>
+                            유선 상담 1234-5678
+                        </div>
+                    </div>
+            </div>
+        </div>
+        </div>
+
+            <br><br><br><br>
+
+            <div class="footer-downContainer">
+                <div class="footer-down">
+                    (주)집꾸미는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한 상품정보 및 거래 등에 대해 책임을 지지 않습니다. 단, <br>
+                    (주)집꾸미가 판매자로 등록 판매한 상품은 판매자로서 책임을 부담합니다.<br>
+                    Copyright © 2023 ZIPGGUMI Co. Ltd. All rights reserved
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<header th:replace="common/header.html"></header>
+<script>
+    var main_img_bar = document.querySelector('.main_img_bar');
+    main_img_bar.addEventListener('click',function(){
+        alert("메인 이미지 바");
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelector('.slides');
+        let index = 0;
+        const interval = 5000; // 3초마다 이미지 변경
+
+        setInterval(() => {
+            index++;
+            const slideWidth = slides.querySelector('img').clientWidth;
+            if (index >= slides.childElementCount) {
+                index = 0;
+            }
+            slides.style.transform = `translateX(-${index * slideWidth}px)`;
+        }, interval);
+    });
+</script>
+
+<script>
+    // // 할인율 계산 함수
+    // function calculateDiscount() {
+    //     var allProductionItems = document.querySelectorAll('.production-item');
+    //     allProductionItems.forEach(function(item) {
+    //         var originalPrice = parseFloat(item.querySelector('.price-original .price-original').innerText.replace(',', ''));
+    //         var discountRate = parseFloat(item.querySelector('.production-item-price .number').innerText);
+    //
+    //         var discountedPrice = originalPrice * (1 - discountRate / 100);
+    //         item.querySelector('.price .price2').innerText = discountedPrice.toLocaleString() + "원";
+    //     });
+    // }
+    //
+    // // 페이지 로드 후 할인율 계산 실행
+    // window.onload = function() {
+    //     calculateDiscount();
+    // };
+</script>
+
+</body>
+</html>

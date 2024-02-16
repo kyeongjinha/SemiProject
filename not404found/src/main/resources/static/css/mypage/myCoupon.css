@@ -1,0 +1,258 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+*{font-family: 'Pretendard-Regular';}
+
+.sidebar_container {
+    background-color: white;
+    width: 236px;
+    height: 467px;
+    position: absolute;
+    top: 230px;
+    z-index: 2;
+}
+
+.sidebar_container_text {
+    font-weight: bold;
+    color: black;
+    width: 140px;
+    height: 50px;
+    position: absolute;
+    left: 28px;
+    top: -5px;
+    text-align: left;
+    font-size: 18px;
+    border-bottom: 2px solid #000;
+}
+
+.sidebar_button1, .sidebar_button2, .sidebar_button3{
+    cursor: pointer;
+    background-color: white;
+    width: 236px;
+    height: 43px;
+    position: absolute;
+    left: 0px;
+}
+.sidebar_button1 {top: 80px;}
+.sidebar_button2 {top: 120px;}
+.sidebar_button3 {top: 160px;}
+
+.sidebar_button1_text, .sidebar_button2_text, .sidebar_button3_text{
+    position: absolute;
+    text-align: center;
+    color: black;
+    height: 27px;
+    width: 144px;
+    left: 28px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0;
+}
+.sidebar_button1_text:hover, .sidebar_button2_text:hover, .sidebar_button3_text:hover{
+    font-weight: bold;
+}
+
+#con_lf { /* 쿠폰 관리의 전체 범위*/
+    margin-top: 194px;
+    width: 1630px;
+    margin-left: 240px;
+    /*margin: 110px 170px;*/
+    /*width: calc(100% - 200px);*/
+    display: inline-block;
+    /*float: right;*/
+    margin-bottom: 80px;
+}
+
+body, div, table, th, td, pre, em {
+    font-size: 15px;
+}
+
+html, body, div, p, h2, li, table, th, td, thead, input, button, select {
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    list-style-type: none; /* 리스트 항목 마커 나타나지 않도록 설정*/
+    list-style: none; /* 리스트 스타일 설정 = 마커제거 */
+    text-align: left; /* 테스트 왼쪽 정렬*/
+    position: static;
+    overflow: hidden; /* 내용이 요소 크기를 벗어날 경우 숨김*/
+    font-weight: 400;
+    letter-spacing: -0.05em;
+}
+#tab_cate_ul {
+    display: flex;
+    flex-direction: row;
+}
+
+#tab_cate_ul li {
+    margin-right: 0px; /* 각 요소 사이의 간격 설정 */
+}
+
+.pg_tit { /* 쿠폰 관리 */
+    margin: 0 0 20px;
+    height: 36px;
+    border-bottom: 1px solid #ddd;
+    /*position: relative;*/
+}
+h2{ /* 쿠폰관리 */
+    font-size: 1em;
+    font-weight: 600;
+}
+
+/* ============ 사용기간과 만료 쿠폰에 대한 css ============== */
+.pg_tit span { /* 쿠폰 관리*/
+    font-size: 20px;
+    padding: 4px 10px 7px 0;
+    margin: 0 0 -1px 0;
+    /*border-bottom: 1px solid #333;*/
+    display: inline-block;
+}
+
+nav{
+    display: block;
+}
+
+/*#tab_cate ul {*/
+/*    overflow: visible;*/
+/*    zoom: 1;*/
+/*}*/
+
+#tab_cate_ul {
+    display: flex;
+    flex-direction: row;
+}
+
+#tab_cate_ul li {
+    margin-right: 0px; /* 각 요소 사이의 간격 설정 */
+}
+
+#tab_cate li.active a:after { /* 사용 가능 쿠폰 좌,우, 위 테두리*/
+    border-color: #333;
+}
+#tab_cate li a:after {
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: #ddd;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+}
+
+#tab_cate li.active a {
+    height: 37px;
+    color: #333;
+    line-height: 38px;
+    background-color: #fff;
+    z-index: 10;
+}
+
+/*a:link, a:visited {*/
+/*    color: #454545;*/
+/*    text-decoration: none;*/
+/*}*/
+
+#tab_cate li a {
+    width: 120px;
+    height: 36px;
+    color: #999;
+    padding: 0 25px;
+    font-size: 13px;
+    line-height: 37px;
+    background-color: #f5f5f5;
+    text-align: center;
+    display: block;
+    text-decoration: none !important;
+    position: relative;
+}
+
+#tab_cate { /* 사용가능쿠폰, 완료 쿠폰 틀?*/
+    height: 36px;
+    border-bottom: 1px solid #333;
+    margin: 10px 0 !important;
+}
+
+.pg_cnt { /* 총 0 건 */
+    margin: 44px 0px 0px;
+}
+/* ------------ 여기서부터 테이블들 ------------*/
+.tbl_wrap table { /* 테이블 가로 */
+    width: 100%;
+    margin: 8px 0px 8px;
+}
+.pg_cnt em { /* 총 0 건 */
+    color: red; /* 폰트 색상*/
+    font-weight: 600; /* 폰트 굵기*/
+}
+.pg_cn3t em { /* 총 0 건 */
+    color: red; /* 폰트 색상*/
+    font-weight: 600; /* 폰트 굵기*/
+}
+em{
+    font-style: normal;
+}
+
+/* ------------ 여기서부터 테이블들 ------------*/
+.tbl_wrap table { /* 테이블 가로 */
+    width: 100%;
+}a
+
+.tbl_head02 tr:not(.rows) th:first-child, .tbl_head02 tr:not(.rows) td:first-child { /* 각 테이블들*/
+    border-left: 0 !important;
+}
+.tbl_head02 thead th {
+    border-top: 0 !important;
+    text-align: center;
+}
+
+.tbl_head02 th, .tbl_head02 td {
+    font-size: 15px; /* 자료가 없습니다 글씨 사이즈*/
+    border-left: 1px solid #e4e5e7; /* 각 테이블 테두리*/
+    vertical-align: middle; /* 수직 정렬*/
+}
+
+.tbl_head02 {
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #e4e5e7;
+}
+
+.tbl_head02 th {
+    padding: 9px 0;
+    line-height: 1em;
+    font-weight: 600;
+}
+
+table th {
+    background-color: #f8f8f8;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.3em;
+}
+
+.tbl_head02 td { /* 자료가 없습니다 */
+    padding: 9px;
+    text-align: left;
+    line-height: 1.4;
+    border-top: 1px solid #e4e5e7;
+    word-break: break-all;
+}
+
+.empty_list { /* 자료가 없습니다 세로 간격과 배경, 글자 위치 등*/
+    padding: 30px 0 !important;
+    color: #999;
+    text-align: center !important;
+    border-left: 0 !important;
+}
+
+table, th, thead {
+    outline: 0;
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.admin.dashboard.model.AdminDashboardMapper">
+    
+    <resultMap id="selectAllDashboardDataResultMap" type="DashboardDTO">
+        <id property="orderReception" column="처리중1"/>
+        <result property="productPreparation" column="처리중2"/>
+        <result property="preparationShipment" column="처리중3"/>
+        <result property="shipping" column="배송중"/>
+        <result property="deliveryCompleted" column="배송완료"/>
+        <!--        <result property="productPreparation" column="상품준비"/>-->
+        <!--        <result property="preparationShipment" column="출고준비"/>-->
+    </resultMap>
+    <resultMap id="selectAllDashboardProductDataResultMap" type="ProductStatus"/>
+
+    <select id="selectAllDashboardData" resultMap="selectAllDashboardDataResultMap">
+        SELECT
+            test1.count AS 처리중1,
+            test2.count AS 처리중2,
+            test3.count AS 처리중3,
+            test4.count AS 배송중,
+            test5.count AS 배송완료
+        FROM
+            (SELECT COUNT(*) AS count FROM delivery as a WHERE a.delivery_status = '처리중') as test1,
+            (SELECT COUNT(*) AS count FROM delivery AS a WHERE a.delivery_status = '처리중') AS test2,
+            (SELECT COUNT(*) AS count FROM delivery AS a WHERE a.delivery_status = '처리중') AS test3,
+            (SELECT COUNT(*) AS count FROM delivery AS a WHERE a.delivery_status = '배송 중') AS test4,
+            (SELECT COUNT(*) AS count FROM delivery AS a WHERE a.delivery_status = '배송 완료') AS test5
+    </select>
+    
+    <select id="selectAllDashboardProductData" resultMap="selectAllDashboardProductDataResultMap">
+        SELECT
+        sale.count AS sale,
+        sellingStop.count AS sellingStop,
+        specialPrice.count AS specialPrice,
+        amountStatus.count AS amountStatus
+        FROM
+        (SELECT COUNT(*) AS count FROM product WHERE delete_status = 'N') AS sale,
+        (SELECT COUNT(*) AS count FROM product WHERE delete_status = 'Y') AS sellingStop,
+        (SELECT COUNT(*) AS count FROM event WHERE end_date > NOW()) AS specialPrice,
+        (SELECT COUNT(*) AS count
+        FROM product_arrival_details
+        JOIN payment ON payment.product_code = product_arrival_details.product_code
+        WHERE product_arrival_details.receive_amount - payment.amout &lt; 10) AS amountStatus
+    </select>
+    
+    <select id="selectAllBoardStatus">
+        SELECT
+            a.count AS qnA,
+            b.count AS interiorChallengeBest
+        FROM
+            (SELECT COUNT(*) AS count FROM board WHERE categorycode_board = 3) AS a,
+            (SELECT COUNT(*) AS count FROM interior_challenge WHERE recommend_count > 50) AS b
+    </select>
+    
+    <select id="selectAllMembersStatus">
+        SELECT
+            a.count AS members,
+            b.count AS vvipMembers,
+            c.count AS vipMembers,
+            d.count AS FamilyMembers,
+            e.count AS FriendMembers
+        FROM
+            (SELECT COUNT(*) AS count FROM accounts WHERE account_status != 'DORMANT' AND account_status != 'BLACK') AS a,
+            (SELECT COUNT(*) AS count FROM accounts WHERE account_status = 'VVIP') AS b,
+            (SELECT COUNT(*) AS count FROM accounts WHERE account_status = 'VIP') AS c,
+            (SELECT COUNT(*) AS count FROM accounts WHERE account_status = 'FAMILY') AS d,
+            (SELECT COUNT(*) AS count FROM accounts WHERE account_status = 'FRIEND') AS e
+    </select>
+    <select id="selectAllStatistic">
+        SELECT
+        1500 AS visitCount,
+        a.count AS dailyPaymentCount,
+        b.count AS dailyPaymentAmount,
+        c.count AS dailyRegistrations,
+        d.count AS totalMembers,
+        f.count AS pendingDormantAccountNotification,
+        g.count AS totalAccumulatedPoints,
+        2 AS suspiciousAccessAttempts
+        FROM
+        -- 그거
+        (SELECT COUNT(*) AS count FROM payment WHERE payment_date = DATE(NOW())) AS a,
+        (SELECT IFNULL(sum(amout),0) AS count FROM payment WHERE payment_date = DATE(NOW())) AS b,
+        (SELECT COUNT(*) AS count FROM accounts WHERE regist_date = DATE(NOW())) AS c,
+        (SELECT COUNT(*) AS count FROM accounts) AS d,
+        (SELECT COUNT(*) AS count FROM accounts WHERE 25 &lt; (last_login - DATE(NOW())) * -1) AS f,
+        (SELECT IFNULL(sum(mileage),0) AS count FROM accounts AS count) AS g
+    </select>
+    
+</mapper>

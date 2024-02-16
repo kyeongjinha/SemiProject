@@ -1,0 +1,152 @@
+ .member_list{
+	margin : 0 auto;
+	width :1300px;
+	padding-left: 198px;
+}
+.tab_parents{
+	margin-left: 200px;
+	list-style-type: none;
+	position: relative;
+	text-align: center;
+	top: 40px;
+}
+.tab1{
+	display: inline-block;
+	color: black;
+	line-height: 60px;
+	width: 350px;
+	height: 60px;
+	margin-right: 20px;
+	border: 1px solid black;
+}
+.tab2{
+	display: inline-block;
+	line-height: 60px;
+	width: 350px;
+	height: 60px;
+	margin-right: 20px;
+	border: 1px solid black;
+}
+.tab3{
+	display: inline-block;
+    color: black;
+	line-height: 60px;
+	width: 350px;
+	height: 60px;
+	margin-right: 20px;
+	border: 1px solid black;
+}
+.table_parents {
+	position: absolute;
+	margin : 0 auto;
+	left: 250px;
+	top : 700px;
+	width: 1650px;
+	border-collapse: collapse;
+
+}
+
+th, td {
+	border: 1px solid #dddddd;
+	padding: 8px;
+	text-align: center;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+button{
+	position: relative;
+}
+
+.member_search_bar{
+	display : grid;
+	grid-column: 2;
+	grid-row : 1;
+	align-items: center;
+	justify-content: center;
+	margin-left: 200px;
+}
+
+.searchMember{
+	background-color: white;
+	position: absolute;
+	width:810px;
+	height:41px;
+	top : 250px;
+	left: 700px;
+	border: 2px solid #a1a1a1;
+	text-align: center;
+	font-size: 16px;
+}
+
+#searchCondition{
+	position: absolute;
+	top: 250px;
+	width: 150px;
+	height: 44px;
+	left: 540px;
+
+}
+/*.searchMember{*/
+/*	position: absolute;*/
+/*	top: 350px;*/
+/*	width: 800px;*/
+/*	height: 41px;*/
+/*	left: 700px;*/
+/*}*/
+
+.mem_search_icon {
+	background-image: url(/images/admin/search.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	top: 250px;
+	left: 1520px;
+
+}
+.modify_member{
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	width: 100px;
+	height: 30px;
+	top : 280px;
+	left: -240px;
+}
+.insert_member{
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	width: 100px;
+	height: 30px;
+	top : 220px;
+	left: 618px;
+
+}
+.delete_member{
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	width: 100px;
+	height: 30px;
+	top : 250px;
+	left: 960px;
+
+}
+
+.search_one{
+	position: absolute;
+	width: 1650px;
+	left: 250px;
+	top:400px;
+	border-spacing: 0;
+}
+
+#blackedbtn{
+	position: absolute;
+	left: 250px;
+	top: 376px;
+}

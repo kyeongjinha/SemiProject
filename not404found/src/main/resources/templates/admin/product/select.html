@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>admin_page</title>
+  <link rel="stylesheet" type="text/css" href="/css/admin/product/select.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section>
+  <div class="product_list">
+    <ul class="product_parents">
+      <li class="select_product">상품조회</li>
+      <li class="insert_product" onclick="go_insert()">상품등록</li>
+      <li class="modify_product" onclick="go_modify()">상품수정</li>
+    </ul>
+    <form th:action="@{/admin/product}">
+    <div class="product_page">
+      <div class="page_name">   상품조회<hr></div>
+      <div class="tab1"><label class="tab11">판매상태 : </label>
+        <input type="radio" class="p_radio" name="deleteStatus" id="sstatusy" value="Y"><label for="sstatusy">즉시 판매</label>
+        <span class="radio_space"></span>
+        <input type="radio" class="p_radio" name="deleteStatus" id="sstatusn" value="N"><label for="sstatusn">판매 보류</label>
+        <hr>
+      </div>
+      <div class="tab2"><label class="tab22" for="pDates">판매등록날짜 :    </label>
+        <input class="date_size" type="date" name="enterDates" id="pDates" style="margin-right: 10px;">
+        <span style="margin-right: 10px;"> ~ </span>
+        <input class="date_size" type="date" name="enterDateb" id="pDateb"><hr>
+      </div>
+      <div class="tab3"><label class="tab33" for="name">상품명 : </label>
+        <input class="p_name" type="text" name="name" id="name"><hr>
+      </div>
+      <div class="tab4"><label class="tab44">상품가격 : </label>
+        <input class="p_price" type="number" name="prices" id="prices" style="margin-right: 10px;">
+        <span style="margin-right: 10px;"> ~ </span>
+        <input class="p_price" type="number" name="priceb" id="priceb">
+        <hr>
+      </div>
+      <div class="tab4"><label class="tab44"> 재고량 : </label>
+        <input class="p_price" type="number" name="amounts" id="inventorys" style="margin-right: 10px;">
+        <span style="margin-right: 10px;"> ~ </span>
+        <input class="p_price" type="number" name="amountb" id="inventoryb"><hr>
+      </div>
+      <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
+        <select id="topCategory" class="c_ref" name="refCategoryCode" onchange="updateSubCategories()">
+          <option value="0">미선택</option>
+          <option value="1">가구</option>
+          <option value="2">자재</option>
+        </select>
+        <label for="subCategory">하위 카테고리 : </label>
+        <select id="subCategory" class="c_ref" name="categoryName"></select>
+        <hr></div>
+      <div class="tab5"><label for="color">옵션(색상) : </label>
+        <select id="color" class="c_ref" name="color">
+          <option value="검은색">레드와인</option>
+          <option value="파란색">스카이블루</option>
+          <option value="빨간색">오렌지</option>
+        </select>
+        <hr>
+      </div>
+      <button type="submit" class="insert_button">상품 조회</button>
+    </div>
+      </form>
+
+    </div>
+  <table class="table_parents" >
+    <tr style="text-align:center;">
+      <th>상품코드
+        <button>↧</button>
+      </th>
+      <th>상품명
+        <button>↧</button>
+      </th>
+      <th>상품가격
+        <button>↧</button>
+      </th>
+      <th>판매등록날짜
+        <button>↧</button>
+      </th>
+      <th>상위 카테고리
+        <button>↧</button>
+      </th>
+      <th>하위 카테고리
+        <button>↧</button>
+      </th>
+      <th>판매상태
+        <button>↧</button>
+      </th>
+      <th>재고량
+        <button>↧</button>
+      </th>
+      <th>별점
+        <button>↧</button>
+      </th>
+      <th>누적판매집계
+        <button>↧</button>
+      </th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(condition) and #lists.isEmpty(productList)}">
+      <td colspan="11" style="text-align: center">검색 결과가 없습니다.</td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(condition)}" th:each="products : ${ productList }">
+      <td th:text="${products.productCode}"></td>
+      <td th:text="${products.name}"></td>
+      <td th:text="${products.price}"></td>
+      <td th:text="${#dates.format(products.enterDate,'yyyy-MM-dd')}"></td>
+      <td th:text="${products.adminProductCategory.refCategoryCode}"></td>
+      <td th:text="${products.adminProductCategory.categoryName}"></td>
+      <td th:text="${products.deleteStatus}"></td>
+      <td th:text="${products.amount}"></td>
+      <td th:text="${'0'}"></td>
+      <td th:text="${'100000'}"></td>
+    </tr>
+
+    <tr th:unless="${#lists.isEmpty(condition)}" th:each="conditions : ${condition}">
+      <td th:text="${conditions.productCode}"></td>
+      <td th:text="${conditions.name}"></td>
+      <td th:text="${conditions.price}"></td>
+      <td th:text="${#dates.format(conditions.enterDate,'yyyy-MM-dd')}"></td>
+      <td th:text="${conditions.adminProductCategory.refCategoryCode}"></td>
+      <td th:text="${conditions.adminProductCategory.categoryName}"></td>
+      <td th:text="${conditions.deleteStatus}"></td>
+      <td th:text="${conditions.amount}"></td>
+      <td th:text="${'0'}"></td>
+      <td th:text="${'100000'}"></td>
+    </tr>
+  </table>
+  <script>
+    function go_insert(){
+      window.location.href = "/admin/product/insert"
+    }
+    function go_modify(){
+      window.location.href = "/admin/product/modify"
+    }
+    function updateSubCategories(){
+      var topCategory = document.getElementById('topCategory');
+      var selectedTopCategory = topCategory.options[topCategory.selectedIndex].value;
+      var subCategory = document.getElementById('subCategory');
+      subCategory.innerHTML ="";
+
+      if(selectedTopCategory === "1"){
+        addOption(subCategory, "의자", '의자');
+        addOption(subCategory, "책상", '책상');
+        addOption(subCategory, "조명", '조명');
+      }else if (selectedTopCategory === "2") {
+        addOption(subCategory, "시트지", "시트지");
+        addOption(subCategory, "벽지", "벽지");
+        addOption(subCategory, "공구", "공구");
+      }
+
+    }
+
+    function addOption(selectElement, value, text) {
+      var option = document.createElement("option");
+      option.value = value;
+      option.text = text;
+      selectElement.add(option);
+    }
+    updateSubCategories();
+  </script>
+</section>
+</body>
+</html>

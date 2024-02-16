@@ -1,0 +1,1066 @@
+
+* {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1920px;
+    font-family: 'Pretendard-Regular';
+    list-style: none;
+}
+
+html {
+    font-family: 'Pretendard-Regular';
+    text-align: center;
+    list-style: none;
+    font-size: 10px;
+}
+body {
+    height: 1000px;
+    min-height: 100vh; /* 최소 높이를 뷰포트 높이와 동일하게 설정 */
+    overflow-y: auto; /* 내용이 뷰포트를 넘칠 때만 스크롤을 보여줌 */
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; /* 부모 요소의 텍스트 색상을 상속 */
+}
+
+/* ============================== 게시판 ============================== */
+
+/* --------------------- 게시판 전체 --------------------- */
+.board_wrap {
+    width: 70%;
+    margin: 230px 20px 100px 250px;
+
+}
+
+.board_list {
+    position: relative;
+    z-index: 1;
+    display: contents;
+}
+
+/* --------------------- 게시판 제목 --------------------- */
+.board_title_review {
+    padding-bottom: 30px;
+    font-size: 3rem;
+}
+.board_title strong {
+    font-size: 3rem;
+}
+
+/* --------------------- 게시글 정렬 & 검색 --------------------- */
+.searchForm {
+    position: relative;
+    z-index: 1;
+}
+
+#sortPosts {
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    left: 0;
+    top: 70px;
+    text-align: center;
+}
+.searchCondition {
+    width: 80px;
+    height: 31px;
+    position: absolute;
+    right: 240px;
+    top: 70px;
+    text-align: center;
+}
+.searchCondition_review {
+    width: 80px;
+    height: 31px;
+    position: absolute;
+    right: 240px;
+    top: -50px;
+    text-align: center;
+}
+.searchValue {
+    width: 180px;
+    height: 31px;
+    position: absolute;
+    right: 55px;
+    top: 70px;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.searchValue_review {
+    width: 180px;
+    height: 31px;
+    position: absolute;
+    right: 55px;
+    top: -50px;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#searchButton {
+    width: 50px;
+    height: 31px;
+    position: absolute;
+    right: 0;
+    top: 70px;
+    background-color: white;
+    border-radius: 2px;
+    border-color: #000000;
+    border-style: solid;
+    border-width: 0.3px;
+}
+#searchButton_review {
+    width: 50px;
+    height: 31px;
+    position: absolute;
+    right: 0;
+    top: -50px;
+    background-color: white;
+    border-radius: 2px;
+    border-color: #000000;
+    border-style: solid;
+    border-width: 0.3px;
+}
+
+/* --------------------- 글쓰기 버튼 --------------------- */
+.bt_wrap {
+    margin-top: 30px;
+    text-align: center;
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.writeBoard {
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    background-color: #2b2a29;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+/*.bt_wrap.view{*/
+/*    margin-top: 30px;*/
+/*    text-align: center;*/
+/*    font-size: 0;*/
+/*    position: absolute;*/
+/*    top: 500px;*/
+/*    left: 46%;*/
+/*}*/
+
+.bt_wrap.edit{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    top: 500px;
+    left: 38%;
+}
+
+
+
+.bt_wrap a:first-child {
+    margin-left: 0;
+}
+
+.bt_wrap a.on {
+    background: #000;
+    color: #fff;
+}
+
+/* --------------------- 게시물 --------------------- */
+/* table */
+#listArea {
+    width: 100%;
+    border-top: 2px solid #000;
+    border-bottom: 1px solid #000;
+    position: relative;
+    z-index: 1;
+    top: 120px;
+    font-size: 16px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    font-size: 16px;
+    padding: 10px;
+}
+
+td{
+    border-bottom: 1px solid #d8d8d8;
+}
+
+tr:last-child {
+    border-bottom: 2px solid #000
+}
+
+/* 컬럼명 행 */
+tr.top th {
+    font-weight: 700;
+    font-size: 1.7rem;
+    border-bottom: 1px solid #999;
+}
+
+/* 글제목 컬럼 (td) */
+td.post_title {
+    text-align: left;
+    margin-left: 15px;
+}
+
+/* 컬럼 비율 설정 */
+.board_list .title {
+    width: 60%;
+    /*text-align: left;*/
+}
+.board_list .writer {
+    width: 10%;
+}
+.board_list .date {
+    width: 10%;
+}
+.board_list .count {
+    width: 10%;
+}
+.board_list .commentColumn {
+    width: 10%;
+}
+
+/* --------------------- 페이지 넘기기 --------------------- */
+.pagingArea {
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.pagingArea button {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    /*border: 1px solid #2b2a29;*/
+    line-height: 100%;
+    color: #2b2a29;
+}
+
+
+/* --------------------- 게시물 내용 --------------------- */
+.board_view {
+    width: 100%;
+    border-top: 2px solid #000;
+}
+
+.board_view_wrap {
+    position: relative;
+}
+
+.board_view .title {
+    padding: 20px 15px;
+    border-bottom: 1px dashed #ddd;
+    font-size: 2rem;
+}
+
+.board_view .info {
+    padding: 15px;
+    border-bottom: 1px solid #999;
+    font-size: 0;
+}
+
+.board_view .info dl {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.board_view .info dl:first-child {
+    padding-left: 0;
+}
+
+.board_view .info dl::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 13px;
+    background: #ddd;
+}
+
+.board_view .info dl:first-child::before {
+    display: none;
+}
+
+.board_view .info dl dt,
+.board_view .info dl dd {
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.board_view .info dl dd {
+    margin-left: 10px;
+    color: #777;
+}
+
+.board_view .cont {
+    padding: 15px;
+    border-bottom: 1px solid #000;
+    line-height: 160%;
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+/* --------------------- 댓글 --------------------- */
+.comment {
+    display: flex;
+    align-items: stretch;
+}
+.textarea-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    position: relative;
+}
+
+.textarea-container textarea {
+    height: 50px;
+    text-align: left;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 5px 60px 5px 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    resize: none;
+    width: 100%;
+}
+
+.textarea-container p {
+    position:absolute;
+    top: 25px;
+    right: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #4d4d4d;
+    padding-right: 15px;
+}
+
+#registComment {
+    width: 10%;
+    height: 50px;
+    margin: 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    background-color: #2b2a29;
+    color: white;
+}
+
+/* --------------------- 게시물 작성 --------------------- */
+.board_write {
+    border-top: 2px solid #000;
+    position: relative;
+}
+
+.bt_wrap.write{
+    margin-top: 30px;
+    text-align: center;
+    top: 530px;
+}
+
+.bt_submit {
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    background-color: #2b2a29;
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.board_write .title {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+.board_write .title dl {
+    font-size: 0;
+    margin-bottom: 0px;
+}
+.board_write .title dt,
+.board_write .title dd {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.5rem;
+}
+.board_write .title dt{
+    width: 75px;
+    padding-right: 15px;
+}
+.board_write .title dd {
+    width: calc(100% - 90px);
+}
+.board_write .title input[type="text"] {
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+}
+.board_write .title input[type="text"] {
+    width: 100%;
+}
+.board_write .cont {
+    border-bottom: 1px solid #000;
+    padding-top: 15px;
+}
+.board_write.cont textarea {
+    display: block;
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 0;
+    resize: none;
+    text-align: left;
+}
+
+.note-editable {
+    text-align: left;
+}
+
+/* --------------------- 게시물 첨부파일 업로드 --------------------- */
+.board_write_wrap .fileUpload {
+    height: 30px;
+    background: lightgray;
+    text-align: left;
+    vertical-align: middle;
+    padding: 15px;
+    padding-top: 23px;
+    margin-top: 10px;
+    border-radius: 5px
+}
+
+
+
+
+
+
+
+
+
+
+/* ========================= 인테리어 챌린지 ========================= */
+.img-box > img{
+    width: 100%;
+    height: 300px;
+    display: block;
+    margin-top: 90px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.ic_showCaseImg {
+    margin-top: 160px;
+    margin-bottom: 50px;
+}
+
+.con {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1920px;
+}
+
+.cell {
+    float: left;
+    box-sizing: border-box;
+}
+
+.row::after {  /* cell의 부모*/
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.ic_item_list_all > ul > li {
+    width: 33.3%;
+    padding:0 20px;
+}
+
+.ic_item_list_all > ul {
+    margin: 0 100px 10px 100px;
+}
+
+.ic_title {
+    font-size: 17px;
+    padding: 20px 0 10px 0;
+}
+
+.ic_writer {
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+.ic_viewCount, .ic_date {
+    color: rgb(134, 134, 134);
+    font-size: 13px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.ic_sort {
+    width: 80px;
+    height: 30px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    float: left;
+
+}
+
+#ic_sortPosts {
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    left: 120px;
+    text-align: center;
+}
+
+#ic_searchType {
+    width: 80px;
+    height: 31px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 390px;
+    text-align: center;
+}
+#ic_searchInput {
+    width: 180px;
+    height: 27px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 190px;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#ic_searchButton {
+    width: 50px;
+    height: 30px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 130px;
+    background-color: white;
+    border-radius: 2px;
+    border-color: #000000;
+    border-style: solid;
+    border-width: 0.3px;
+}
+
+.pagingArea_ic {
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 30px;
+}
+
+.pagingArea_ic button {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    /*border: 1px solid #2b2a29;*/
+    line-height: 100%;
+    color: #2b2a29;
+}
+
+.ic_page {
+    margin-top: 80px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 0;
+    /* position: absolute;
+    top: 600px; */
+    left: 39%;
+}
+
+.ic_page a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    border-left: 0;
+    line-height: 100%;
+}
+
+.ic_page a.bt {
+    padding-top: 10px;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+}
+
+.ic_page a.num {
+    padding-top: 9px;
+    font-size: 1.4rem;
+}
+
+.ic_page a.num.on {
+    border-color: #000;
+    background: #000;
+    color: #fff;
+}
+
+.ic_page a:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.bt_wrap.ic_list{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+    /* position: absolute;
+    top: 650px; */
+    left: 46%;
+}
+
+
+/* ========================= 좌측 카테고리 사이드바 ========================= */
+.sidebar_container {
+    text-align: left;
+    background-color: rgba(255, 255, 255, 1);
+    width: 236px;
+    height: 467px;
+    position: absolute;
+    left: 0px;
+    top: 230px;
+    z-index: 2;
+}
+
+.sidebar_container_text {
+    color: rgba(0, 0, 0, 1);
+    width: 140px;
+    height: 50px;
+    position: absolute;
+    left: 28px;
+    top: -5px;
+    text-align: left;
+    font-size: 2.3rem;
+    /* letter-spacing: 5; */
+    border-bottom: 2px solid #000;
+}
+
+.sidebar_button1 {
+    cursor: pointer;
+    background-color: white;
+    width: 236px;
+    height: 43px;
+    position: absolute;
+    left: 0px;
+    top: 80px;
+}
+
+.sidebar_button2 {
+    cursor: pointer;
+    background-color: white;
+    width: 236px;
+    height: 43px;
+    position: absolute;
+    left: 0px;
+    top: 120px;
+}
+
+.sidebar_button3 {
+    cursor: pointer;
+    background-color: white;
+    width: 236px;
+    height: 43px;
+    position: absolute;
+    left: 0px;
+    top: 160px;
+}
+
+.sidebar_button4 {
+    cursor: pointer;
+    background-color: white;
+    width: 236px;
+    height: 43px;
+    position: absolute;
+    left: 0px;
+    top: 200px;
+}
+
+
+.sidebar_button1_text {
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    width: 144px;
+    height: 27px;
+    position: absolute;
+    left: 28px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0;
+}
+
+.sidebar_button2_text {
+    color: rgba(0, 0, 0, 1);
+    width: 144px;
+    height: 27px;
+    position: absolute;
+    left: 28px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0;
+}
+
+.sidebar_button3_text {
+    color: rgba(0, 0, 0, 1);
+    width: 144px;
+    height: 27px;
+    position: absolute;
+    left: 28px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0;
+}
+
+.sidebar_button4_text {
+    color: rgba(0, 0, 0, 1);
+    width: 144px;
+    height: 27px;
+    position: absolute;
+    left: 28px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0;
+}
+
+
+
+/* ========================= 리뷰 게시판 ========================= */
+
+.review_list_all {
+    margin-top: 250px;
+    text-align: left;
+    width: 60%;
+    font-size: 15px;
+    position: relative;
+}
+
+.board_title {
+    text-align: center;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.board_title_review {
+    text-align: center;
+    margin-bottom: 80px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+
+/* 화면이 축소될 때 스타일 변경 */
+@media screen and (max-width: 1000px) {
+    .review_list_all {
+        text-align: left; /* 왼쪽 정렬로 변경 */
+        width: 100%; /* 전체 너비로 변경 */
+        margin-left: 160px;
+    }
+}
+
+
+.review_sort {
+    width: 80px;
+    height: 31px;
+    position: absolute;
+}
+#review_sortPosts {
+    width: 80px;
+    height: 31px;
+    position: absolute;
+    top: -50px;
+    text-align: center;
+}
+
+
+
+.review_list {
+    border-top: 2px solid #848484;
+    display: flex;
+    border-bottom: 1px solid #848484;
+    margin-bottom: -1px;
+}
+
+
+.pagingArea_review {
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 30px;
+}
+
+.pagingArea_review button {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    /*border: 1px solid #2b2a29;*/
+    line-height: 100%;
+    color: #2b2a29;
+}
+
+
+.review_list_lcontent {
+    flex: 2;
+    position: relative;
+    padding-left: 10px;
+    z-index: 1;
+}
+
+.review_list_lcontent::after {
+    content: ""; /* 가상 요소에 내용 추가 */
+    position: absolute; /* 절대 위치 요소로 설정 */
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* 선의 너비 */
+    background-color: #adadad; /* 선의 색상 */
+}
+
+.review_list_rcontent {
+    flex: 1;
+}
+
+.review_list_review_rcontent {
+    width: 200px;
+}
+
+.review_list_score_section * {
+    display: inline-block;
+    text-align: left;
+}
+
+.review_list_score_section {
+    display: flex;
+    margin: 0;
+}
+
+.review_list_score_container {
+    flex: 5;
+}
+
+.review_list_edit_container {
+    flex: 1;
+}
+
+.review_list_score_section {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.review_list_date {
+    color: #6e6d6d;
+}
+
+.review_list_product_container {
+    display: flex;
+}
+
+.review_list_product_image_container > img {
+    width: 50px;
+    height: 45px;
+    border-radius: 3px;
+}
+
+.review_list_product_image_container, .review_list_info_container {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 10px;
+    gap: 10px;
+    margin: 0;
+}
+
+.review_list_product_image_container {
+    margin-right: 10px;
+}
+
+.review_list_product_name {
+    padding-bottom: 5px;
+}
+
+
+.score_star_wrapper, .review_list_score {
+    display: inline-block;
+}
+
+.score_star_wrapper  {
+    vertical-align: middle;
+}
+
+.review_list_expand_link {
+    margin-top: 10px;
+}
+
+.review_list_message {
+    max-height: 18px;
+    margin: 0; /* 여백 초기화 */
+}
+
+.review_list_message_link_button {
+    flex: 2;
+    color: #656464;
+}
+
+.review_list_message,
+.review_list_message_link_button {
+    display: inline-block;
+    margin: 0; /* 여백 초기화 */
+    margin-right: 10px;
+    text-align: justify;
+}
+
+.review_image > img {
+    display: inline-block;
+    width: 20%;
+    margin: 10px 10px 10px 0;
+    border-radius: 3px;
+}
+
+.review_list_like_section {
+    margin-bottom: 20px;
+}
+
+
+.review_like_action_like_link > svg {
+    width: 2.5%;
+    vertical-align: middle;
+}
+
+
+.review_list_user_name_message {
+    margin: 20px 30px 0 30px;
+}
+
+
+
+.bt_wrap.review_list{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+    /* position: absolute;
+    top: 650px; */
+    left: 46%;
+}
+
+
+/* --------------------- 별점 --------------------- */
+.star-ratings {
+    color: #aaa9a9;
+    position: relative;
+    z-index: 1;
+    unicode-bidi: bidi-override;
+    width: max-content;
+    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1.3px;
+    -webkit-text-stroke-color: #2b2a29;
+}
+
+.star-ratings-fill {
+    color: #fff58c;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    -webkit-text-fill-color: gold;
+}
+
+.star-ratings-base {
+    z-index: 0;
+    padding: 0;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.rating {
+    float: none;
+    width: 200px;
+    display: flex;
+}
+
+.rating__input {
+    display: none;
+}
+
+.rating__label {
+    width: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.rating__label .star-icon {
+    width: 20px;
+    height: 40px;
+    display: block;
+    position: relative;
+    left: 0;
+    background-image: url('/images/board/empty_star.png');
+    background-repeat: no-repeat;
+    background-size: 40px;
+}
+
+.rating__label .star-icon.filled {
+    background-image: url('/images/board/fill_star.png');
+}
+
+.rating__label--full .star-icon {
+    background-position: right;
+}
+
+.rating__label--half .star-icon {
+    background-position: left;
+}
+
+.rating.readonly .star-icon {
+    opacity: 0.7;
+    cursor: default;
+}

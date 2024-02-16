@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>Review</title>
+  <!-- include libraries(jQuery, bootstrap) -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- include summernote css/js -->
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#summernote').summernote({
+        height: 300,                 // 에디터 높이
+        minHeight: null,             // 최소 높이
+        maxHeight: null,             // 최대 높이
+        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+        lang: "ko-KR",					// 한글 설정
+        placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+        toolbar: [
+          // 글꼴 설정
+          ['fontname', ['fontname']],
+          // 글자 크기 설정
+          ['fontsize', ['fontsize']],
+          // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+          ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+          // 글자색
+          ['color', ['forecolor','color']],
+          // 표만들기
+          ['table', ['table']],
+          // 그림첨부
+          ['insert',['picture']],
+        ],
+        // 추가한 글꼴
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+        // 추가한 폰트사이즈
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+        callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+          onImageUpload : function(files) {
+            uploadSummernoteImageFile(files[0],this);
+          },
+          onPaste: function (e) {
+            var clipboardData = e.originalEvent.clipboardData;
+            if (clipboardData && clipboardData.items && clipboardData.items.length) {
+              var item = clipboardData.items[0];
+              if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                e.preventDefault();
+              }
+            }
+          }
+        }
+      });
+    });
+
+    /**
+     * 이미지 파일 업로드
+     */
+    function uploadSummernoteImageFile(file, editor) {
+      data = new FormData();
+      data.append("file", file);
+      $.ajax({
+        data : data,
+        type : "POST",
+        url : "/board/notice/uploadSummernoteImageFile",
+        contentType : false,
+        processData : false,
+        success : function(data) {
+          //항상 업로드된 파일의 url이 있어야 한다.
+          if(data.responseCode === 'responseCode'){
+
+            alert('파일업로드 성공');
+          }
+
+          $(editor).summernote('insertImage', data.url);
+        }
+      });
+    }
+
+  </script>
+
+  <link rel="stylesheet" href="/css/board/all.css">
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+
+<!-- ====================== 좌측 카테고리 사이드바 ====================== -->
+<div class="sidebar_container">
+  <span class="sidebar_container_text">게시판</span>
+  <div class="sidebar_button1">
+    <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=1\''">공지사항</span>
+  </div>
+  <div class="sidebar_button2">
+    <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review?categorycode_board=2\''">Review</span>
+  </div>
+  <div class="sidebar_button3">
+    <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/qna/list?categorycode_board=3\''">QnA</span>
+  </div>
+</div>
+
+<div class="board_wrap">
+  <div class="board_title" style="margin-bottom: 30px;">
+    <strong>Review</strong>
+  </div>
+
+  <div class="board_write_wrap">
+
+
+
+      <!--      <input type="hidden" name="product_code" th:value="${ totalReviewCountByProduct.product.product_code }">-->
+      <div class="review_product_img">
+          <!--          <img th:src="@{|/thumbPath${totalReviewCountByProduct.adminProduct.attachmentList[0].getThumbnailPath()}|}" alt="이미지">-->
+          <img src="/images/board/sample.jpg"/>
+      </div>
+
+      <form th:action="@{/board/review/write}" method="post">
+
+      <div class="wrap">
+          <h1>Star rating</h1>
+          <div class="rating">
+              <label class="rating__label rating__label--half" for="starhalf">
+                  <input type="radio" id="starhalf" class="rating__input" name="rating" value="0.5">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--full" for="star1">
+                  <input type="radio" id="star1" class="rating__input" name="rating" value="1.0">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--half" for="star1half">
+                  <input type="radio" id="star1half" class="rating__input" name="rating" value="1.5">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--full" for="star2">
+                  <input type="radio" id="star2" class="rating__input" name="rating" value="2.0">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--half" for="star2half">
+                  <input type="radio" id="star2half" class="rating__input" name="rating" value="2.5">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--full" for="star3">
+                  <input type="radio" id="star3" class="rating__input" name="rating" value="3.0">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--half" for="star3half">
+                  <input type="radio" id="star3half" class="rating__input" name="rating" value="3.5">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--full" for="star4">
+                  <input type="radio" id="star4" class="rating__input" name="rating" value="4.0">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--half" for="star4half">
+                  <input type="radio" id="star4half" class="rating__input" name="rating" value="4.5">
+                  <span class="star-icon"></span>
+              </label>
+              <label class="rating__label rating__label--full" for="star5">
+                  <input type="radio" id="star5" class="rating__input" name="rating" value="5.0">
+                  <span class="star-icon"></span>
+              </label>
+          </div>
+      </div>
+
+      <div class="board_write">
+
+
+<!--        <input type="hidden" name="post_code" th:value="${ review.board.post_code }">-->
+
+
+<!--        <input-->
+<!--                type="text"-->
+<!--                id="id"-->
+<!--                name="account.id"-->
+<!--                th:value="${ #authentication.getPrincipal().getUsername() }">-->
+        <input type="hidden" id="star_rating" name="star_rating">
+
+        <div class="title">
+          <dl>
+            <dt>제목</dt>
+            <dd><input type="text" placeholder="제목 입력" name="post_title"></dd>
+          </dl>
+        </div>
+
+        <div class="cont">
+            <div>
+              <textarea id="summernote" name="post_content"></textarea>
+              <div class="bt_wrap write">
+                <input class="bt_submit" type="submit" value="등록">
+              </div>
+            </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+    const rateWrap = document.querySelectorAll('.rating'),
+        label = document.querySelectorAll('.rating .rating__label'),
+        input = document.querySelectorAll('.rating .rating__input'),
+        labelLength = label.length,
+        opacityHover = '0.5';
+
+    let stars = document.querySelectorAll('.rating .star-icon');
+
+    checkedRate();
+
+
+    rateWrap.forEach(wrap => {
+        wrap.addEventListener('mouseenter', () => {
+            stars = wrap.querySelectorAll('.star-icon');
+
+            stars.forEach((starIcon, idx) => {
+                starIcon.addEventListener('mouseenter', () => {
+                    if (wrap.classList.contains('readonly') == false) {
+                        initStars();/* // 기선택된 별점 무시하고 초기화*/
+                        filledRate(idx, labelLength);  /*// hover target만큼 별점 active*/
+
+                        /*// hover 시 active된 별점의 opacity 조정*/
+                        for (let i = 0; i < stars.length; i++) {
+                            if (stars[i].classList.contains('filled')) {
+                                stars[i].style.opacity = opacityHover;
+                            }
+                        }
+                    }
+                });
+
+                starIcon.addEventListener('mouseleave', () => {
+                    if (wrap.classList.contains('readonly') == false) {
+                        starIcon.style.opacity = '1';
+                        checkedRate(); // 체크된 라디오 버튼 만큼 별점 active
+                    }
+                });
+
+                /*// rate wrap을 벗어날 때 active된 별점의 opacity = 1*/
+                wrap.addEventListener('mouseleave', () => {
+                    if (wrap.classList.contains('readonly') == false) {
+                        starIcon.style.opacity = '1';
+                    }
+                });
+
+                /*// readonnly 일 때 비활성화*/
+                wrap.addEventListener('click', (e) => {
+                    if (wrap.classList.contains('readonly')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        });
+    });
+
+    /*// target보다 인덱스가 낮은 .star-icon에 .filled 추가 (별점 구현)*/
+    function filledRate(index, length) {
+        if (index <= length) {
+            for (let i = 0; i <= index; i++) {
+                stars[i].classList.add('filled');
+            }
+        }
+    }
+
+    /*// 선택된 라디오버튼 이하 인덱스는 별점 active*/
+    function checkedRate() {
+        let checkedRadio = document.querySelectorAll('input[type="radio"]:checked');
+
+        console.log("별점 선택 값!!!!!!!!! : " + checkedRadio);
+
+        initStars();
+        checkedRadio.forEach(radio => {
+            let previousSiblings = prevAll(radio);
+
+            for (let i = 0; i < previousSiblings.length; i++) {
+                previousSiblings[i].querySelector('.star-icon').classList.add('filled');
+            }
+
+            radio.nextElementSibling.classList.add('filled');
+
+            function prevAll() {
+                let radioSiblings = [],
+                    prevSibling = radio.parentElement.previousElementSibling;
+
+                while (prevSibling) {
+                    radioSiblings.push(prevSibling);
+                    prevSibling = prevSibling.previousElementSibling;
+                }
+                return radioSiblings;
+            }
+        });
+    }
+
+    // 별점 초기화 (0)
+    function initStars() {
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('filled');
+        }
+    }
+
+
+    // 등록 버튼 클릭 시 실행될 함수
+    $('.bt_submit').click(function(event) {
+        event.preventDefault(); // 기본 이벤트 방지 (페이지 리로드 방지)
+
+        // 별점에 해당하는 NodeList를 가져옵니다.
+        var stars = document.querySelectorAll('.rating .star-icon');
+
+        // .filled 클래스가 붙은 요소의 수를 세어서 2로 나눈 값을 선택된 별점으로 설정합니다.
+        var selectedRating = countFilledStars(stars) / 2;
+
+        console.log("별점 값 확인!!!!!!!!!! : " + selectedRating)
+
+        // 별점이 선택되지 않은 경우에 대한 예외처리
+        if (!selectedRating) {
+            alert('별점을 선택해주세요!');
+            return;
+        }
+
+        // 선택된 별점 값을 숨은 input 필드에 할당
+        document.getElementById('star_rating').value = selectedRating;
+
+        // 폼을 서버로 제출
+        $('form').submit();
+
+        // // 선택된 별점 값을 서버로 전송하기 위한 데이터 구성
+        // var dataToSend = {
+        //     star_rating: selectedRating
+        //     // 추가적인 필드가 있다면 여기에 추가
+        // };
+        //
+        // // AJAX를 사용하여 데이터 전송
+        // $.ajax({
+        //     type: 'POST', // HTTP 요청 방식
+        //     url: '/board/review/write', // 전송할 URL
+        //     contentType: 'application/json', // 전송할 데이터 타입
+        //     data: JSON.stringify(dataToSend), // 전송할 데이터
+        //     success: function(response) {
+        //         // 성공적으로 전송되었을 때 실행될 코드
+        //         alert('별점이 등록되었습니다!');
+        //         // 서버로부터 받은 응답에 따라 추가 작업을 수행할 수 있습니다.
+        //     },
+        //     error: function(err) {
+        //         // 전송에 실패했을 때 실행될 코드
+        //         console.error('전송 실패:', err);
+        //         // 실패 시 사용자에게 알림을 보여줄 수 있습니다.
+        //     }
+        // });
+    });
+
+    // .filled 클래스가 붙은 별 아이콘의 개수를 세는 함수
+    function countFilledStars(stars) {
+        var filledCount = 0;
+        stars.forEach(function(star) {
+            if (star.classList.contains('filled')) {
+                filledCount++;
+            }
+        });
+        return filledCount;
+    }
+</script>
+
+
+
+</body>
+</html>

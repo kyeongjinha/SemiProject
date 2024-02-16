@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/src/main/resources/static/css/admin/coupon/admin.css">
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section>
+    <div class="s_wrap">
+        <h1>쿠폰관리</h1>
+
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+        <script>
+            jQuery(function($){
+                $.datepicker.regional["ko"] = {
+                    closeText: "닫기",
+                    // prevText: "이전달",
+                    // nextText: "다음달",
+                    // currentText: "오늘",
+                    // monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"],
+                    // monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
+                    // dayNames: ["일","월","화","수","목","금","토"],
+                    // dayNamesShort: ["일","월","화","수","목","금","토"],
+                    // dayNamesMin: ["일","월","화","수","목","금","토"],
+                    weekHeader: "Wk",
+                    dateFormat: "yymmdd",
+                    firstDay: 0,
+                    isRTL: false,
+                    showMonthAfterYear: true,
+                    yearSuffix: ""
+                };
+                $.datepicker.setDefaults($.datepicker.regional["ko"]);
+            });
+        </script>
+        <h2>기본검색</h2>
+        <form name="fsearch" id="fsearch" method="get" th:action="@{/admin/coupon}">
+<!--            <input type="hidden" name="code" value="coupon">-->
+            <div class="tbl_frm01">
+                <table>
+                    <colgroup>
+                        <col class="w100">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">검색어</th>
+                        <td>
+                            <select name="searchCondition">
+                                <option value="name">쿠폰명</option>
+                                <option value="comment">설명</option>
+                            </select>
+                            <input type="text" name="searchCoupon" class="frm_input" size="30">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 할인율</th>
+                        <td>
+                            <input type="number" name="searchRates" class="frm_input" size="30">
+                            <input type="number" name="searchRatee" class="frm_input" size="30">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">유효기간</th>
+                        <td>
+                            <input type="number" name="periods" class="frm_input w80 hasDatepicker" style="position: relative; left: 68px; width: 85px;">
+                            <span style="margin-left: 15px; position: relative; left: 60px;">~</span>
+                            <input type="number" name="periode" class="frm_input w80 hasDatepicker" style="position: relative; left: 70px; width: 85px; margin-left: 1px;">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn_confirm">
+                <input type="submit" value="검색" class="btn_medium"> <!-- onclick="getChoiceValue1()" -->
+            </div>
+        </form>
+
+
+        <form name="fcouponlist" class="fcouponlist" method="post" th:action="@{/admin/coupon/search}" onsubmit="return submitForm();">
+
+            <div class="local_ov mart30">
+                전체 : <b class="fc_red" th:text="${ count }">0</b> 건 조회
+            </div>
+            <div class="local_frm01">
+                <input type="button" value="쿠폰지급" class="btn_lsmall bx-white" onclick="deployCoupon()">
+                <input type="submit" name="deleteBtn" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">
+                <a href="coupon/insertCoupon" class="fr btn_lsmall red"><i class="ionicons ion-android-add"></i> 쿠폰등록</a></div>
+
+            <div class="tbl_head01">
+                <table>
+                    <thead>
+                    <tr>
+                        <th scope="col"><input type="checkbox" name="chkbox1" value="1" onclick="check_all1(this.form);"></th>
+                        <th scope="col">쿠폰명</th>
+                        <th scope="col">할인율</th>
+                        <th scope="col" style="width: 500px">쿠폰설명</th>
+                        <th scope="col">유효기간</th>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(condition) and #lists.isEmpty(couponList)}">
+                        <td colspan="5" style="text-align: center">검색 결과가 없습니다.</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(condition)}" th:each="coupons : ${ couponList }">
+                        <td><input type='checkbox' name='chkbox1' th:value="${coupons.couponNumber}"></td>
+                        <td th:text="${coupons.name}"></td>
+                        <td th:text="${coupons.rate}"></td>
+                        <td th:text="${coupons.comment}"></td>
+                        <td th:text="${coupons.period}"></td>
+                    </tr>
+                    <tr th:unless="${#lists.isEmpty(condition)}" th:each="coupons : ${ couponList }">
+                        <td><input type='checkbox' name='chkbox1' th:value="${coupons.couponNumber}"></td>
+                        <td th:text="${coupons.name}"></td>
+                        <td th:text="${coupons.rate}"></td>
+                        <td th:text="${coupons.comment}"></td>
+                        <td th:text="${coupons.period}"></td>
+                    </tr>
+                    </thead>
+
+                </table>
+            </div>
+<!--        </form>-->
+
+<!--        <form>-->
+            <input type="submit" name="supplyBtn" value="지급완료" class="btn_lsmall bx-white" style="position: relative; margin-left: 10px; margin-top: 30px;">
+            <div class="tbl_head01" style=" align-items: center">
+                <table id="couponMember">
+                    <tr>
+                        <th scope="col"><input type="checkbox" name="chkbox2" value="" onclick="check_all2(this.form);"></th>  <!-- 첫번째 값 빼야함-->
+                        <th scope="col">아이디</th>
+                        <th scope="col">계정등급</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">이메일</th>
+                        <th scope="col">누적결제금액</th>
+                    </tr>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+
+        <script>
+            function fcouponlist_submit(f)
+            {
+                if(!is_checked("chk1")) {
+                    alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
+                    return false;
+                }
+
+                if(document.pressed == "선택삭제") {
+                    if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                var startDate, endDate; // 변수를 선언하고 초기화해야 합니다.
+
+                // 오늘 날짜 구하기
+                var today = new Date();
+
+                // datepicker 초기화 함수
+                function initDatepicker($element) {
+                    $element.datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        minDate: 0,
+                        defaultDate: today,
+                        onSelect: function (selectedDate) {
+                            startDate = new Date(selectedDate);
+                            updateEndDatepicker(startDate);
+                        }
+                    });
+                    $element.val($.datepicker.formatDate('yy-mm-dd', today));
+                }
+
+                // 각각의 datepicker 초기화
+                initDatepicker($('#fr_date'));
+                initDatepicker($('#to_date'));
+
+                function updateEndDatepicker(startDate) {
+                    $('#dateOfIssue').datepicker('option', 'minDate', startDate);
+                }
+            });
+
+            function deployCoupon(){
+
+                var memberTable = document.querySelector('#couponMember');
+
+                memberTable.style.display = 'table';
+
+                console.log("여기온겨?")
+                $.ajax({
+                    type: "GET",
+                    url: "/admin/coupon/data",
+                    // data: {memberTable : memberTable},
+                    success: function (response) {
+
+                        console.log(response)
+                        console.log(response.length);
+                        console.log(response[0].name);
+
+                        if (response.length > 0){
+                            couponTable(response)
+                        }
+                        else{
+                            alert('검색 결과가 없습니다.')
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+                console.log("여긴가?")
+            }
+
+            function couponTable(data){
+
+                var tbody= $('#couponMember tbody')
+
+                for (var i = 0; i < data.length; i++) {
+                    console.log("여기온겨???")
+                    var row = "<tr>" +
+                        "<td><input type='checkbox' name='chkbox2' value=" + data[i].id + "></td>" +
+                        "<td>" + data[i].id + "</td>" +
+                        "<td>" + data[i].accountStatus + "</td>" +
+                        "<td>" + data[i].name + "</td>" +
+                        "<td>" + data[i].email + "</td>" +
+                        "<td>" + data[i].payAmount + "</td>" +
+                        "</tr>";
+                    console.log(data[i].id)
+                    console.log(data[i].name);
+                    tbody.append(row);
+                    console.log("여기온겨?")
+                }
+            }
+
+
+
+            // function check_all(form, type) {
+            //     var allcheck = form['checkall_' + type];
+            //     $('input[name="chkbox_' + type + '"]').prop('checked', allcheck.checked);
+            // }
+            // function check_all(form, type) {
+            //     var allcheck = $('[name="checkall_' + type + '"]', form);
+            //     $('input[name="chkbox_' + type + '"]').prop('checked', allcheck.prop('checked'));
+            // }
+            // function check_all(form) {
+            //     var checkallCheckbox = form.checkall;
+            //
+            //     $('input[name="chk[]"]').prop('checked', checkallCheckbox.checked);
+            // }
+            function check_all1(form) {
+                var allcheck = $('[name="chkbox1"]', form);
+                $('input[name="chkbox1"]').prop('checked', allcheck.prop('checked'));
+            }
+            function check_all2(form) {
+                var allcheck = $('[name="chkbox2"]', form);
+                $('input[name="chkbox2"]').prop('checked', allcheck.prop('checked'));
+            }
+
+            function submitForm1() {
+
+                var checkedCheckboxes1 = $('input[name="chkbox1"]:checked');
+
+                var checkedCheckboxes2 = $('input[name="chkbox2"]:checked');
+
+                var numberOfCheckedCheckboxes1 = checkedCheckboxes1.length;
+                var numberOfCheckedCheckboxes2 = checkedCheckboxes2.length;
+
+                if (numberOfCheckedCheckboxes1 === 0 || numberOfCheckedCheckboxes2 === 0) {
+                    alert('하나 이상의 쿠폰 및 회원을 선택하세요.');
+                    return false;
+                }
+
+                return true;
+            }
+
+
+        </script>
+    </div>
+</section>
+</body>
+</html>

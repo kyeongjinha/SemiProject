@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/mypage/Wishlist.css"> //mypage/Wishlist.css
+    <title>Wishlist</title>
+</head>
+<header th:replace="common/header.html"></header>
+<body>
+<div class=leftBarparent>
+</div>
+
+    <div class=mypageleftline>
+        <span class="e140_mypage">마이페이지</span>
+        <span class="e140_mypageLine"></span>
+        <span class="e140_OrderandShipping">주문목록/배송조회</span>
+        <span class="e140_CancelReturnExchange">취소/반품/교환 내역</span>
+        <span class="e140_RefundDepositHistory">환불/입금내역</span>
+        <span class="e140_Wishlist">찜리스트</span>
+        <span class="e140_CouponPoints">쿠폰&적립금</span>
+        <span class="e140_Inquiry">1:1 문의</span>
+        <span class="e140_ShippingAddressManagement">배송지 관리</span>
+        <span class="e140_EditPersonalInformation">개인정보 수정</span>
+    </div>
+    <div class="mypagesummary">
+        <div class="e140_borderLine"></div>
+        <div class="e140_borderLine2"></div>
+        <div class="e140_borderLine3"></div>
+        <span class="e140_membername">[ member ] 님의</span>
+        <span class="e140_rank">회원등급은</span>
+        <span class="e140_member">일반회원</span>
+        <span class="e140_rankIs">등급입니다.</span>
+        <img class="couponimg" src="/images/mypage/couponimg.png" alt="쿠폰이미지">
+        <span class="e140_coupon">0장</span>
+        <span class="e140_mileage">0원</span>
+        <span class="e140_deposit">0원</span>
+
+        <span class="e140_neworder" id="mypagefontsize1">찜리스트</span>
+
+    </div>
+
+
+
+    <div class="recentOrderInformation">
+        <div class="recentOrderInformation" id="찜리스트선택상품삭제버튼"><button><b>선택상품 삭제</b></button></div>
+        <div class="recentOrderInformation" id="찜리스트상품명옵션">상품명/옵션</div>
+        <div class="recentOrderInformation" id="찜리스트상품금액수량">상품금액 / 수량</div>
+        <div class="recentOrderInformation" id="찜리스트혜택">혜택</div>
+        <div class="recentOrderInformation" id="찜리스트합계">합계</div>
+
+        <!-- 찜목록체크박스 스타일 -->
+        <div class="checkbox-container" id="selectAllCheckboxContainer">
+            <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">
+            <label class="checkbox-label" for="selectAllCheckbox"></label>
+        </div>
+        <div class="checkbox-container">
+            <input type="checkbox" id="checkBox1" name="selectedProducts">
+            <label class="checkbox-label" for="checkBox1"></label>
+            <input type="checkbox" id="checkBox2" name="selectedProducts">
+            <label class="checkbox-label" for="checkBox2"></label>
+            <input type="checkbox" id="checkBox3" name="selectedProducts">
+            <label class="checkbox-label" for="checkBox3"></label>
+            <input type="checkbox" id="checkBox4" name="selectedProducts">
+            <label class="checkbox-label" for="checkBox3"></label>
+        </div>
+
+        <div class="찜리스트정보안에네모라인"></div>
+    </div>
+
+</div>
+</body>
+<script>
+    function toggleSelectAll() {
+        // 1번 체크박스 상태에 따라 나머지 체크박스 상태 변경
+        var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        var checkboxes = document.querySelectorAll('.checkbox-container input[name="selectedProducts"]');
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+    }
+
+    function deleteSelectedProducts() {
+        // 여기에 선택된 상품 삭제에 대한 로직을 추가하세요.
+        // 예를 들어, 선택된 체크박스를 확인하고 해당 상품을 삭제하는 동작을 수행합니다.
+
+        var checkboxes = document.querySelectorAll('.checkbox-container input[name="selectedProducts"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                // checkbox가 선택되었을 때의 동작
+                // 여기에 선택된 상품을 삭제하는 로직을 추가하세요.
+                // 예: checkbox.parentElement.parentElement.remove();
+            }
+        });
+    }
+</script>
+</html>

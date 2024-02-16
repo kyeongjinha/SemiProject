@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.mypage.model.dao.MyPageMapper">
+    <resultMap id="addrResultMap" type="AddrDTO">
+        <id property="deliveryCode" column="delivery_address"/>
+        <result property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="zonecode" column="zipcode"/>
+        <result property="name" column="address_name"/>
+        <result property="addrDetail" column="address_detail"/>
+    </resultMap>
+    <resultMap id="selectMyCouponResultMap" type="com.nf.not404found.mypage.model.dto.MyPageCouponDTO">
+        <id property="id" column="id"/>
+        <result property="coupon_name" column="name"/>
+        <result property="coupon_status" column="coupon_status"/>
+        <result property="rate" column="rate"/>
+        <result property="comment" column="comment"/>
+        <result property="expiry_date" column="expiry_date"/>
+        <result property="date_of_issue" column="date_of_issue"/>
+    </resultMap>
+    <resultMap id="selectOrderResultMap" type="com.nf.not404found.mypage.model.dto.MyPageOrderDTO">
+        <id property="id" column="id"/>
+        <result property="price" column="price"/>
+        <result property="amount" column="amount"/>
+        <result property="payment_date" column="payment_date"/>
+        <result property="delivery_status" column="delivery_status"/>
+    </resultMap>
+    <select id="selectUserAddr" resultMap="addrResultMap">
+        SELECT * FROM address WHERE id = #{id}
+    </select>
+    <select id="selectMyCoupon" resultMap="selectMyCouponResultMap">
+        SELECT cp.name, coupon_status, rate, comment, expiry_date,date_of_issue
+        FROM user_coupon as user
+            JOIN coupon as cp ON user.coupon_number = cp.coupon_number
+        WHERE user.id = #{id}
+    </select>
+    <select id="selectOrder" resultMap="selectOrderResultMap">
+        SELECT p.name, pay.price,pay.amout,pay.payment_date, delivery_status
+        FROM product as p
+                 JOIN payment as pay ON p.product_code = pay.product_code
+                 JOIN delivery AS del ON pay.payment_code = del.payment_code
+        WHERE del.id = #{id}
+    </select>
+</mapper>

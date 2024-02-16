@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>insertCoupon</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/src/main/resources/static/css/admin/coupon/insertCoupon.css">
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section>
+    <div class="s_wrap">
+        <h1>쿠폰등록</h1>
+
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+        <script>
+            jQuery(function($){
+                $.datepicker.regional["ko"] = {
+                    closeText: "닫기",
+                    prevText: "이전달",
+                    nextText: "다음달",
+                    currentText: "오늘",
+                    monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"],
+                    monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
+                    dayNames: ["일","월","화","수","목","금","토"],
+                    dayNamesShort: ["일","월","화","수","목","금","토"],
+                    dayNamesMin: ["일","월","화","수","목","금","토"],
+                    weekHeader: "Wk",
+                    dateFormat: "yymmdd",
+                    firstDay: 0,
+                    isRTL: false,
+                    showMonthAfterYear: true,
+                    yearSuffix: ""
+                };
+                $.datepicker.setDefaults($.datepicker.regional["ko"]);
+            });
+        </script>
+        <form th:action="@{ /admin/coupon/insertCoupon }" name="fregform" method="post" onsubmit="return fregform_submit(this);" autocomplete="off" >
+            <input type="hidden" name="w" value="">
+            <input type="hidden" name="sst" value="">
+            <input type="hidden" name="sfl" value="">
+            <input type="hidden" name="stx" value="">
+            <input type="hidden" name="fr_date" value="">
+            <input type="hidden" name="to_date" value="">
+            <input type="hidden" name="page" value="">
+            <input type="hidden" name="cp_id" value="">
+            <input type="hidden" name="cp_dlimit" value="">
+            <input type="hidden" name="cp_dlevel" value="">
+
+<!--            <h2>쿠폰유형선택</h2>-->
+<!--            <div class="tbl_head01">-->
+<!--                <table>-->
+<!--                    <colgroup>-->
+<!--                        <col width="300px">-->
+<!--                        <col width="200px">-->
+<!--                        <col width="180px">-->
+<!--                    </colgroup>-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th scope="col">쿠폰발급 유형</th>-->
+<!--                        <th scope="col">누적 다운로드 횟수</th>-->
+<!--                        <th scope="col">적용대상 </th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr class="list0">-->
+<!--                        <td class="tal">-->
+<!--                            <label><input type="radio" name="cp_type" value="0" onclick="chk_show('0');"> <b>발행 날짜 지정</b></label>-->
+<!--                            <span class="vam fc_197">(예: 12월 24일 10% 할인!)</span>-->
+<!--                        </td>-->
+<!--                        <td>최대 <input type="text" name="cp_dlimit0" value="" class="frm_input w80"> 건 <a href="javascript:chk_obj('cp_dlimit0', '999');" class="btn_small grey">무제한</a></td>-->
+<!--                        <td>-->
+<!--                            <select id="cp_dlevel0" name="cp_dlevel0">-->
+<!--                                <option value="10">제한없음</option>-->
+<!--                                <option value="9">회원등급1</option>-->
+<!--                                <option value="8">회원등급2</option>-->
+<!--                                <option value="7">회원등급3</option>-->
+<!--                                <option value="6">회원등급4</option>-->
+<!--                            </select>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr class="list0">-->
+<!--                        <td class="tal">-->
+<!--                            <label><input type="radio" name="cp_type" value="1" onclick="chk_show('1');"> <b>회원 생일자 발급</b></label>-->
+<!--                            <span class="vam fc_197">(생일축하해요!)</span>-->
+<!--                        </td>-->
+<!--                        <td>최대 <input type="text" name="cp_dlimit1" value="" class="frm_input w80"> 건 <a href="javascript:chk_obj('cp_dlimit1', '999');" class="btn_small grey">무제한</a></td>-->
+<!--                        <td>-->
+<!--                            <select id="cp_dlevel1" name="cp_dlevel1">-->
+<!--                                <option value="10">제한없음</option>-->
+<!--                                <option value="9">회원등급1</option>-->
+<!--                                <option value="8">회원등급2</option>-->
+<!--                                <option value="7">회원등급3</option>-->
+<!--                                <option value="6">회원등급4</option>-->
+<!--                            </select>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr class="list0">-->
+<!--                        <td class="tal">-->
+<!--                            <label><input type="radio" name="cp_type" value="2" onclick="chk_show('2');"> <b>신규회원가입 발급</b></label>-->
+<!--                            <span class="vam fc_197">(예: 회원가입시 3,000원)</span>-->
+<!--                        </td>-->
+<!--                        <td colspan="2">신규회원 가입시 자동발급 (다운로드 쿠폰 아님)</td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+
+            <h2>필수입력사항</h2>
+            <div class="tbl_frm01">
+                <table>
+                    <colgroup>
+                        <col class="w180">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">쿠폰명</th>
+                        <td>
+                            <input type="text" name="name" class="required frm_input w300" style="background-repeat: no-repeat;">
+                            <span class="fc_197 marl5">(ex: 회원 등급 달성 쿠폰 )</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">설명</th>
+                        <td>
+                            <input type="text" name="comment" class="frm_input w300">
+                            <span class="fc_197 marl5">(ex: 겨울이벤트 크리스마스 20% 할인쿠폰)</span>
+                        </td>
+                    </tr>
+<!--                    <tr id="ids_download">-->
+<!--                        <th scope="row">쿠폰발급 시점</th>-->
+<!--                        <td>-->
+<!--                            <p>-->
+<!--                                <label><input type="radio" name="cp_download" value="0" checked=""> 회원직접 다운로드</label>-->
+<!--                                <span class="fc_197 marl5">(회원이 직접 쿠폰을 다운)</span>-->
+<!--                            </p>-->
+<!--                            <p class="mart3">-->
+<!--                                <label><input type="radio" name="cp_download" value="1"> 주문완료 후 자동발급</label>-->
+<!--                                <span class="fc_197 marl5">(주문완료 즉시 쿠폰을 발급)</span>-->
+<!--                            </p>-->
+<!--                            <p class="mart3">-->
+<!--                                <label><input type="radio" name="cp_download" value="2"> 주문완료 후 배송완료시에 자동발급</label>-->
+<!--                                <span class="fc_197 marl5">(주문상태가 배송완료로 변경되는 시점에 쿠폰을 발급합니다)</span>-->
+<!--                            </p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th scope="row">중복발급 여부</th>-->
+<!--                        <td>-->
+<!--                            <p>-->
+<!--                                <label><input type="radio" name="cp_overlap" value="0" checked=""> 중복발급 안함</label>-->
+<!--                                <span class="fc_197 marl5">(한 고객에게 무조건 1회만 쿠폰을 발급합니다)</span>-->
+<!--                            </p>-->
+<!--                            <p class="mart3">-->
+<!--                                <label><input type="radio" name="cp_overlap" value="1"> 중복발급 허용</label>-->
+<!--                                <span class="fc_197 marl5">(쿠폰을 사용한 후 다음번 주문시에도 같은 상품의 쿠폰다운로드를 허용합니다)</span>-->
+<!--                            </p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                    <tr>
+                        <th scope="row">할인율</th>
+                        <td>
+                            <p>
+<!--                                <input type="radio" name="cp_sale_type" value="0" checked="">-->
+                                (상품 판매가 x 수량) 의
+                                <input type="number" name="rate" class="frm_input w80">
+                                % 할인, 최대
+<!--                                <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원-->
+                            </p>
+<!--                            <p class="mart3">-->
+<!--                                <input type="radio" name="cp_sale_type" value="1">-->
+<!--                                <input type="text" name="cp_sale_amt" value="0" numeric="" itemname="할인금액" class="frm_input w80"> 원 할인-->
+<!--                            </p>-->
+                        </td>
+                    </tr>
+                    <tr>
+<!--                    <div id="ids_inv_type1" class="mart7" style="display: none;">-->
+                        <th> 유효기간 </th>
+                        <td>
+                        쿠폰발급일로부터 <input type="number" name="period" class="frm_input w50"> 일까지 사용기간을 제한      <!--numeric=""-->
+<!--                    </div>-->
+                        </td>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <th scope="row">중복사용 여부</th>-->
+<!--                        <td>-->
+<!--                            <p>-->
+<!--                                <label><input type="radio" name="cp_dups" value="0" checked=""> 이 쿠폰은 동일한 주문건에 중복해서 동시에 사용할 수 있습니다.</label>-->
+<!--                            </p>-->
+<!--                            <p class="mart3">-->
+<!--                                <label><input type="radio" name="cp_dups" value="1"> 이 쿠폰은 동일한 주문건에 중복해서 동시에 사용할 수 없습니다.</label>-->
+<!--                            </p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+
+<!--            <div id="ids_show" style="">-->
+<!--                <h2>세부입력사항</h2>-->
+<!--                <div class="tbl_frm01">-->
+<!--                    <table>-->
+<!--                        <colgroup>-->
+<!--                            <col class="w180">-->
+<!--                            <col>-->
+<!--                        </colgroup>-->
+<!--                        <tbody>-->
+<!--                        <tr id="ids_date">-->
+<!--                            <th scope="row">쿠폰발행 기간</th>-->
+<!--                            <td>-->
+<!--                                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a> ~-->
+<!--                                <input type="date" name="cp_pub_edate" value="" id="pub_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_edate', '9999999999');" class="btn_small grey">무제한</a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr id="ids_birthday" style="display: none;">-->
+<!--                            <th scope="row">생일 쿠폰발행 기간</th>-->
+<!--                            <td>-->
+<!--                                <input type="text" name="cp_pub_sday" value="" numeric="" itemname="생일 쿠폰발행 기간" class="frm_input w60"> 일 전부터 ~-->
+<!--                                <input type="text" name="cp_pub_eday" value="" numeric="" itemname="생일 쿠폰발행 기간" class="frm_input w60"> 일 이후까지-->
+<!--                                <span class="fc_197 marl5">(ex : 3일 전부터 5일 후까지)</span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row">쿠폰유효 기간</th>-->
+<!--                            <td class="td_label">-->
+<!--                                <div>-->
+<!--                                    <label><input type="radio" name="cp_inv_type" value="0" checked="" onclick="chk_inv_show('0');"> 시작일, 종료일 선택</label>-->
+<!--                                    <label><input type="radio" name="cp_inv_type" value="1" onclick="chk_inv_show('1');"> 발급일로부터 기간 제한</label>-->
+<!--                                </div>-->
+<!--                                <div id="ids_inv_type0" class="mart7">-->
+<!--                                    <input type="date" name="cp_inv_sdate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_sdate', '9999999999');" class="btn_small grey">무제한</a> ~-->
+<!--                                    <input type="date" name="cp_inv_edate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_edate', '9999999999');" class="btn_small grey">무제한</a>-->
+
+<!--                                    <select class="fSelect" name="start_hour" id="start_hour">-->
+<!--                                        <option value="0" selected="selected">00</option>-->
+<!--                                        <option value="1">01</option>-->
+<!--                                        <option value="2">02</option>-->
+<!--                                        <option value="3">03</option>-->
+<!--                                        <option value="4">04</option>-->
+<!--                                        <option value="5">05</option>-->
+<!--                                        <option value="6">06</option>-->
+<!--                                        <option value="7">07</option>-->
+<!--                                        <option value="8">08</option>-->
+<!--                                        <option value="9">09</option>-->
+<!--                                        <option value="10">10</option>-->
+<!--                                        <option value="11">11</option>-->
+<!--                                        <option value="12">12</option>-->
+<!--                                        <option value="13">13</option>-->
+<!--                                        <option value="14">14</option>-->
+<!--                                        <option value="15">15</option>-->
+<!--                                        <option value="16">16</option>-->
+<!--                                        <option value="17">17</option>-->
+<!--                                        <option value="18">18</option>-->
+<!--                                        <option value="19">19</option>-->
+<!--                                        <option value="20">20</option>-->
+<!--                                        <option value="21">21</option>-->
+<!--                                        <option value="22">22</option>-->
+<!--                                        <option value="23">23</option>-->
+<!--                                    </select>-->
+<!--                                    시&nbsp&nbsp-->
+<!--                                    <select class="fSelect" name="start_min" id="start_min">-->
+<!--                                        <option value="0" selected="selected">00</option>-->
+<!--                                        <option value="5">05</option>-->
+<!--                                        <option value="10">10</option>-->
+<!--                                        <option value="15">15</option>-->
+<!--                                        <option value="20">20</option>-->
+<!--                                        <option value="25">25</option>-->
+<!--                                        <option value="30">30</option>-->
+<!--                                        <option value="35">35</option>-->
+<!--                                        <option value="40">40</option>-->
+<!--                                        <option value="45">45</option>-->
+<!--                                        <option value="50">50</option>-->
+<!--                                        <option value="55">55</option>-->
+<!--                                    </select>-->
+<!--                                    분&nbsp ~-->
+<!--                                    <select class="fSelect" name="start_hour" id="start_hour1">-->
+<!--                                        <option value="0" selected="selected">00</option>-->
+<!--                                        <option value="1">01</option>-->
+<!--                                        <option value="2">02</option>-->
+<!--                                        <option value="3">03</option>-->
+<!--                                        <option value="4">04</option>-->
+<!--                                        <option value="5">05</option>-->
+<!--                                        <option value="6">06</option>-->
+<!--                                        <option value="7">07</option>-->
+<!--                                        <option value="8">08</option>-->
+<!--                                        <option value="9">09</option>-->
+<!--                                        <option value="10">10</option>-->
+<!--                                        <option value="11">11</option>-->
+<!--                                        <option value="12">12</option>-->
+<!--                                        <option value="13">13</option>-->
+<!--                                        <option value="14">14</option>-->
+<!--                                        <option value="15">15</option>-->
+<!--                                        <option value="16">16</option>-->
+<!--                                        <option value="17">17</option>-->
+<!--                                        <option value="18">18</option>-->
+<!--                                        <option value="19">19</option>-->
+<!--                                        <option value="20">20</option>-->
+<!--                                        <option value="21">21</option>-->
+<!--                                        <option value="22">22</option>-->
+<!--                                        <option value="23">23</option>-->
+<!--                                    </select>-->
+<!--                                        시&nbsp&nbsp-->
+<!--                                        <select class="fSelect" name="start_min" id="start_min1">-->
+<!--                                            <option value="0" selected="selected">00</option>-->
+<!--                                            <option value="5">05</option>-->
+<!--                                            <option value="10">10</option>-->
+<!--                                            <option value="15">15</option>-->
+<!--                                            <option value="20">20</option>-->
+<!--                                            <option value="25">25</option>-->
+<!--                                            <option value="30">30</option>-->
+<!--                                            <option value="35">35</option>-->
+<!--                                            <option value="40">40</option>-->
+<!--                                            <option value="45">45</option>-->
+<!--                                            <option value="50">50</option>-->
+<!--                                            <option value="55">55</option>-->
+<!--                                        </select>-->
+<!--                                        분&nbsp-->
+<!--&lt;!&ndash;                                    </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <input type="text" name="cp_inv_shour2" value="" maxlength="2" numeric="" itemname="유효시간" class="frm_input w30">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <a href="javascript:chk_obj('cp_inv_shour2', '99');" class="btn_small grey">무제한</a> 시 까지&ndash;&gt;-->
+<!--                                </div>-->
+<!--                                <div id="ids_inv_type1" class="mart7" style="display: none;">-->
+<!--                                    쿠폰발급일로부터 <input type="text" name="cp_inv_day" value="" numeric="" itemname="발급일" class="frm_input w50"> 일까지 사용기간을 제한-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row">금액제한</th>-->
+<!--                            <td>-->
+<!--                                <input type="text" name="cp_low_amt" value="0" numeric="" itemname="금액제한" class="frm_input w80"> 원 이상이면 사용가능.<span class="fc_197 marl5">(ex : 3만원이상 구매시)</span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row">사용가능대상</th>-->
+<!--                            <td>-->
+<!--                                <p>-->
+<!--                                    <label><input type="radio" name="cp_use_part" value="0" onclick="chk_use_show('0');"> 전체상품에 쿠폰사용 가능</label>-->
+<!--                                </p>-->
+<!--                                <p class="mart3">-->
+<!--                                    <label><input type="radio" name="cp_use_part" value="1" onclick="chk_use_show('1');"> 일부 상품만 쿠폰사용 가능</label>-->
+<!--                                </p>-->
+<!--                                <p class="mart3">-->
+<!--                                    <label><input type="radio" name="cp_use_part" value="2" onclick="chk_use_show('2');"> 일부 카테고리만 쿠폰사용 가능</label>-->
+<!--                                </p>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr id="ids_gpart" style="display: none;">-->
+<!--                            <th scope="row">쿠폰<span id="g_title"></span> 상품</th>-->
+<!--                            <td>-->
+<!--                                <input type="hidden" name="cp_use_goods" id="cp_use_goods" value="">-->
+<!--                                <input type="hidden" name="cp_use_category" value="">-->
+<!--                                <p>-->
+<!--                                    전체 : <b>0</b> 건-->
+<!--                                    <a href="상품 연결 주소 넣기" onclick="win_open(this,'cp_goods','850','800','yes'); return false;" class="btn_small red marl10">상품등록</a>-->
+<!--                                </p>-->
+<!--                                <ul id="ck_use_goods" class="chk_opli">-->
+<!--                                </ul>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr id="ids_cpart" style="display: none;">-->
+<!--                            <th scope="row">쿠폰<span id="c_title"></span> 카테고리</th>-->
+<!--                            <td>-->
+<!--                                <p>-->
+<!--                                    <select id="use_category" name="use_category">-->
+<!--                                        <option value="">선택</option>-->
+<!--                                        <option value="001">카테고리1</option>-->
+<!--                                        <option value="001001">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1]상품1</option>-->
+<!--                                        <option value="001002">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1]상품2</option>-->
+<!--                                        <option value="001003">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1]상품3</option>-->
+
+<!--                                        <option value="002">카테고리2</option>-->
+<!--                                        <option value="002001">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2]상품1</option>-->
+<!--                                        <option value="002002">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2]상품2</option>-->
+
+<!--                                        <option value="004">카테고리3</option>-->
+<!--                                        <option value="004001">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3]상품1</option>-->
+<!--                                        <option value="004002">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3]상품2</option>-->
+<!--                                        <option value="004003">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3]상품3</option>-->
+
+<!--                                    </select>-->
+<!--                                    <a href="javascript:chk_cate_add();" class="btn_small bx-white">저장</a>-->
+<!--                                </p>-->
+<!--                                <p class="mart5">-->
+<!--                                    <select name="use_category_list" size="10" class="frm_input wfull h100 list1">-->
+<!--                                    </select>-->
+<!--                                </p>-->
+<!--                                <p class="mart5">-->
+<!--                                    <a href="javascript:chk_cate_move(document.fregform.use_category_list.selectedIndex, -1, document.fregform.use_category_list);" class="btn_small bx-white">위로</a>-->
+<!--                                    <a href="javascript:chk_cate_move(document.fregform.use_category_list.selectedIndex, +1, document.fregform.use_category_list);" class="btn_small bx-white">아래로</a>-->
+<!--                                    <a href="javascript:chk_cate_del();" class="btn_small bx-red">삭제</a>-->
+<!--                                </p>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="btn_confirm"> <!-- 쿠폰 목록으로 가기 -->
+                <input type="submit" class="btn_large">
+                <a href="/admin/coupon" class="btn_large bx-white">목록</a>
+            </div></form>
+
+        <script language="javascript">
+            function fregform_submit(f) {
+                // var cp_type = false;
+                // var cp_use_part = false;
+                // var cp_week_day = false;
+                // var ck_id = "";
+                // var cp_id = "";
+
+                // if(f.cp_type[5].checked == true && (ck_id && ck_id != cp_id)) {
+                //     alert('신규회원가입 발급은 중복해서 등록하실 수 없습니다!');
+                //     return false;
+                // }
+                //
+                // for(var i=0; i<f.elements.length; i++){
+                //     if(f.elements[i].name == "cp_type" && f.elements[i].checked==true){
+                //         cp_type = true;
+                //     }
+                //
+                //     if(f.elements[i].name == "cp_use_part" && f.elements[i].checked==true){
+                //         cp_use_part = true;
+                //     }
+                //
+                //     if(f.elements[i].name == "cp_week_day[]" && f.elements[i].checked==true){
+                //         cp_week_day = true;
+                //     }
+                // }
+                //
+                // if(cp_type == false) {
+                //     alert('쿠폰발급 유형을 선택하세요!');
+                //     return false;
+                // }
+                //
+                // for(var i=0; i<f.cp_type.length - 1; i++){
+                //     if(f.cp_type[i].checked==true && !eval("f.cp_dlimit"+i).value) {
+                //         alert('누적제한 : 항목은 필수 입력입니다.');
+                //         eval("f.cp_dlimit"+i).style.backgroundColor = backcolor;
+                //         eval("f.cp_dlimit"+i).focus();
+                //         return false;
+                //     }
+                // }
+
+                // 쿠폰발행 기간
+                // if(f.cp_type[3].checked == false){
+                //     if(!f.cp_pub_sdate.value){
+                //         alert('쿠폰발행 기간 : 항목은 필수 입력입니다.');
+                //         f.cp_pub_sdate.style.backgroundColor = backcolor;
+                //         f.cp_pub_sdate.focus();
+                //         return false;
+                //     }
+                    // if(!f.cp_pub_edate.value){
+                    //     alert('쿠폰발행 기간 : 항목은 필수 입력입니다.');
+                    //     f.cp_pub_edate.style.backgroundColor = backcolor;
+                    //     f.cp_pub_edate.focus();
+                    //     return false;
+                    // }
+                // } else {
+                //     if(!f.cp_pub_sday.value){
+                //         alert('쿠폰발행 기간 (생일) : 항목은 필수 입력입니다.');
+                //         f.cp_pub_sday.style.backgroundColor = backcolor;
+                //         f.cp_pub_sday.focus();
+                //         return false;
+                //     }
+                //     if(!f.cp_pub_eday.value){
+                //         alert('쿠폰발행 기간 (생일) : 항목은 필수 입력입니다.');
+                //         f.cp_pub_eday.style.backgroundColor = backcolor;
+                //         f.cp_pub_eday.focus();
+                //         return false;
+                //     }
+                // }
+
+                //발행 시간/요일 지정
+                // if(f.cp_type[4].checked == true) {
+                //     if(!f.cp_use_sage.value){
+                //         alert('연령대 : 항목은 필수 입력입니다.');
+                //         f.cp_use_sage.style.backgroundColor = backcolor;
+                //         f.cp_use_sage.focus();
+                //         return false;
+                //     }
+                //     if(!f.cp_use_eage.value){
+                //         alert('연령대 : 항목은 필수 입력입니다.');
+                //         f.cp_use_eage.style.backgroundColor = backcolor;
+                //         f.cp_use_eage.focus();
+                //         return false;
+                //     }
+                // }
+
+                // 발행 시간/요일 지정
+                // if(f.cp_type[1].checked == true) {
+                //     if(cp_week_day == false) {
+                //         alert('쿠폰발행 요일 :  하나이상은 체크 하셔야 합니다.');
+                //         return false;
+                //     }
+                //
+                //     if(f.cp_pub_1_use.checked == false && f.cp_pub_2_use.checked == false && f.cp_pub_3_use.checked == false){
+                //         alert('발행시간 / 매수 : 하나이상은 체크 하셔야 합니다.');
+                //         f.cp_pub_1_use.focus();
+                //         return false;
+                //     }
+                //
+                //     for(var i=1; i<=3; i++) {
+                //         if(eval("f.cp_pub_"+i+"_use").checked == true) {
+                //             if(!eval("f.cp_pub_shour"+i).value){
+                //                 alert('발행시간 : 항목은 필수 입력입니다.');
+                //                 eval("f.cp_pub_shour"+i).style.backgroundColor = backcolor;
+                //                 eval("f.cp_pub_shour"+i).focus();
+                //                 return false;
+                //             }
+                //             if(!eval("f.cp_pub_ehour"+i).value){
+                //                 alert('발행시간 : 항목은 필수 입력입니다.');
+                //                 eval("f.cp_pub_ehour"+i).style.backgroundColor = backcolor;
+                //                 eval("f.cp_pub_ehour"+i).focus();
+                //                 return false;
+                //             }
+                //         }
+                //     }
+                // }
+
+                // 쿠폰유효 기간 (시작일, 종료일 선택)
+                // if(f.cp_inv_type[0].checked == true){
+                //     if(!f.cp_inv_sdate.value){
+                //         alert('쿠폰유효 기간 : 항목은 필수 입력입니다.');
+                //         f.cp_inv_sdate.style.backgroundColor = backcolor;
+                //         f.cp_inv_sdate.focus();
+                //         return false;
+                //     }
+                //     if(!f.cp_inv_edate.value){
+                //         alert('쿠폰유효 기간 : 항목은 필수 입력입니다.');
+                //         f.cp_inv_edate.style.backgroundColor = backcolor;
+                //         f.cp_inv_edate.focus();
+                //         return false;
+                //     }
+                //     if(!f.cp_inv_shour1.value){
+                //         alert('쿠폰유효 시간 : 항목은 필수 입력입니다.');
+                //         f.cp_inv_shour1.style.backgroundColor = backcolor;
+                //         f.cp_inv_shour1.focus();
+                //         return false;
+                //     }
+                    // if(!f.cp_inv_shour2.value){
+                    //     alert('쿠폰유효 시간 : 항목은 필수 입력입니다.');
+                    //     f.cp_inv_shour2.style.backgroundColor = backcolor;
+                    //     f.cp_inv_shour2.focus();
+                    //     return false;
+                    // }
+                }
+
+                //쿠폰유효 기간 (발급일로부터 기간 제한)
+                // if(f.cp_inv_type[1].checked == true){
+                //     if(!f.preiod.value){
+                //         alert('쿠폰유효 기간 : 항목은 필수 입력입니다.');
+                //         f.preiod.style.backgroundColor = backcolor;
+                //         f.preiod.focus();
+                //         return false;
+                //     }
+                // }
+
+                // if(cp_use_part == false) {
+                //     alert('사용가능대상을 선택하세요!');
+                //     return false;
+                // }
+
+                // var tmp_str = '';
+                // var tmp_comma = '';
+                // for(var i=0;i<f.use_category_list.length;i++)
+                // {
+                //     tmp_str += tmp_comma + f.use_category_list.options[i].value;
+                //     tmp_comma = ',';
+                // }
+
+                // f.cp_use_category.value = tmp_str;
+
+                //누적제한 , 레벨제한 최종 체크
+                // for(var i=0; i<f.cp_type.length - 1; i++){
+                //     if(f.cp_type[i].checked==true && eval("f.cp_dlimit"+i).value) {
+                //         f.cp_dlimit.value = eval("f.cp_dlimit"+i).value;
+                //         f.cp_dlevel.value = eval("f.cp_dlevel"+i).value;
+                //         break;
+                //     }
+                // }
+
+            //     f.action = "./goods/goods_coupon_form_update.php";
+            //     return true;
+            // }
+
+            // 분류 추가
+            // function chk_cate_add() {
+            //     var f = document.fregform;
+            //     if(!f.use_category.value) {
+            //         alert('카테고리를 선택하세요.');
+            //         f.use_category.focus();
+            //         return;
+            //     }
+            //
+            //     var n = f.use_category_list.length;
+            //     var k = f.use_category.options.selectedIndex;
+            //     f.use_category_list.options[n] = new Option();
+            //     f.use_category_list.options[n].text  = f.use_category.options[k].text;
+            //     f.use_category_list.options[n].value = f.use_category.options[k].value;
+            // }
+            //
+            // // 분류 삭제
+            // function chk_cate_del() {
+            //     var f = document.fregform;
+            //     var chk  = 0;
+            //
+            //     for(var i = 0; i < f.use_category_list.length; i++) {
+            //         if(f.use_category_list.options[i].selected == true) {
+            //             f.use_category_list.options[i] = null;
+            //             chk++;
+            //             break;
+            //         }
+            //     }
+            //
+            //     if(!chk) {
+            //         alert('제외시킬 항목을 선택해 주세요.');
+            //         return;
+            //     }
+            // }
+            //
+            // // 뷴류 이동
+            // function chk_cate_move(index,to,list) {
+            //     var f = document.fregform;
+            //     var total = list.options.length-1;
+            //     var chk = 0;
+            //
+            //     for(var i = 0; i < list.length; i++) {
+            //         if(list.options[i].selected == true) {
+            //             chk = 1;
+            //             break;
+            //         }
+            //     }
+            //
+            //     if(!chk) {
+            //         alert('이동할 항목을 선택해 주세요.');
+            //         return;
+            //     }
+            //
+            //     if(index == -1) return false;
+            //     if(to == +1 && index == total) return false;
+            //     if(to == -1 && index == 0) return false;
+            //
+            //     var items = new Array;
+            //     var values = new Array;
+            //
+            //     for(i = total; i >= 0; i--)
+            //     {
+            //         items[i] = list.options[i].text;
+            //         values[i] = list.options[i].value;
+            //     }
+            //
+            //     for(i = total; i >= 0; i--) {
+            //         if(index == i) {
+            //             list.options[i + to] = new Option(items[i],values[i], 0, 1);
+            //             list.options[i] = new Option(items[i + to], values[i + to]);
+            //             i--;
+            //         } else {
+            //             list.options[i] = new Option(items[i], values[i]);
+            //         }
+            //     }
+            // }
+
+            // 상품 삭제
+            // function chk_del(gs_id){
+            //     var cp_use_goods = document.getElementById('cp_use_goods');  // 실제 입력 값
+            //     var ck_use_table = document.getElementById('chk_'+gs_id);
+            //
+            //     ck_use_table.style.display ='none';
+            //     cp_use_goods.value = cp_use_goods.value.replace(gs_id,'');
+            //
+            //     var tmp_str = '';
+            //     var tmp_comma = '';
+            //     var tmp_use_goods = cp_use_goods.value.split(',');
+            //     for(var i=0;i<tmp_use_goods.length;i++)
+            //     {
+            //         if(tmp_use_goods[i]){
+            //             tmp_str += tmp_comma + tmp_use_goods[i];
+            //             tmp_comma = ',';
+            //         }
+            //     }
+            //
+            //     cp_use_goods.value = tmp_str;
+            // }
+
+            // 필드별로 무제한설정
+            // function chk_obj(f_obj, num){
+            //     var f = document.fregform;
+            //     eval("f."+f_obj).value = num;
+            // }
+
+            // 쿠폰발급 유형
+            // function chk_show(n) {
+            //     var f = document.fregform;
+            //     switch(n){
+            //         case '0': // 발행 날짜 지정
+            //             eval("ids_show").style.display ='';
+            //             eval("ids_download").style.display ='';
+            //             // eval("ids_day").style.display ='none';
+            //             // eval("ids_hour1").style.display ='none';
+            //             // eval("ids_hour2").style.display ='none';
+            //             // eval("ids_hour3").style.display ='none';
+            //             eval("ids_date").style.display ='';
+            //             eval("ids_birthday").style.display ='none';
+            //             break;
+            //         case '1': // 생일자 발급
+            //             eval("ids_show").style.display ='';
+            //             eval("ids_download").style.display ='';
+            //             // eval("ids_day").style.display ='none';
+            //             // eval("ids_hour1").style.display ='none';
+            //             // eval("ids_hour2").style.display ='none';
+            //             // eval("ids_hour3").style.display ='none';
+            //             eval("ids_date").style.display ='none';
+            //             eval("ids_birthday").style.display ='';
+            //             break;
+            //         case '2': // 신규회원가입 발급
+            //             eval("ids_show").style.display ='';
+            //             eval("ids_download").style.display ='none';
+            //             // eval("ids_day").style.display ='none';
+            //             // eval("ids_hour1").style.display ='none';
+            //             // eval("ids_hour2").style.display ='none';
+            //             // eval("ids_hour3").style.display ='none';
+            //             eval("ids_date").style.display ='';
+            //             eval("ids_birthday").style.display ='none';
+            //             break;
+            //         default:
+            //             eval("ids_show").style.display ='none';
+            //             break;
+            //     }
+            // }
+
+            // 쿠폰유효 기간 유형
+            // function chk_inv_show(n) {
+            //     var f = document.fregform;
+            //     switch(n){
+            //         case '0':
+            //             eval("ids_inv_type0").style.display ='';
+            //             eval("ids_inv_type1").style.display ='none';
+            //             break;
+            //         case '1':
+            //             eval("ids_inv_type0").style.display ='none';
+            //             eval("ids_inv_type1").style.display ='';
+            //             break;
+            //     }
+            // }
+
+            // 쿠폰유효 기간 유형
+            // function chk_use_show(n) {
+            //     var f = document.fregform;
+            //     switch(n){
+            //         case '1':
+            //             eval("ids_gpart").style.display ='';
+            //             eval("ids_cpart").style.display ='none';
+            //             eval("g_title").innerHTML ='&nbsp;적용';
+            //             eval("c_title").innerHTML ='&nbsp;적용';
+            //             break;
+            //         case '2':
+            //             eval("ids_gpart").style.display ='none';
+            //             eval("ids_cpart").style.display ='';
+            //             eval("g_title").innerHTML ='&nbsp;적용';
+            //             eval("c_title").innerHTML ='&nbsp;적용';
+            //             break;
+            //         case '3':
+            //             eval("ids_gpart").style.display ='';
+            //             eval("ids_cpart").style.display ='none';
+            //             eval("g_title").innerHTML ='&nbsp;예외';
+            //             eval("c_title").innerHTML ='&nbsp;예외';
+            //             break;
+            //         case '4':
+            //             eval("ids_gpart").style.display ='none';
+            //             eval("ids_cpart").style.display ='';
+            //             eval("g_title").innerHTML ='&nbsp;예외';
+            //             eval("c_title").innerHTML ='&nbsp;예외';
+            //             break;
+            //         default:
+            //             eval("ids_gpart").style.display ='none';
+            //             eval("ids_cpart").style.display ='none';
+            //             break;
+            //     }
+            // }
+
+            // $(function(){
+            //     // 날짜 검색 : TODAY MAX값으로 인식 (maxDate: "+0d")를 삭제하면 MAX값 해제
+            //     $("#pub_sdate,#pub_edate,#inv_sdate,#inv_edate").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99"});
+            // });
+
+        <!--    chk_show("");-->
+        <!--    chk_inv_show("0");-->
+        <!--    chk_use_show("");-->
+        </script>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var startDate, endDate; // 변수를 선언하고 초기화해야 합니다.
+
+            // 오늘 날짜 구하기
+            var today = new Date();
+
+            // datepicker 초기화 함수
+            function initDatepicker($element) {
+                $element.datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    minDate: 0,
+                    defaultDate: today,
+                    onSelect: function (selectedDate) {
+                        startDate = new Date(selectedDate);
+                        updateEndDatepicker(startDate);
+                    }
+                });
+                $element.val($.datepicker.formatDate('yy-mm-dd', today));
+            }
+
+            // // 각각의 datepicker 초기화
+            // initDatepicker($('#pub_sdate, #inv_sdate'));
+            // initDatepicker($('#pub_edate, #inv_edate'));
+
+            // function updateEndDatepicker(startDate) {
+            //     $('#pub_edate, #inv_edate').datepicker('option', 'minDate', startDate);
+            // }
+        });
+    </script>
+
+</section>
+
+</body>
+</html>

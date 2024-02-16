@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.admin.order.model.dao.AdminOrderMapper">
+
+    <resultMap id="OrderMap" type="AdminOrderDTO">
+        <id property="paymentCode" column="payment_code"/>
+        <result property="paymentId" column="id"/>
+        <result property="price" column="price"/>
+        <result property="amount" column="amout"/>
+        <result property="paymentDate" column="payment_date"/>
+        <result property="deliveryRequest" column="deliver_request"/>
+        <result property="deliveryCost" column="delivery_cost"/>
+        <result property="couponNumber" column="coupon_number"/>
+        <association property="addressList" resultMap="addressMap"/>
+        <association property="deliveryList" resultMap="deliveryMap"/>
+        <association property="productList" resultMap="ProductMap"/>
+        <association property="couponList" resultMap="AdminCouponMap"/>
+    </resultMap>
+
+    <resultMap id="addressMap" type="AdminAddressDTO">
+        <id property="deliveryAddress" column="delivery_address"/>
+        <result property="addressId" column="id"/>
+        <result property="zipCode" column="zipcode"/>
+        <result property="address" column="address"/>
+        <result property="addressDetail" column="address_detail"/>
+        <result property="addressName" column="address_name"/>
+    </resultMap>
+
+    <resultMap id="deliveryMap" type="AdminDeliveryDTO">
+        <id property="deliveryCode" column="delivery_code"/>
+        <result property="paymentCode" column="payment_code"/>
+        <result property="deliveryId" column="id"/>
+        <result property="deliveryAddress" column="delivery_address"/>
+        <result property="productCode" column="product_code"/>
+        <result property="deliveryStatus" column="delivery_status"/>
+    </resultMap>
+
+    <resultMap id="ProductMap" type="AdminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+        <result property="amount" column="amount"/>
+        <result property="enterDate" column="enter_date"/>
+        <result property="deleteStatus" column="delete_status"/>
+<!--        <association property="adminProductCategory" resultMap="AdminProductCategoryMap"/>-->
+<!--        <association property="attachmentList" resultMap="AdminProductImageMap"/>-->
+<!--        <association property="adminOption" resultMap="AdminProductOptionMap"/>-->
+    </resultMap>
+
+    <resultMap id="AdminCouponMap" type="AdminCouponDTO">
+        <id property="couponNumber" column="coupon_number"/>
+        <result property="name" column="couponName"/>
+        <result property="rate" column="couponRate"/>
+        <result property="comment" column="comment"/>
+        <result property="period" column="period"/>
+    </resultMap>
+
+
+    <select id="selectAllOrder" resultMap="OrderMap">
+        SELECT
+            a.id,
+            a.payment_code,
+            b.name,
+            a.amout,
+            a.deliver_request,
+            COALESCE(c.name, '미사용') as couponName,
+            COALESCE(c.rate, '0') as couponRate,
+            d.delivery_status,
+            a.price,
+            a.payment_date,
+            a.delivery_cost
+        FROM payment a
+        LEFT JOIN product b ON a.product_code = b.product_code
+        LEFT JOIN coupon c ON a.coupon_number = c.coupon_number
+        LEFT JOIN delivery d ON a.payment_code = d.payment_code;
+    </select>
+</mapper>

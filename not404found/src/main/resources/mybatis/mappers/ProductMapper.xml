@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.product.model.dao.ProductMapper">
+    <resultMap id="getProductResultMap" type="com.nf.not404found.main.model.dto.MainPageProductDTO">
+        <id property="name" column="name"/>
+        <result property="discountRate" column="discountRate"/>
+        <result property="price" column="price"/>
+        <result property="reviewCount" column="reviewCount"/>
+        <result property="priority" column="priority"/>
+    </resultMap>
+
+    <select id="getProduct" resultMap="getProductResultMap">
+        SELECT p.name AS name,
+               e.discount_rate AS discountRate,
+               p.price AS price,
+               CASE
+                   WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                   ELSE p.price
+                   END AS discountPrice,
+               COALESCE(r.review_count, 0) AS reviewCount,
+               p.priority AS priority
+        FROM product AS p
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
+                 INNER JOIN product_category AS pc ON p.category_code = pc.category_code
+        WHERE pc.category_name = #{value}
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC
+    </select>
+
+    <select id="getFurniture" resultMap="getProductResultMap">
+        SELECT p.name AS name,
+               e.discount_rate AS discountRate,
+               p.price AS price,
+               CASE
+                   WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                   ELSE p.price
+                   END AS discountPrice,
+               COALESCE(r.review_count, 0) AS reviewCount,
+               p.priority AS priority
+        FROM product AS p
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
+                 INNER JOIN product_category AS pc ON p.category_code = pc.category_code
+        WHERE pc.ref_category_code = 1
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC
+    </select>
+
+    <select id="getMaterial" resultMap="getProductResultMap">
+        SELECT p.name AS name,
+               e.discount_rate AS discountRate,
+               p.price AS price,
+               CASE
+                   WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                   ELSE p.price
+                   END AS discountPrice,
+               COALESCE(r.review_count, 0) AS reviewCount,
+               p.priority AS priority
+        FROM product AS p
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
+                 INNER JOIN product_category AS pc ON p.category_code = pc.category_code
+        WHERE pc.ref_category_code = 2
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC
+    </select>
+
+    <select id="getNewProduct" resultMap="getProductResultMap">
+        SELECT  p.name,
+                e.discount_rate AS discountRate,
+                p.price,
+                CASE
+                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                    ELSE p.price
+                    END AS discountPrice,
+                COALESCE(r.review_count, 0) AS reviewCount,
+                p.priority AS priority
+        FROM product AS p
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
+                 INNER JOIN product_category AS pc ON p.category_code = pc.category_code
+        WHERE enter_date > DATE_SUB(NOW(),INTERVAL 25 DAY)
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC
+    </select>
+    <select id="getBest" resultMap="getProductResultMap">
+        SELECT p.name,
+               e.discount_rate AS discountRate,
+               p.price,
+               CASE
+                   WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                   ELSE p.price
+                   END AS discountPrice,
+               COALESCE(r.review_count, 0) AS reviewCount
+        FROM product p
+                 JOIN (
+            SELECT product_code
+            FROM payment
+            GROUP BY product_code
+            HAVING COUNT(*) >= 2
+        ) AS subquery ON p.product_code = subquery.product_code
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
+                 INNER JOIN product_category AS pc ON p.category_code = pc.category_code
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC
+    </select>
+</mapper>
+

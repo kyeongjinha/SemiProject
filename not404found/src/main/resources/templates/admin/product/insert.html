@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin/product/insert.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section>
+    <div class="product_list">
+        <ul class="product_parents">
+            <li class="select_product" onclick="go_select()">상품조회</li>
+            <li class="insert_product">상품등록</li>
+            <li class="modify_product" onclick="go_modify()">상품수정</li>
+        </ul>
+    <form th:action="@{ /admin/product/insert }" th:method="post" enctype="multipart/form-data">
+        <div class="product_page">
+            <div class="page_name">   상품등록<hr></div>
+            <div class="tab1"><label class="tab11">판매상태 : </label>
+                <input type="radio" class="p_radio" name="deleteStatus" id="sstatusy" value="Y"><label for="sstatusy">즉시 판매</label>
+                <span class="radio_space"></span>
+                <input type="radio" class="p_radio" name="deleteStatus" id="sstatusn" value="N"><label for="sstatusn">판매 보류</label>
+                <hr>
+            </div>
+            <div class="tab2"><label class="tab22">판매등록날짜 :    </label><!-- 이거 Date.now로 할지-->
+                <input class="date_size" type="date" name="enterDate"><hr>
+            </div>
+            <div class="tab3"><label class="tab33">상품명 : </label>
+                <input class="p_name" type="text" name="name"><hr>
+            </div>
+            <div class="tab4"><label class="tab44">상품가격 : </label>
+                <input class="p_price" type="number" name="price"><hr>
+            </div>
+            <div class="tab4"><label class="tab44"> 재고량 : </label>
+                <input class="p_price" type="number" name="amount"><hr>
+            </div>
+            <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
+                <select id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories()">
+                    <option value="1">가구</option>
+                    <option value="2">자재</option>
+                </select>
+                <label for="subCategory">하위 카테고리 : </label>
+                <select id="subCategory" class="c_ref" name="adminProductCategory.categoryCode"></select>
+            <button id="categoryButton" type="button" onclick="insertCategory()">카테고리 등록</button>
+            <hr></div>
+            <script>
+                function insertCategory(){
+                    window.location.href="/admin/product/insertCategory"
+                }
+            </script>
+        <div class="tab5"><label for="colorCategory">옵션(색상) : </label>
+                <select id="colorCategory" class="c_ref" name="adminOption.colorCode">
+                    <option value="검은색">black</option>
+                    <option value="파란색">blue</option>
+                    <option value="빨간색">red</option>
+                </select>
+                <hr>
+            </div>
+            <div class="tab3"><label class="tab33">중요도 :  </label>
+                <input class="priority" type="number" name="priority"><hr>
+            </div>
+            <table>
+                <tr>
+                    <td>대표 이미지</td>
+                    <td colspan="3">
+                        <div class="title-image" id="titleImageArea">
+                            <img id="titleImg" style="width: 350px; height: 200px">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="content-image1" id="contentImageArea1">
+                            <img id="contentImage1" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-image2" id="contentImageArea2">
+                            <img id="contentImage2" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-image3" id="contentImageArea3">
+                            <img id="contentImage3" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-image4" id="contentImageArea4">
+                            <img id="contentImage4" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="fileUpload"> 상품 이미지 :
+                <input type="file" id="thumbnailImage1" name="thumbnailImage1" onchange="loadImage(this,1)">
+                <input type="file" id="thumbnailImage2" name="thumbnailImage2" onchange="loadImage(this,2)">
+                <input type="file" id="thumbnailImage3" name="thumbnailImage3" onchange="loadImage(this,3)">
+                <input type="file" id="thumbnailImage4" name="thumbnailImage4" onchange="loadImage(this,4)">
+                <input type="file" id="thumbnailImage5" name="thumbnailImage5" onchange="loadImage(this,5)">
+            </div>
+            <button class="insert_button" type="submit">상품 등록</button>
+        </div>
+    </form>
+    </div>
+
+    <script th:inline="javascript">
+
+        const $titleImageArea = document.getElementById("titleImageArea");
+        const $contentImageArea1 = document.getElementById("contentImageArea1");
+        const $contentImageArea2 = document.getElementById("contentImageArea2");
+        const $contentImageArea3 = document.getElementById("contentImageArea3");
+        const $contentImageArea4 = document.getElementById("contentImageArea4");
+
+        $titleImageArea.onclick = function () {
+            document.getElementById("thumbnailImage1").click();
+        }
+
+        $contentImageArea1.onclick = function () {
+            document.getElementById("thumbnailImage2").click();
+        }
+
+        $contentImageArea2.onclick = function () {
+            document.getElementById("thumbnailImage3").click();
+        }
+
+        $contentImageArea3.onclick = function () {
+            document.getElementById("thumbnailImage4").click();
+        }
+
+        $contentImageArea4.onclick = function () {
+            document.getElementById("thumbnailImage5").click();
+        }
+
+        function loadImage(value, number){
+
+            if (value.files && value.files[0]){
+                const reader = new FileReader();
+
+                reader.readAsDataURL(value.files[0]);
+                reader.onload = function(e) {
+                    switch(number){
+                        case 1:
+                            console.log(e.target.result);
+                            document.getElementById("titleImg").src = e.target.result;
+                            break;
+                        case 2:
+                            document.getElementById("contentImage1").src = e.target.result;
+                            break;
+                        case 3:
+                            document.getElementById("contentImage2").src = e.target.result;
+                            break;
+                        case 4:
+                            document.getElementById("contentImage3").src = e.target.result;
+                            break;
+                        case 5:
+                            document.getElementById("contentImage4").src = e.target.result;
+                            break;
+                    }
+                }
+            }
+        }
+    </script>
+
+
+    <script>
+        function go_select(){
+            window.location.href = "/admin/product"
+        }
+        function go_modify(){
+            window.location.href = "/admin/product/modify"
+        }
+        function updateSubCategories(){
+            var topCategory = document.getElementById('topCategory');
+            var selectedTopCategory = topCategory.options[topCategory.selectedIndex].value;
+            var subCategory = document.getElementById('subCategory');
+            subCategory.innerHTML ="";
+
+            if(selectedTopCategory === "1"){
+                addOption(subCategory, "3", '의자');
+                addOption(subCategory, "4", '책상');
+                addOption(subCategory, "5", '조명');
+            }else if (selectedTopCategory === "2") {
+                addOption(subCategory, "6", "시트지");
+                addOption(subCategory, "7", "벽지");
+                addOption(subCategory, "8", "공구");
+            }
+        }
+
+        function addOption(selectElement, value, text) {
+            var option = document.createElement("option");
+            option.value = value;
+            option.text = text;
+            selectElement.add(option);
+        }
+        updateSubCategories();
+        document.getElementById('fileInput').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                uploadFile(file);
+            }
+        });
+
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+
+                .then(response => {
+                    if (response.ok) {
+                        console.log('파일이 성공적으로 업로드되었습니다.');
+                    } else {
+                        console.error('파일 업로드 실패');
+                    }
+                })
+                .catch(error => {
+                    console.error('네트워크 오류:', error);
+                });
+        }
+    </script>
+</section>
+</body>
+</html>

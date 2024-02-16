@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/main/resources/static/css/order/orderMember.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>orderMember</title>
+</head>
+<body>
+<header th:replace="/common/header.html"></header>
+<div class="orderheader">
+    <div class="orderheader2">주문</div>
+</div>
+<div class="shoppingcart">
+    <div class="orderheader2-line"></div>
+</div>
+<div class="container">
+    <div class=shoppingcart3>
+        <table class="tg" style=" table-layout: fixed; width: 1282px">
+            <colgroup>
+                <col style="width: 711px">
+                <col style="width: 133px">
+                <col style="width: 107px">
+                <col style="width: 116px">
+                <col style="width: 116px">
+                <col style="width: 99px">
+            </colgroup>
+            <span class="e121_2971">주문상품</span>
+            <br><br><br><br>
+            <thead>
+            <tr>
+                <th class="tg-7vv0">상품명(옵션)</th>
+                <th class="tg-7vv0">수량</th>
+                <th class="tg-7vv0">적립금</th>
+                <th class="tg-7vv0">상품할인</th>
+                <th class="tg-7vv0">배송비</th>
+                <th class="tg-7vv0">주문금액</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-fuxe">
+                    <div class="image-checkbox-container">
+                        <label for="imageCheckbox"></label> <!-- 체크 박스 라벨 추가 -->
+                        <input type="checkbox" id="imageCheckbox"> <!-- 체크 박스 추가 -->
+                        <div class="content-container">
+                            <img th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}" alt="영상" width="150" height="150">
+                            <div th:text="${productName}" id="productName" class="text-overlay">붙이는 템바보드 재단서비스(300x2400) /
+                                (600x2400)<br><br>
+                                <div class="choice_option">옵션<br><br>
+                                    <div id="optionChangeCell">
+                                        <button id="OptionButton">옵션 변경</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </td>
+                <td th:text="${amount}" id="amountcount" class="tg-r2yh">1개</td>
+                <td th:text="${mileage}" class="tg-r2yh">로그인<br>필요</td>
+                <td th:text="${discountPrice}" class="tg-r2yh">0원</td>
+                <td th:text="${deliveryCost}" id="delCost" class="tg-r2yh"></td>
+                <td th:text="${price} - ${discountPrice}" id="price-field" class="tg-r2yh"></td>
+            </tbody>
+        </table>
+    </div>
+    <div class="shoppingcart4">
+        <table class="tg2" style="undefined; table-layout: fixed; width: 1285px">
+            <colgroup>
+                <col style="width: 150px">
+                <col style="width: 698px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="tg-mq3s">회원 등급</th>
+                <th th:text="${grade}+' (적립률 '+${rate}+'%)'" class="tg-tcvq">VIP ( 적립률 X%)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-mq3s">적립금 사용</td>
+                <td class="tg-tcvq">
+                    <input type="checkbox" id="inputUsageCheckbox">
+<!--                    <div class="amount-container">-->
+                        <input type="number" class="editable" id="editableAmount">원
+<!--                    </div>-->
+                    <input type="checkbox" id="maxUsageCheckbox" style="margin-left: 30px; margin-right: -10px; width: 20px;">
+                    <span class="tg-tcvq">최대 사용</span>
+                    <span class="tg-tcvq">사용 가능 적립금 :</span>
+                    <span th:if="${userMileage} > ((${price} - ${discountPrice}) / 2)" th:text="(${price} - ${discountPrice}) / 2"  class="availablePoints">...</span>
+                    <span th:unless="${userMileage} > ((${price} - ${discountPrice}) / 2)" th:text="${userMileage}"  class="availablePoints">...</span>
+                    <span class="tg-tcvq">총 보유 적립금 : </span>
+                    <span th:text="${userMileage}" id="totalPoints">...</span>
+
+    </div>
+    </td>
+    </tr>
+    <tr>
+        <td class="tg-mq3s">쿠폰 할인</td>
+        <td class="tg-tcvq">
+            <button id="couponButton">쿠폰 조회</button>
+            <!-- 쿠폰 조회 팝업 -->
+            <div id="popup"
+                 style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+                <p style="margin-top: -10px; font-size: 18px;">쿠폰을 선택해주세요.</p>
+                <select id="designDropdown"
+                        style="border: 1px solid #ccc; display: block; margin-bottom: 10px; width: 250px;">
+                    <option class="nonCoupon">쿠폰 선택 안함</option>
+                    <option class="couponOptions" th:each="coupons : ${coupon}" th:value="${coupons}" th:text="${coupons}"></option>
+                </select>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="display: flex; gap: 10px;">
+                        <button id="changeOption">변경</button>
+                        <button id="cancelOption">취소</button>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <input type="hidden" id="productCode" th:value="${pList[0].getProductCode()}">
+</div>
+</tr>
+</tbody>
+
+<script>
+    const couponButton = document.getElementById('couponButton');
+    const popup = document.getElementById('popup');
+
+    couponButton.addEventListener('click', function () {
+        popup.style.display = 'block';
+    });
+
+    // 취소 버튼을 눌렀을 때 팝업을 닫는 기능
+    const cancelOptionButton = document.getElementById('cancelOption');
+    cancelOptionButton.addEventListener('click', function () {
+        popup.style.display = 'none';
+    });
+
+    // 변경 버튼을 눌렀을 때의 기능을 추가하려면 여기에 작성하세요
+    const changeOptionButton = document.getElementById('changeOption');
+    changeOptionButton.addEventListener('click', function () {
+        // 변경 버튼을 눌렀을 때의 동작을 여기에 추가하세요
+    });
+
+
+
+</script>
+</td>
+</tr>
+<tr>
+    <td class="tg-mq3s">배송비</td>
+    <td class="tg-tcvq">배송비 3000원</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="guidance_note">
+    <li>할인금액은 상품할인 또는 쿠폰이 적용되었을 경우 가격이므로 실제 주문시의 주문가격과 다를 수도 있습니다.</li>
+    <li>본인인증한 집꾸미 회원만 포인트 적립과 사용이 가능합니다.<br></li>
+    <li>집꾸미는 기본적으로 대한민국 내 제주도 및 도서 산간 지역 제외 전 지역, 전 상품 무료 배송입니다.<br></li>
+    <li>2개 이상의 브랜드(업체) 상품을 주문하신 경우, 각 개별 배송됩니다.<br></li>
+</div>
+<!-- 주문자 정보 -->
+<div class="orderertop">
+    <div class="orderer-info">
+        <h2>주문자 정보</h2>
+        <div class="input-group">
+            <label for="nameInput" class="input-l" abel>이름</label>
+            <input th:value="${name}" type="text" id="nameInput" placeholder="이름을 입력하세요">
+        </div>
+        <div class="input-group">
+            <label for="emailInput">이메일</label>
+            <div class="email-input">
+                <input th:value="${email}" type="text" id="emailInput" name="emailInput" placeholder="이메일 주소">
+            </div>
+            <button id="sendVerificationCode">인증번호 발송</button>
+        </div>
+        <div class="input-group">
+            <label for="phoneInput">휴대전화</label>
+            <input th:value="${phone}" type="text" id="phoneInput" placeholder="000-0000-0000">
+
+        </div>
+    </div>
+
+    <!-- 배송 정보 -->
+    <div class="delivery-info">
+        <h2>배송 정보</h2>
+        <div class="input-group">
+            <label for="recipientName">받는 사람</label>
+            <input th:value="${name}" type="text" id="recipientName" placeholder="수령인">
+        </div>
+        <div class="input-group">
+            <label for="recipientPhone">휴대전화</label>
+            <input th:value="${phone}" type="text" id="recipientPhone" placeholder="000-0000-0000">
+        </div>
+        <div class="input-group">
+            <label for="addressInput">배송지 주소</label>
+            <th:block th:if="${addr[0]} != null">
+                    <input th:value="${addr[0]}" type="text" id="addressInput" placeholder="주소">
+                    <input th:value="${addrDetail[0]}" type="text" id="addressDetails" placeholder="상세주소">
+            </th:block>
+
+        </div>
+        <div class="input-group">
+            <select id="deliveryRequest" onchange="handleDeliveryRequestChange(this.value)">
+                <option value="배송 시 요청 사항을 선택해주세요">배송 시 요청 사항을 선택해주세요</option>
+                <option value="부재 시 문앞에 놓아주세요">부재 시 문앞에 놓아주세요 </option>
+                <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요 </option>
+                <option value="배송전 미리 연락주세요">배송전 미리 연락주세요</option>
+                <option value="손의 위험이 있는 상품입니다. 배송 시 주의해 주세요">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
+                <option value="6">직접 입력</option>
+            </select>
+            <div id="customDeliveryRequest" style="display: none;"><br>
+                <input type="text" id="customRequestInput" placeholder="직접 입력하세요">
+            </div>
+        </div>
+        <script>
+            function handleDeliveryRequestChange(value) {
+                var customInputDiv = document.getElementById('customDeliveryRequest');
+                var customInput = document.getElementById('customRequestInput');
+
+                if (value === '6') { // 수정된 부분: 직접 입력 옵션의 값이 '6'입니다.
+                    customInputDiv.style.display = 'block';
+                    customInput.required = true;
+                } else {
+                    customInputDiv.style.display = 'none';
+                    customInput.required = false;
+                }
+            }
+        </script>
+    </div>
+
+    <div class="결제-섹션">
+        <h2>최종 결제 금액</h2>
+        <hr> <!-- 작은 줄 -->
+        <div class="결제-정보">
+            <div class="상세-항목">
+                <span>상품 금액</span>
+                <span id="pp">0</span><span>원</span>
+            </div>
+            <div class="상세-항목">
+                <span>상품 할인</span>
+                <span th:text="${discountPrice}" id="ev">0</span><span>원</span>
+            </div>
+            <div class="상세-항목">
+                <span>쿠폰 할인</span>
+                <span id="cu">0</span><span>원</span>
+            </div>
+            <div class="상세-항목">
+                <span>적립금 사용</span>
+                <span id="ml">0</span><span>원</span>
+            </div>
+            <div class="상세-항목">
+                <span>배송비</span>
+                <span th:text="${deliveryCost}" id="deliveryCost"></span><span>원</span>
+            </div>
+            <hr> <!-- 작은 줄 -->
+            <div class="총-결제-금액">
+                <span>총 결제 금액</span>
+                <span id="total-price">0</span><span>원</span>
+            </div>
+        </div>
+        <button id="buy" class="결제-버튼" value="결제하기">결제하기</button>
+
+        <script>
+            const productCheck = document.getElementById('imageCheckbox');
+            const productPrice = document.getElementById('pp');
+            const priceField = document.getElementById('price-field');
+
+            window.onload = function (){
+                productCheck.checked = true;
+                productPrice.textContent = priceField.textContent;
+            }
+
+            productCheck.addEventListener('change',function (){ //상품에 체크 버튼을 누르면
+                if(productCheck.checked){   //productCheck 가 체크되었을 때
+                    productPrice.textContent = priceField.textContent;   //상품의 가격을 붙여넣기
+                } else {
+                    productPrice.textContent = '0'; //아니면 0으로 만듦
+                }
+            });
+
+            const mCheckBox = document.getElementById('maxUsageCheckbox');
+            const nCheckBox = document.getElementById('inputUsageCheckbox');
+            const ml = document.getElementById('ml');
+            // const availablePoints = document.getElementsByClassName('availablePoints');
+            const availablePoints = document.querySelector('.availablePoints');
+            const editableAmount = document.getElementById('editableAmount');
+            const selectElement = document.getElementById('designDropdown');
+            const selectCoupon = document.getElementById('cu');
+            mCheckBox.addEventListener('change',function (){
+                if(this.checked){
+                    ml.textContent = availablePoints.textContent;
+                    // editableAmount.textContent = availablePoints.textContent;
+                    editableAmount.disabled = true;
+                } else {
+                    ml.textContent = '0';
+                    editableAmount.textContent = availablePoints.textContent;
+                    editableAmount.disabled = false;
+                }
+            });
+            nCheckBox.addEventListener('change',function (){
+                if(this.checked){
+                    if(editableAmount.value.trim() === ''){
+                        editableAmount.value = 0;
+                    }
+                    if (editableAmount.value > parseInt(availablePoints.textContent)){
+                        editableAmount.disabled = false;
+                        alert("사용가능한 적립금을 초과하였습니다 다시 입력해주세요.")
+                        nCheckBox.checked = false;
+                    }else{
+                    editableAmount.disabled = true;
+                    ml.textContent = editableAmount.value;
+                    }
+                }else{
+                    editableAmount.disabled = false;
+                }
+            });
+
+
+
+
+
+
+            document.addEventListener('change',function (){
+                if(document.getElementById('designDropdown')) {
+                    selectElement.addEventListener('change', function () {
+                        const selectedValue = selectElement.options[selectElement.selectedIndex].value;
+                        const selectCoupon = document.getElementById('cu');
+                        console.log("열받네?")
+                        console.log(selectedValue)
+                        if(selectedValue !== "쿠폰 선택 안함"){
+                            console.log("쿠폰 선택 했는데 이거 되나?")
+                            go("coupon", selectedValue.toString()).then(result =>{
+                                selectCoupon.textContent = ((productPrice.textContent * 1) *((result*1)/100)).toString().split('.')[0];
+                                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1)
+                                    - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
+                                if(totalPrice.textContent < 0){
+                                    totalPrice.textContent = '0';
+                                }
+                            });
+                        }
+                    });
+                }
+                const totalPrice = this.getElementById('total-price');
+                const delCost = this.getElementById('delCost');
+                const eventDiscount = document.getElementById('ev');
+                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1)
+                    - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
+                if(totalPrice.textContent < 0){
+                    totalPrice.textContent = '0';
+                }
+                console.log(totalPrice.textContent)
+            });
+        </script>
+    </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const price = [[${price}]];
+    const amount = [[${amount}]];
+    const dcPrice = [[${discountPrice}]];
+    // JavaScript 코드에서 myVariable 사용
+    /*]]>*/
+</script>
+
+<script>
+    $(function(){
+        $("#buy").click(function(){
+            console.log("오긴하나?")
+            var pname = $("#productName").text();
+            var name = $("#nameInput").val();
+            var email = $("#emailInput").val();
+            var tel = $("#phoneInput").val();
+            var sname = $("#recipientName").val();
+            var stel = $("#recipientPhone").val();
+            var saddress = $("#addressInput").val();
+            var saddressdetail = $("#addressDetails").val();
+            var amount = $("#amountcount").text();
+            const selectedValue = selectElement.options[selectElement.selectedIndex].value;
+            var productCode = $("#productCode").val();
+            var deliveryrq = $("#deliveryRequest").val();
+            var deliveryCost = $("#deliveryCost").text();
+
+            console.log(deliveryCost);
+            if(name == ""){
+                $("#nameInput").focus()
+            }
+            if(tel == ""){
+                $("#emailInput").focus()
+            }
+            if(email == ""){
+                $("#phoneInput").focus()
+            }
+            if(sname == ""){
+                $("#recipientName").focus()
+            }
+            if(stel == ""){
+                $("#recipientPhone").focus()
+            }
+            if(saddress == ""){
+                $("#addressInput").focus()
+            }
+            console.log("여긴 통과 하냐?")
+
+            let productpayprice = parseInt($("#total-price").text().replace("원","").replace(",",""))
+            let mileage = parseInt($("#ml").text().replace("원",""))
+            let delivery = parseInt($("#dl").text().replace("원",""))
+            let coupondiscount = parseInt($("#cu").text().replace("원",""))
+            let eventdiscount = parseInt($(".ev").text().replace("원",""))
+            // let totalprice = productpayprice - coupondiscount - eventdiscount - mileage + delivery;
+            let totalprice = parseInt($("#total-price").text().replace("원","").replace(",",""))
+            // 사용한 쿠폰도 넘겨야 함
+
+
+            console.log("productpayprice")
+            console.log(productpayprice)
+            console.log("mileage")
+            console.log(mileage)
+            console.log("delivery")
+            console.log(delivery)
+            console.log("coupondiscount")
+            console.log(coupondiscount)
+            console.log("eventdiscount")
+            console.log(eventdiscount)
+            console.log("totalprice")
+            console.log(totalprice)
+
+            $.ajax({
+                type:'post',
+                url:'/order/pay',
+                data:{
+                    pname : pname,
+                    totalprice : totalprice,
+                    mileage : mileage,
+                    buyname : name,
+                    buyemail : email,
+                    buytel : tel,
+                    receivename : sname,
+                    receivetel : stel,
+                    receiveaddress : saddress,
+                    receiveaddressdetail : saddressdetail,
+                    coupon : selectedValue,
+                    amount : amount,
+                    productCode : productCode,
+                    deliveryrequest : deliveryrq,
+                    deliveryCost : deliveryCost
+                //     사용한 쿠폰까지 넘겨야함
+                },
+                success:function(response){
+                    location.href = response.next_redirect_pc_url
+                }
+            })
+
+
+        });
+    });
+
+</script>
+
+
+
+
+</body>
+</html>

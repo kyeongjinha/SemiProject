@@ -1,0 +1,899 @@
+.e1_5253 {
+    width: 1920px;
+    height: 111px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.e1_5256 {
+    width: 307px;
+    height: 44px;
+    position: absolute;
+    left: 1507px;
+    top: 43px;
+}
+
+.topBarParent {
+    /*상단 메뉴 바 부모*/
+    width: 100%;
+    height: 184px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.topBarParent2 {
+    /*상단 메뉴 바 부모2*/
+    width: 100%;
+    height: 73px;
+    position: absolute;
+    left: 0px;
+    top: 111px;
+}
+
+.topBar {
+    /* 상단 메뉴 바 */
+    position: relative;
+    background-color: #FFF5E7;
+    background-size: cover;
+    width: 150%;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+}
+
+.customer {
+    /* 고객센터 글자 위치*/
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    width: 74px;
+    height: 24px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-family: DM Sans;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0.5;
+}
+
+.signUp {
+    /* 회원가입 글자 위치*/
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    width: 74px;
+    height: 24px;
+    position: absolute;
+    left: 118px;
+    top: 10px;
+    font-family: DM Sans;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0.5;
+}
+
+.logIn {
+    /* 로그인 글자 위치*/
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    width: 56px;
+    height: 24px;
+    position: absolute;
+    left: 226px;
+    top: 10px;
+    font-family: DM Sans;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0.5;
+}
+
+@keyframes appearFromSideAnimation {
+
+    /*옆에서 나타나는 애니메이션*/
+    from {
+        transform: translateX(-500%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.dropdown-container {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    display: inline-block;
+}
+
+#category {
+    /* 카테고리 */
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;
+    /* absolute  */
+    left: 30px;
+    /* 왼쪽으로 px 이동 */
+    width: 80px;
+    /* 상위 컨테이너의 너비를 증가 */
+    height: 54px;
+    /* 상위 컨테이너의 높이를 증가 */
+}
+
+#category:hover {
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+#theme {
+    /*테마*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;
+    /* absolute  */
+    left: 150px;
+    /* 왼쪽으로 px 이동 */
+    width: 50px;
+    /* 상위 컨테이너의 너비를 증가 */
+    height: 54px;
+    /* 상위 컨테이너의 높이를 증가 */
+}
+
+#theme:hover {
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+#new_product {
+    /*신상품*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;
+    /* absolute  */
+    left: 250px;
+    /* 왼쪽으로 px 이동 */
+    width: 60px;
+    /* 상위 컨테이너의 너비를 증가 */
+    height: 54px;
+    /* 상위 컨테이너의 높이를 증가 */
+}
+
+#new_product:hover {
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+#best {
+    /*베스트*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;
+    /* absolute  */
+    left: 350px;
+    /* 왼쪽으로 px 이동 */
+    width: 60px;
+    /* 상위 컨테이너의 너비를 증가 */
+    height: 54px;
+    /* 상위 컨테이너의 높이를 증가 */
+}
+
+#best:hover {
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+#interior_challenge {
+    /*인테리어 챌린지*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;
+    /* absolute  */
+    left: 440px;
+    /* 왼쪽으로 px 이동 */
+    width: 150px;
+    /* 상위 컨테이너의 너비를 증가 */
+    height: 54px;
+    /* 상위 컨테이너의 높이를 증가 */
+}
+
+#interior_challenge:hover {
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+#board {
+    /*게시판*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;
+    /* absolute  */
+    left: 620px;
+    /* 왼쪽으로 px 이동 */
+    width: 60px;
+    /* 상위 컨테이너의 너비를 증가 */
+    height: 54px;
+    /* 상위 컨테이너의 높이를 증가 */
+}
+
+#board:hover {
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+#special_price {
+    /*특가*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;
+    /* absolute  */
+    left: 720px;
+    /* 왼쪽으로 px 이동 */
+    width: 50px;
+    /* 상위 컨테이너의 너비를 증가 */
+    height: 54px;
+    /* 상위 컨테이너의 높이를 증가 */
+}
+
+#special_price:hover {
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+/* 드롭다운 메뉴 배경색 */
+.dropdown-menu {
+    display: none;
+    /* 초기에는 드롭다운 메뉴를 숨김 */
+    position: absolute;
+    /* 절대 위치로 설정하여 부모 요소를 기준으로 위치를 조정 */
+    top: 55px;
+    background-color: rgba(255, 255, 255, 1);
+    min-width: 150px;
+    /* 드롭다운 메뉴 가로 너비*/
+    z-index: 1;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+#category_toggle {
+    left: 10px;
+}
+
+#theme_toggle {
+    left: 100px;
+}
+
+#new_product_toggle {
+    left: 200px;
+}
+
+#board_toggle {
+    left: 570px;
+}
+
+/* 나오는 메뉴 아가들 설정 */
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* 드롭다운 선택시 배경 색 */
+.dropdown-menu a:hover {
+    color: rgb(255, 255, 255);
+    background-color: #4d4d4d;
+}
+
+.dropdown-menu {
+    animation: appearFromSideAnimation 0.7s ease forwards;
+    position: absolute;
+    /* 기타 스타일 */
+}
+
+.homePageImg {
+    position: fixed;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+
+    left: -120px;
+    top: 0px;
+    background-repeat: no-repeat;
+}
+
+button img {
+    width: 45%;
+}
+
+
+
+
+/* ===================== 메인 css 여기 까지 ===========================*/
+
+/* ==================================== 주문 ================================*/
+
+.shoppingcart {
+    width: 1534px;
+    height: 908px;
+    position: relative;
+    /* 수정 중 */
+    left: 250px;
+    top: 400px;
+    margin-top: 40PX;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    /* 요소들을 좌우로 최대한 늘려서 배치합니다. */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    margin-right: 50px;
+    /* 오른쪽 여백을 조정합니다. */
+
+}
+
+.totalPayment {
+    margin-left: auto;
+    /* 다른 요소들과의 간격을 최대로 벌리고 오른쪽으로 이동합니다. */
+    font-weight: bold;
+    /* 폰트를 두껍게 설정하여 눈에 띄도록 합니다. */
+    font-size: 23px;
+}
+
+.guidance_note {
+    /* 안내 사항 */
+    color: rgba(22.31249962002039, 22.31249962002039, 22.31249962002039, 1);
+    width: 1208px;
+    height: 146px;
+    position: absolute;
+    left: 320px;
+    top: 900px;
+    font-family: Inter;
+    text-align: left;
+    font-size: 18px;
+    letter-spacing: 1px;
+    /* 글자 간격 */
+    line-height: 1.5;
+}
+
+.orderheader {
+    /* 주문 배경 및 테투리*/
+    background-color: rgba(36.00000165402889, 36.00000165402889, 36.00000165402889, 1);
+    width: 160px;
+    height: 40px;
+    position: relative;
+    left: 90px;
+    top: 250px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.orderheader2 {
+    /* 주문 */
+    color: rgb(255, 255, 255);
+    width: 73px;
+    height: 30px;
+    position: absolute;
+    left: 58px;
+    top: 3px;
+    font-family: Inder;
+    /* text-align: center; */
+    font-size: 25px;
+    letter-spacing: -1;
+}
+
+.orderheader2-line {
+    border-bottom: 1px solid rgb(101, 101, 101);
+    padding-bottom: 5px;
+    /* border : 0; */
+    width: 1500px;
+    margin-top: -196px;
+    margin-left: 0px;
+}
+
+.e121_2971 {
+    /* 주문 상품 */
+    color: rgba(0, 0, 0, 1);
+    width: 110px;
+    height: 35px;
+    position: absolute;
+    left: 0px;
+    top: 70px;
+    font-family: Inter;
+    text-align: left;
+    font-size: 20px;
+    letter-spacing: 0;
+}
+
+.shoppingcart3 {
+    /* 주문 상품 큰 틀*/
+    width: 1334px;
+    height: 341px;
+    position: absolute;
+    left: 300px;
+    top: 280px;
+    padding-top: 20px;
+}
+
+.shoppingcart3,
+table {
+    margin-bottom: 10px;
+    /* 각 테이블 사이에 여백을 주기 위한 스타일 */
+}
+
+.e121_3050 {
+    /* 주문하기 버튼 부모 */
+    display: flex;
+    width: 250px;
+    height: 52px;
+    position: relative;
+    left: 400px;
+    top: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.changeOptionsButton {
+    /* 주문하기 버튼 */
+    background-color: rgba(82.87499696016312, 82.87499696016312, 82.87499696016312, 1);
+    width: 250px;
+    height: 52px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border: 1px solid rgba(210.00000268220901, 209.00000274181366, 209.00000274181366, 1);
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.changeOptionsButton2 {
+    /* 주문하기 버튼 */
+    color: rgba(255, 255, 255, 1);
+    font-family: Inter;
+    font-size: 28px;
+    letter-spacing: 0;
+    width: 250px;
+    height: 52px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    /* 변경: 가운데 정렬을 위해 left 값을 50%로 조정 */
+    top: 8px;
+    transform: translateX(-54%);
+    /* 변경: left 값을 가운데 정렬로 조정 */
+}
+
+.changeOptionsButton2:hover {
+    cursor: pointer;
+    /* 마우스를 올렸을 때 포인터로 변경 */
+}
+
+.tg {
+    border-collapse: collapse;
+    border-color: #ccc;
+    border-spacing: 0;
+}
+
+.tg td {
+    background-color: #fff;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 13px 5px;
+    word-break: normal;
+}
+
+.tg th {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 13px 5px;
+    word-break: normal;
+}
+
+.tg .tg-7vv0 {
+    border-color: inherit;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle
+}
+
+.tg .tg-fuxe {
+    border-color: inherit;
+    font-size: 20px;
+    text-align: left;
+    vertical-align: top
+}
+
+.tg .tg-r2yh {
+    border-color: inherit;
+    font-size: 18px;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+#optionChangeCell {
+    border-radius: 20px;
+    /* 둥근 테두리 설정 */
+    padding: 0px;
+    /* 내부 여백 설정 */
+    position: static;
+    /* 포지션을 상대 위치로 지정합니다. */
+    display: inline-block;
+    /* inline-block으로 설정하여 텍스트 내용에 맞게 셀 크기 조정 */
+}
+
+
+#OptionButton {
+    /* 옵션 변경 버튼*/
+    border-radius: 5px;
+    padding: 10px 0px;
+    background-color: #ffffff;
+    color: rgb(101, 101, 101);
+    cursor: pointer;
+    transition: background-color 0.3s, border-radius 0.3s;
+    /* 변화가 일어날 속도 설정 */
+    border: 1px solid rgb(255, 255, 255);
+    font-size: 17px;
+
+}
+
+#OptionButton:hover {
+    border-radius: 10px;
+    /* 둥근 테두리 설정 */
+    background-color: rgb(216, 216, 216);
+    /* 배경색 설정 */
+    color: #080808;
+    /* 텍스트 색상 변경 */
+}
+
+.image-checkbox-container {
+    position: relative;
+    display: flex;
+    width: 150px;
+    height: 150px;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.content-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    /* 체크 박스와 텍스트/이미지 사이 여백 조절 */
+}
+
+.text-overlay {
+    /* 상품 이름*/
+    position: absolute;
+    margin-left: 25px;
+    /* 이미지와 텍스트 사이 여백 조절 */
+    bottom: 0;
+    left: 160px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    width: 500px;
+    box-sizing: border-box;
+}
+
+button {
+    /* 버튼 스타일링 */
+    font-size: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    margin: 50 5px;
+}
+
+
+span {
+    /* 수량 표시하는 span 요소 스타일링 */
+    font-size: 15px;
+    margin: 0 10px;
+}
+
+.action-buttons {
+    /* 선택 삭제와 바로 구매 버튼 스타일 */
+    margin-top: 5px;
+}
+
+.action-buttons button {
+    padding: 6px 11px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.action-buttons button:hover {
+    background-color: rgb(216, 216, 216);
+}
+
+.image-checkbox-container {
+    /* 마우스 호버 시 커서 모양 변경 */
+    cursor: pointer;
+}
+
+select {
+    width: 50%;
+    height: 50%;
+    padding: 10px;
+    /* 패딩을 통해 크기 조절 */
+    font-size: 16px;
+    /* 글꼴 크기 조절 */
+}
+
+.tg2 {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.tg2 td {
+    border-color: rgb(134, 134, 134);
+    border-style: solid;
+    border-width: 1px;
+    font-size: 20px;
+    overflow: hidden;
+    padding: 10px 20px;
+    word-break: normal;
+}
+
+.tg2 th {
+    border-color: rgb(134, 134, 134);
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px 20px;
+    word-break: normal;
+}
+
+.tg2 .tg-mq3s {
+    border-color: #c0c0c0;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.tg2 .tg-tcvq {
+    /* 적립금 사용 테이블의 총 보유 적립금 */
+
+    position: relative;
+    border-color: #c0c0c0;
+    font-size: 20px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.amount-container {
+    padding: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    /* 필요한 경우에 따라 블록 레벨로 변경 */
+    margin-right: 10px;
+    /* 공간 조정을 위해 마진 추가 */
+    width: 140px;
+    text-align: right;
+    /* 텍스트를 오른쪽 정렬합니다 */
+}
+
+.checkbox {
+    position: absolute;
+    left: -20px;
+    /* 원하는 위치로 조정 */
+    top: 0;
+}
+
+/* 팝업 버튼 스타일링 */
+.couponbutton {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+/* 팝업 창 */
+.popup {
+    display: none;
+    z-index: 1;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.shoppingcart4 {
+    margin-top: -130px;
+    margin-left: 292px;
+}
+
+.orderertop {
+    position: relative;
+    /* 배경이 이동할 수 있도록 설정 */
+    top: 150px;
+    left: 280px;
+    background-color: #f3f3f3;
+    border: 1px solid rgb(175, 173, 173);
+    /* 검정색 테두리 설정 */
+    border-radius: 10px;
+    /* 둥근 모양의 테두리 */
+    height: 800px;
+    /* 높이 */
+    width: 1300px;
+    /* 가로 길이 */
+    margin-right: 100px;
+    background-size: auto;
+    /* 배경 크기 자동 설정 */
+}
+
+.orderer-info {
+    margin-top: 50px;
+    /* 주문자 정보를 아래로 이동 */
+}
+
+.delivery-info {
+    margin-top: 80px;
+    /* 배송 정보를 위로 올림 */
+}
+
+.orderer-info,
+.delivery-info {
+    margin-left: 60px;
+}
+
+.orderer-info h2,
+.delivery-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    /* 주문자 정보 및 배송 정보 제목 스타일링 */
+}
+
+.orderer-info label,
+.delivery-info label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 18px;
+    /* 라벨 스타일링 */
+}
+
+.orderer-info input[type="text"],
+.delivery-info input[type="text"],
+.orderer-info select,
+.delivery-info select {
+    width: 135px;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    /* 입력 필드 및 셀렉트 박스 스타일링 */
+}
+
+.orderer-info button,
+.delivery-info button {
+    /* 버튼 스타일링 */
+    padding: 8px 20px;
+    background-color: #dddcdc;
+    color: #535353;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#sendVerificationCode {
+    width: 105px;
+    /* 버튼의 자동 너비로 설정 */
+    height: 32px;
+;
+    padding: 2px 1px;
+    /* 내부 여백을 조정해 원하는 크기로 버튼을 만듭니다. */
+    margin-left: 10px;
+    /* 원하는 만큼의 오른쪽 여백을 주어 위치를 이동시킵니다. */
+    margin-bottom: 10px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-top: 35px;
+    margin-bottom: 25px;
+    /* 입력간 간격*/
+}
+
+.input-group label {
+    width: 70px;
+    margin-right: 20px;
+    /* 라벨과 입력란 간격 조정 */
+}
+
+.input-group input[type="text"],
+.input-group select {
+    border: 1px solid #c0c0c0;
+    border-radius: 7px;
+    /* 테두리 둥글게 만듭니다. */
+    padding: 8px;
+}
+
+.input-label {
+    margin-right: 100px;
+    /* 라벨과 입력란 간격 조정 */
+}
+
+#customDeliveryRequest {
+    margin-top: 10px;
+}
+
+.결제-섹션 {
+    background-color: #ffffff;
+    position: absolute;
+    top: 100px;
+    /* 마지막 내용 아래에 위치 */
+    right: 70px;
+    /* 오른쪽으로 이동 */
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 400px;
+    /* 너비 조정 */
+    box-sizing: border-box;
+}
+
+#deliveryRequest {
+    /* 배송 시 요청 사항*/
+    width: 350px;
+}
+
+.결제-섹션 h2 {
+    font-size: 24px;
+
+}
+
+.결제-섹션 hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+
+}
+
+.상세-항목 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+}
+
+.총-결제-금액 {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-top: 22px;
+}
+
+.결제-버튼 {
+    padding: 10px 16px;
+    /* 버튼의 여백을 늘립니다. */
+    background-color: #cacaca;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 30px;
+    /* 위쪽 여백을 늘립니다. */
+}

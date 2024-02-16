@@ -1,0 +1,868 @@
+.color-change {
+    color: black;
+    transition: color 0.3s;
+}
+.e140_OrderandShipping:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_CancelReturnExchange:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_RefundDepositHistory:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_Wishlist:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_CouponPoints:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_Inquiry:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_ShippingAddressManagement:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_EditPersonalInformation:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_mileage:hover {
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_coupon:hover{
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_deposit:hover{
+    color: red;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+.e140_borderLine {
+    transform: translate(10%, 10%);
+    width:1365px;
+    height:233px;
+    position:absolute;
+    left:220px;
+    top:213px;
+    border:4px solid #FFF5E7;
+}
+.e140_borderLine2 {
+    transform: translate(10%, 10%);
+    width:1365px;
+    height:163px;
+    position:absolute;
+    left:220px;
+    top:520px;
+    border:4px solid #FFF5E7;
+}
+.e140_borderLine3 {
+    transform: translate(10%, 10%);
+    width:1365px;
+    height:163px;
+    position:absolute;
+    left:220px;
+    top:760px;
+    border:4px solid #FFF5E7;
+}
+/* member님의 */
+.e140_membername {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:430px;
+    top:320px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/* 회원등급은 */
+.e140_rank {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:90px;
+    height:29px;
+    position:absolute;
+    left:540px;
+    top:360px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/* xx회원 */
+.e140_member {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:73px;
+    height:29px;
+    position:absolute;
+    left:649px;
+    top:360px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/* 등급입니다. */
+.e140_rankIs {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:95px;
+    height:29px;
+    position:absolute;
+    left:740px;
+    top:360px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+.couponimg {
+    width: 410px; /* 이미지의 너비 */
+    height: 123px; /* 이미지의 높이 */
+    position: absolute; /* 다른 요소에 상대적으로 위치 설정 */
+    top: 290px; /* 상단 좌표 */
+    left: 1250px; /* 좌측 좌표 */
+    transition: all 0.5s ease; /* 변경 시 애니메이션 효과 추가 */
+}
+/* 쿠폰장수 */
+.e140_coupon {
+    color:rgb(2, 2, 2);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:1305px;
+    top:420px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/* 마일리지 */
+.e140_mileage {
+    color:rgb(0, 0, 0);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:1445px;
+    top:420px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/* 예치금 */
+.e140_deposit {
+    color:rgb(0, 0, 0);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:1580px;
+    top:420px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/*진행중인 주문 폰트*/
+.e140_progressOrder{
+    color:rgb(0, 0, 0);
+    width:125px;
+    height:29px;
+    position:absolute;
+    left:356px;
+    top:510px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/*최근 주문 폰트*/
+.e140_neworder{
+    color:rgb(0, 0, 0);
+    width:125px;
+    height:29px;
+    position:absolute;
+    left:356px;
+    top:750px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+.pendingDeposit{
+    color:rgb(0, 0, 0);
+    width:655px;
+    height:29px;
+    position:absolute;
+    left:420px;
+    top:580px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+/* 진행중인주문안에 동그라미 */
+.circle {
+    width: 50px;
+    height: 50px;
+    background-color: #6d7474;
+    border-radius: 50%;
+    position: absolute;
+}
+/* 1번동그라미 */
+#circle1 {
+    left:430px;
+    top:620px;
+
+}
+/* 3번동그라미 */
+#circle2 {
+    left:673px;
+    top:620px;
+}
+/* 4번동그라미 */
+#circle3 {
+    left:790px;
+    top:620px;
+}
+/* 5번동그라미 */
+#circle4 {
+    left:897px;
+    top:620px;
+}
+/* 6번동그라미 */
+#circle5 {
+    left:1014px;
+    top:620px;
+}
+/* 2번동그라미 */
+#circle6 {
+    left:548px;
+    top:620px;
+}
+.circleInNember{
+    position: absolute;
+    left:450px;
+    top:633px;
+    width:5px;
+    height:5px;
+    color:white;
+
+
+}
+.cancelExchangeRefund{
+    color:rgb(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:420px;
+    height:29px;
+    position:absolute;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+#cancel{
+    left:1320px;
+    top:568px;
+}
+#exchange{
+    left:1320px;
+    top:608px;
+}
+#refund{
+    left:1320px;
+    top:648px;
+}
+.cancelExchangeRefundSmallLine {
+    transform: translate(10%, 10%);
+    position: absolute;
+    left: 1243px;
+    top: 538px;
+    width: 410px;
+    height: 120px;
+    float: left; /* 왼쪽 정렬을 위해 float 사용 */
+    border: 4px solid #FFF5E7;
+    /* background-color: rgba(107, 107, 107, 0.336); */
+}
+/* 최근주문정보안에네모라인 */
+.recentOrderInformationlLine {
+    transform: translate(10%, 10%);
+    position: absolute;
+    left: 216px;
+    top: 766px;
+    width: 1364px;
+    height: 40px;
+    border: 2px solid #FFF5E7;
+    background-color: #FFF5E7;
+}
+/* 최근주문정보 */
+.recentOrderInformation {
+    color:rgb(0, 0, 0);
+    width:130px;
+    height:29px;
+    position:absolute;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:16px;
+    letter-spacing:0.5px;
+    font-weight: bold;
+}
+
+/* 날짜/주문정보 */
+#dateOrderInforMation{
+    left:420px;
+    top:780px;
+    z-index: 1;
+}
+/* 상품명/옵션 */
+#productNameOptions{
+    left:900px;
+    top:780px;
+    z-index: 1;
+}
+/* 상품금액/수량 */
+#productPriceQuantity{
+    left:1200px;
+    top:780px;
+    z-index: 1;
+}
+/* 주문상태 */
+#orderStatus{
+    left:1412px;
+    top:780px;
+    z-index: 1;
+}
+/* 확인/리뷰 */
+#reviewConfirmation{
+    left:1580px;
+    top:780px;
+    z-index: 1;
+}
+
+.e1_5253 {
+    width: 1920px;
+    height: 111px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.e1_5256 {
+    width: 307px;
+    height: 44px;
+    position: absolute;
+    left: 1507px;
+    top: 43px;
+}
+.topBarParent {
+    width: 100%;
+    height: 184px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.topBarParent2 {
+    width: 100%;
+    height: 73px;
+    position: absolute;
+    left: 0px;
+    top: 111px;
+}
+.topBar { /* 상단 메뉴 바 */
+    position: relative;
+    background-color: #FFF5E7;
+    background-size: cover;
+    width: 150%;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+}
+.customer { /* 고객센터*/
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    width: 74px;
+    height: 24px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-family: DM Sans;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+.signUp { /* 회원가입*/
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    width: 74px;
+    height: 24px;
+    position: absolute;
+    left: 118px;
+    top: 10px;
+    font-family: DM Sans;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+.logIn { /* 로그인*/
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    width: 56px;
+    height: 24px;
+    position: absolute;
+    left: 226px;
+    top: 10px;
+    font-family: DM Sans;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+@keyframes appearFromSideAnimation {
+    from {
+        transform: translateX(-500%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+@keyframes setOpacity {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+.dropdown-container {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    display: inline-block;
+}
+#category { /* 카테고리 */
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute;  /* absolute  */
+    left: 30px; /* 왼쪽으로 px 이동 */
+    width: 80px; /* 상위 컨테이너의 너비를 증가 */
+    height: 54px; /* 상위 컨테이너의 높이를 증가 */
+}
+#category:hover{
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+#theme {    /*테마*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute; /* absolute  */
+    left: 150px; /* 왼쪽으로 px 이동 */
+    width: 50px; /* 상위 컨테이너의 너비를 증가 */
+    height: 54px; /* 상위 컨테이너의 높이를 증가 */
+}
+#theme:hover{
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+#new_product {    /*신상품*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute; /* absolute  */
+    left: 250px; /* 왼쪽으로 px 이동 */
+    width: 60px; /* 상위 컨테이너의 너비를 증가 */
+    height: 54px; /* 상위 컨테이너의 높이를 증가 */
+}
+#new_product:hover{
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+#best {    /*베스트*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute; /* absolute  */
+    left: 350px; /* 왼쪽으로 px 이동 */
+    width: 60px; /* 상위 컨테이너의 너비를 증가 */
+    height: 54px; /* 상위 컨테이너의 높이를 증가 */
+}
+#best:hover{
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+#interior_challenge {    /*인테리어 챌린지*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute; /* absolute  */
+    left: 440px; /* 왼쪽으로 px 이동 */
+    width: 150px; /* 상위 컨테이너의 너비를 증가 */
+    height: 54px; /* 상위 컨테이너의 높이를 증가 */
+}
+#interior_challenge:hover{
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+#board {                /*게시판*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute; /* absolute  */
+    left: 620px; /* 왼쪽으로 px 이동 */
+    width: 60px; /* 상위 컨테이너의 너비를 증가 */
+    height: 54px; /* 상위 컨테이너의 높이를 증가 */
+}
+#board:hover{
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+#special_price {                /*특가*/
+    font-size: 16px;
+    transition: font-size 0.5s ease;
+    position: absolute; /* absolute  */
+    left: 720px; /* 왼쪽으로 px 이동 */
+    width: 50px; /* 상위 컨테이너의 너비를 증가 */
+    height: 54px; /* 상위 컨테이너의 높이를 증가 */
+}
+#special_price:hover{
+    font-size: 20px;
+    transition: font-size 0.5s ease;
+}
+
+
+
+
+/* 드롭다운 메뉴 배경색 */
+.dropdown-menu{
+    display: none; /* 초기에는 드롭다운 메뉴를 숨김 */
+    position: absolute; /* 절대 위치로 설정하여 부모 요소를 기준으로 위치를 조정 */
+    top: 55px;
+    background-color: rgba(255, 255, 255, 1);
+    min-width: 150px; /* 드롭다운 메뉴 가로 너비*/
+    z-index: 1;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}
+#category_toggle{left: 10px;}
+#theme_toggle{left: 100px;}
+#new_product_toggle{left: 200px;}
+#board_toggle{left:570px;}
+
+/* 나오는 메뉴 아가들 설정 */
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+/* 드롭다운 선택시 배경 색 */
+.dropdown-menu a:hover{
+    color: rgb(255, 255, 255);
+    background-color: #4d4d4d;
+}
+.dropdown-menu {
+    animation: appearFromSideAnimation 0.7s ease forwards;
+    position: absolute;
+    /* 기타 스타일 */
+}
+.homePageImg {
+    position: fixed;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+
+    left: -120px;
+    top: 0px;
+    background-repeat: no-repeat;
+}
+button img{
+    width: 45%;
+}
+.side_button {
+    overflow: hidden;
+    width: 120px;
+    height: 526px;
+    position: fixed;
+    left: 1878px;
+    top: 258px;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 64px;
+    border-bottom-left-radius: 34px;
+    border-bottom-right-radius: 34px;
+}
+.side_bar_menus {
+    box-shadow: 7px 7px 12.699999809265137px rgba(0, 0, 0, 0.25);
+    display: block; /* 기본적으로 display는 block으로 설정 */
+    position: absolute;
+    background: rgb(161, 199, 255);
+    top: 110px;
+    left: 9px;
+    width: 90px;
+    height: 400px;
+    border-radius: 24px;
+    opacity: 0; /* 처음에는 보이지 않게 설정 */
+    visibility: hidden; /* 처음에는 보이지 않게 설정 */
+    transform: translateY(-100%);
+    transition: visibility 0s, opacity 0.5s linear; /* transition을 사용하여 부드러운 변화 적용 */
+}
+
+.fallDown {
+    animation: fallDown 0.5s ease forwards;
+}
+
+.up_animation {
+    animation: up_animation 0.5s ease forwards;
+}
+
+@keyframes fallDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: visible;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes up_animation {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+.side_button_container {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    left: 5px;
+    top: 7px;
+}
+.side_button_container:hover {
+    transform: scale(1.1); /* 마우스 오버 시 크기 10% 증가 */
+}
+.side_button_background {
+    box-shadow: 7px 7px 12.699999809265137px rgba(0, 0, 0, 0.25);
+    background-color: rgba(156.53281331062317, 188.63142371177673, 226.31249696016312, 1);
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
+    border-bottom-left-radius: 34px;
+    border-bottom-right-radius: 34px;
+}
+.side_button_face_container {
+    width: 57.68505096435547px;
+    height: 64.19374084472656px;
+    position: absolute;
+    left: 21.152587890625px;
+    top: 21.15234375px;
+}
+.side_button_face {
+    border-radius: 500px;
+    background-color: rgba(255, 255, 255, 1);
+    width: 53.694915771484375px;
+    height: 53.694915771484375px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.side_button_left_eye {
+    border-radius: 500px;
+    background-color: rgba(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+    width: 8.949152946472168px;
+    height: 14.644067764282227px;
+    position: absolute;
+    left: 8.135498046875px;
+    top: 19.525390625px;
+}
+
+.side_button_right_eye {
+    border-radius: 500px;
+    background-color: rgba(157.0000058412552, 189.00000393390656, 226.0000017285347, 1);
+    width: 8.949152946472168px;
+    height: 14.644067764282227px;
+    position: absolute;
+    left: 22.779661178588867px;
+    top: 19.525423049926758px;
+}
+
+
+.side_bar_text {
+    color: rgba(0, 0, 0, 1);
+    width: 48px;
+    height: 19px;
+    position: absolute;
+    left: 36px;
+    top: 75px;
+    font-family: Inknut Antiqua;
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0;
+}
+.e140_mypage {
+    color:rgba(17.00000088661909, 20.000000707805157, 45.00000111758709, 1);
+    width:1300px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:200px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:24px;
+    letter-spacing:0.5;
+}
+.e140_mypageLine {
+    transform: rotate(0.09459943772153664deg);
+    width:150px;
+    height:0px;
+    position:absolute;
+    left:50px;
+    top:240px;
+    border:1px solid rgb(0, 0, 0);
+}
+
+.e140_OrderandShipping{
+    color:rgba(123.14053952693939, 124.21439230442047, 125.37085264921188, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:270px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}
+.e140_CancelReturnExchange{
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:170px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:310px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}
+.e140_RefundDepositHistory {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:350px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}
+.e140_Wishlist {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:390px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}
+.e140_CouponPoints {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:430px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}
+.e140_Inquiry {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:470px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}
+.e140_ShippingAddressManagement {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:510px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}
+.e140_EditPersonalInformation {
+    color:rgba(123.0000002682209, 124.00000020861626, 125.00000014901161, 1);
+    width:160px;
+    height:29px;
+    position:absolute;
+    left:50px;
+    top:550px;
+    font-family:DM Sans;
+    text-align:left;
+    font-size:18px;
+    letter-spacing:0.5;
+    font-weight: bold;
+}

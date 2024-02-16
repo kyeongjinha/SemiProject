@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유게시판_글작성</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin/notice/FAQ_write.css">
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+    <section>
+        <div class="board_wrap">
+            <div class="board_title">
+                <strong>FAQ</strong>
+            </div>
+            <div class="board_write_wrap">
+                <div class="board_write">
+                    <div class="title">
+                        <dl>
+                            <dt>제목</dt>
+                            <dd><input type="text" placeholder="제목 입력" value="글 제목이 들어갑니다"></dd>
+                        </dl>
+                    </div>
+                    <!-- <div class="info">
+                        <dl>
+                            <dt>글쓴이</dt>
+                            <dd><input type="text" placeholder="글쓴이 입력"></dd>
+                        </dl>
+                        <dl>
+                            <dt>비밀번호</dt>
+                            <dd><input type="password" placeholder="비밀번호 입력"></dd>
+                        </dl>
+                    </div> -->
+                    <div class="cont">
+                        <textarea placeholder="내용 입력"></textarea>
+                    </div>
+                </div>
+
+                <div class="fileUpload">
+                    <input type="file" id="fileInput">
+                </div>
+
+                <div class="bt_wrap write">
+                    <a href="자유게시판_게시글.html" class="on">등록</a>
+                    <a href="자유게시판.html">취소</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('fileInput').addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    uploadFile(file);
+                }
+            });
+
+            function uploadFile(file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('파일이 성공적으로 업로드되었습니다.');
+                        } else {
+                            console.error('파일 업로드 실패');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('네트워크 오류:', error);
+                    });
+            }
+        </script>
+
+    </section>
+</body>
+</html>

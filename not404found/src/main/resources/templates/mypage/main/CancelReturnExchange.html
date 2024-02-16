@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CancelReturnExchange</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/css/mypage/CancelReturnExchange.css">
+
+</head>
+<header th:replace="common/header.html"></header>
+
+<body>
+
+<div class=leftBarparent></div>
+    <div class=mypageleftline>
+        <span class="e140_mypage">마이페이지</span>
+        <span class="e140_mypageLine"></span>
+        <span class="e140_OrderandShipping">주문목록/배송조회</span>
+        <span class="e140_CancelReturnExchange">취소/반품/교환 내역</span>
+        <span class="e140_RefundDepositHistory">환불/입금내역</span>
+        <span class="e140_Wishlist">찜리스트</span>
+        <span class="e140_CouponPoints">쿠폰&적립금</span>
+        <span class="e140_Inquiry">1:1 문의</span>
+        <span class="e140_ShippingAddressManagement">배송지 관리</span>
+        <span class="e140_EditPersonalInformation">개인정보 수정</span>
+    </div>
+    <div class="mypagesummary">
+        <div class="e140_borderLine"></div>
+        <div class="e140_borderLine2"></div>
+        <div class="e140_borderLine3"></div>
+        <span class="e140_membername">[ member ] 님의</span>
+        <span class="e140_rank">회원등급은</span>
+        <span class="e140_member">일반회원</span>
+        <span class="e140_rankIs">등급입니다.</span>
+
+        <img class="couponimg" src="../../../static/images/mypage/couponimg.png"/>
+
+        <span class="e140_coupon">0장</span>
+        <span class="e140_mileage">0원</span>
+        <span class="e140_deposit">0원</span>
+        <span class="e140_progressOrder" id=mypagefontsize2>주문취소/반품/교환</span>
+        <span class="e140_neworder" id="mypagefontsize1">주문취소/반품/교환 내역 총&nbsp;?&nbsp;건</span>
+    </div>
+
+
+        <div class="square" id="square1" onclick="changeColor(this)">오늘</div>
+        <div class="square" id="square2" onclick="changeColor(this)">7일</div>
+        <div class="square" id="square3" onclick="changeColor(this)">15일</div>
+        <div class="square" id="square4" onclick="changeColor(this)">1개월</div>
+        <div class="square" id="square5" onclick="changeColor(this)">3개월</div>
+        <div class="square" id="square6" onclick="changeColor(this)">1년</div>
+
+
+        <div id="datepicker-container">
+            <label for="datepicker1"></label>
+            <input type="text" id="datepicker1" readonly>
+            <span>~</span>
+            <label for="datepicker2"></label>
+            <input type="text" id="datepicker2" readonly>
+            <button>조회</button>
+        </div>
+
+        <!-- 카운트는 추후변경이라 그냥 대충함 -->
+        <div class="조회기간날짜">
+            <div class="조회기간날짜" id="조회기간날짜0"><b>조회기간</b></div>
+
+        </div>
+
+        <div class="recentOrderInformation">
+            <div class="recentOrderInformation" id="dateOrderInforMation">날짜 / 주문정보</div>
+            <div class="recentOrderInformation" id="productNameOptions">상품명 / 옵션</div>
+            <div class="recentOrderInformation" id="productPriceQuantity">상품금액 / 수량</div>
+            <div class="recentOrderInformation" id="orderStatus">주문상태</div>
+            <div class="recentOrderInformation" id="reviewConfirmation">확인 / 리뷰</div>
+
+            <div class="square2" id="square7" onclick="changeColor(this)">취소/반품/교환 신청 현황</div>
+            <div class="square2" id="square8" onclick="changeColor(this)">취소/반품/교환 처리 현황</div>
+
+
+            <div class="recentOrderInformationlLine"></div>
+        </div>
+
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var squares = document.querySelectorAll('.square');
+    var selectedSquare = null;
+
+    function changeColor(square) {
+        if (selectedSquare) {
+            selectedSquare.classList.remove("clicked");
+        }
+
+        square.classList.add("clicked");
+        selectedSquare = square;
+    }
+
+    squares.forEach(function(square) {
+        square.addEventListener("click", function() {
+            changeColor(square);
+        });
+    });
+});
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var squares2 = document.querySelectorAll('.square2');
+        var selectedSquare = null;
+
+        function changeColor(square2) {
+            if (selectedSquare) {
+                selectedSquare.classList.remove("clicked");
+            }
+
+            square2.classList.add("clicked");
+            selectedSquare = square2;
+        }
+
+        squares2.forEach(function(square2) {
+            square2.addEventListener("click", function() {
+                changeColor(square2);
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        // 시작 날짜와 종료 날짜를 담을 변수
+        var startDate, endDate;
+
+        // 오늘 날짜 구하기
+        var today = new Date();
+
+        // datepicker1 초기화 및 오늘 날짜로 설정
+        $("#datepicker1").datepicker({
+            defaultDate: today,
+            onSelect: function (selectedDate) {
+                startDate = new Date(selectedDate);
+                updateEndDatepicker(startDate);
+            }
+        });
+
+        // datepicker2 초기화 및 오늘 날짜로 설정
+        $("#datepicker2").datepicker({
+            defaultDate: today
+        });
+
+        // datepicker1의 변경에 따라 datepicker2 갱신
+        function updateEndDatepicker(startDate) {
+            $("#datepicker2").datepicker("option", "minDate", startDate);
+        }
+
+        // 네모칸에 오늘 날짜 표시
+        $("#datepicker1").val($.datepicker.formatDate("yy-mm-dd", today));
+        $("#datepicker2").val($.datepicker.formatDate("yy-mm-dd", today));
+    });
+</script>
+</body>
+</html>

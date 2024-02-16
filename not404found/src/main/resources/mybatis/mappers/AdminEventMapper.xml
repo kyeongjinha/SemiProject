@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.admin.event.model.dao.AdminEventMapper">
+
+    <resultMap id="eventMap" type="AdminEventDTO">
+        <id property="eventCode" column="event_code"/>
+        <id property="productCode" column="product_code"/>
+        <result property="name" column="name"/>
+        <result property="discountRate" column="discount_rate"/>
+        <result property="registEventDate" column="regist_event_date"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="selectAllEvent" resultMap="eventMap">
+        SELECT
+            event_code,
+            MAX(product_code) AS product_code,
+            MAX(name) AS name,
+            MAX(discount_rate) AS discount_rate,
+            MAX(regist_event_date) AS regist_event_date,
+            MAX(start_date) AS start_date,
+            MAX(end_date) AS end_date,
+            MAX(status) AS status
+        FROM event
+        GROUP BY event_code;
+    </select>
+
+    <select id="selectOneEvent" resultMap="eventMap">
+        SELECT
+            DISTINCT a.event_code,
+            a.product_code,
+            a.name,
+            a.discount_rate,
+            a.regist_event_date,
+            a.start_date,
+            a.end_date,
+            a.status
+        FROM event a
+        <where>
+            <if test="searchCondition == 'Ecode'">
+                a.event_code LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Eproduct'">
+                a.product_code LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'Ename'">
+                a.name LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'EdiscountRate'">
+                a.discount_rate LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'EregistrationDate'">
+                a.regist_event_date LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'EstartDate'">
+                a.start_date LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'AlastLogin'">
+                a.last_login LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="searchCondition == 'EendDate'">
+                a.end_date LiKE CONCAT('%', #{searchValue}, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertEvent" >
+        INSERT INTO event
+                (event_code, name, discount_rate, regist_event_date, start_date, end_date, status, product_code)
+        VALUES ((SELECT LAST_INSERT_ID()),#{ name }, #{ discountRate }, DATE(NOW()), #{ startDate }, #{ endDate }, 'Y', #{ productCode } )
+    </insert>
+
+</mapper>

@@ -1,0 +1,103 @@
+/* 푸터 */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+}
+
+.footer {
+    width: 100%;
+    height: 250px;
+    /*position: absolute;*/
+    justify-content: center;
+    background-color: #FFF5E7;
+}
+
+.footer-group {
+    /*height: 100%;*/
+    /*position: absolute;*/
+    left: 400px;
+    /*text-align: left;*/
+}
+
+.footer-group-design {
+    width: 100%;
+    top: 0px;
+}
+
+.footer-down {
+    color: rgb(81 81 81);
+    font-size: 12px;
+    text-align: left;
+    margin-left: -20px;
+}
+
+.footer-downContainer {
+    justify-content: center;
+    display: flex;
+}
+
+.footer-down span {
+    text-align: left;
+}
+
+.footer-up-left {
+    text-align: left;
+}
+
+.footer-up-left p {
+    text-align: left;
+}
+
+.footer-up-right {
+    text-align: left;
+}
+
+.upContainer {
+    margin-top: 50px;
+    justify-content: center;
+    display: flex;
+}
+
+.footer-up {
+    width: 100%;
+    left: 0px;
+    top: 10px;
+    text-align: left;
+    justify-content: center;
+    display: flex;
+}
+
+.footer-up-right {
+    color: rgb(81 81 81);
+    width: 300px;
+    height: 30px;
+    left: 300px;
+    top: 50px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.footer-up-right p {
+    color: rgb(81 81 81);
+    width: 300px;
+    height: 30px;
+    left: 300px;
+    top: 50px;
+    text-align: left;
+    font-size: 12px;
+}
+
+
+.footer-up-left{
+    color: rgb(81 81 81);
+    width: 300px;
+    height: 30px;
+    top: 50px;
+    text-align: left;
+    font-size: 12px;
+}
+
+/* -------------------*/
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <link rel="stylesheet" href="/src/main/resources/static/css/admin/dashboard/admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header>
+    <div class="header">
+        <div class="logo_image"></div>
+        <div class="login_name">관리자 : 닉네임</div>
+        <div class="top_bar">
+            <span class="now_span"><h3>대시보드</h3></span>
+        </div>
+        <div class="top_search_bar">
+            <div class="search_div">
+                <span class="search_span">주문, 상품, 문의 회원 등</span>
+                <div class="search_icon"></div>
+            </div>
+        </div>
+        <div class="sidebarparents">
+            <div class="side_bar1">대시보드</div>
+            <div class="side_bar2" onclick="go_order()">주문관리</div>
+            <div class="side_bar3" onclick="go_product()">상품관리</div>
+            <div class="side_bar4" onclick="go_notice()">게시판관리</div>
+            <div class="side_bar5" onclick="go_statistics()">통계</div>
+            <div class="side_bar6" onclick="go_member()">회원관리</div>
+            <div class="side_bar0"><!--남는공간--></div>
+        </div>
+    </div>
+    <script>
+        function go_order(){
+            window.location.href = "admin_page_order.html"
+        }
+        function go_product(){
+            window.location.href = "admin_page_product1.html"
+        }
+        function go_notice(){
+            window.location.href = "admin_page_notice.html"
+        }
+        function go_statistics(){
+            window.location.href = "admin_page_statistics.html"
+        }
+        function go_member(){
+            window.location.href = "admin_page_member.html"
+        }
+        $(document).ready(function(){
+            $('.search_icon').click(function(){
+                alert('총 검색 아이콘 클릭');
+            });
+        });
+    </script>
+</header>
+
+<section>
+    <div class="topSection">
+        <div class="dash1" onclick="go_order()">
+            <div class="cell1"><div class="dashIcon1"></div></div>
+            <div class="cell2"><h3>주문처리</h3></div>
+            <div class="cell3">
+                <ul>
+                    <li>주문접수 4건</li>
+                    <li>상품준비 4건</li>
+                    <li>출고준비 5건</li>
+                    <li>출고완료 0건</li>
+                    <li>배송중  12건</li>
+                </ul>
+            </div>
+            <div class="cell3">
+                <ul>
+                    <li>결제 확인  5건</li>
+                    <li>당일배송 준비 10건</li>
+                    <li>당일배송 완료 12건</li>
+                    <li>당일배송 중 13건</li>
+                </ul>
+            </div>
+        </div>
+        <div class="dash2" onclick="go_product()">
+            <div class="cell1"><div class="dashIcon2"></div></div>
+            <div class="cell2"><h3>상품현황</h3></div>
+            <div class="cell3">
+                <ul>
+                    <li>판매 중            60건</li>
+                    <li>판매준비          12건</li>
+                    <li>판매완료         50   건</li>
+                    <li>판매중지           1   건</li>
+                </ul>
+            </div>
+            <div class="cell3">
+                <ul>
+                    <li>특가상품 22건</li>
+                    <li>추천상품 12건</li>
+                    <li>재고 20개↓        3  건</li>
+                </ul>
+            </div>
+        </div>
+        <div class="dash3">
+            <div class="cell1"><div class="dashIcon3"></div></div>
+            <div class="cell2"><h3>게시판관리</h3></div>
+            <div class="cell3">
+                <ul>
+                    <li>공지사항 작성</li>
+                    <li>FAQ 작성</li>
+                    <li>쇼핑몰 정책 수정</li>
+                </ul>
+            </div>
+            <div class="cell3">
+                <ul>
+                    <li>미답변 QnA 5건</li>
+                    <li>인테리어 챌린지 D-4</li>
+                    <li>하단 바 회사정보 수정</li>
+                </ul>
+            </div>
+        </div>
+        <div class="dash4" onclick="go_member()">
+            <div class="cell1"><div class="dashIcon4 "></div></div>
+            <div class="cell2"><h3>회원관리</h3></div>
+            <div class="cell3">
+                <ul>
+                    <li>현재 회원 수     40 명</li>
+                    <li>VVIP 회원         4   명</li>
+                    <li>VIP 회원           10  명</li>
+                    <li>FAMILY 회원    20 명</li>
+                    <li>FREIND 회원     6  명</li>
+                </ul>
+            </div>
+            <div class="cell3">
+                <ul>
+                    <li>신규가입 회원     4  명</li>
+                    <li>금주 가입 회원   12  명</li>
+                    <li>신규 VVIP 회원   1   명</li>
+                    <li>신규 VIP 회원     5   명 </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="centerContainer">
+        <div class="centerItem">홈페이지 방문 수 : 514 명</div>
+        <div class="centerItem">당일 결제 회수 : 32,344,992 건</div>
+        <div class="centerItem">당일 결제 금액  :  1,052,958,869,568 원</div>
+        <div class="centerItem">당일 회원 가입 인원 : 4  명</div>
+        <div class="centerItem">누적 회원  :  4053  명</div>
+        <div class="centerItem">휴면 예정 알림 :  1  명</div>
+        <div class="centerItem">누적 적립금 : 155,167,168 원</div>
+        <div class="centerItem">비정상적 접근 시도 :    2  회</div>
+        <div class="centerItem">자유 게시판 초기화 하기</div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>admin_page</title>
+  <link rel="stylesheet" type="text/css" href="/css/admin/member/admin.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    .tab3{
+      background-color: #99A3FE;
+      color:white;
+    }
+  </style>
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section style="position: relative">
+<!--  <div class="member_list">-->
+    <ul class="tab_parents">
+      <li class="tab3">회원 관리</li>
+      <li class="tab1" onclick="go_dormant()">휴면계정관리</li>
+      <li class="tab2" onclick="go_blacked()">블랙계정관리</li>
+    </ul>
+  </div>
+  <div class="member_search_bar">
+    <form id="selectAccounts" th:action="@{member}"
+          method="get" >
+    <select id="searchCondition" name="searchCondition">
+      <option value="Aid">아이디</option>
+      <option value="Atype">계정타입</option>
+      <option value="Aname">이름</option>
+      <option value="Aemail">이메일</option>
+      <option value="AregistDate">회원가입날짜</option>
+      <option value="ApayAmount">누적결제금액</option>
+      <option value="Amileage">적립금</option>
+      <option value="AlastLogin">마지막로그인</option>
+      <option value="AhalfYearAccumulatedAmount">반년누적금액</option>
+    </select>
+    <input type="text" placeholder="아이디, 이름, 이메일 등" id="searchValue" name="searchValue" class="searchMember">
+    <button type="submit" class="mem_search_icon"></button>
+    </form>
+  </div>
+  <button id="blackedbtn" type="button" value="블랙버튼" onclick="blacked()">구속시켜</button>
+  <table class="search_one">
+    <tr>
+      <th><input type="checkbox" name="chkbox1" value="1" onclick="check_all1(this.form);"></th>
+      <th>아이디</th>
+      <th>계정타입</th>
+      <th>이름</th>
+      <th>이메일</th>
+      <th>회원가입날짜</th>
+      <th>누적결제금액</th>
+      <th>적립금</th>
+      <th>마지막로그인</th>
+      <th>반년누적금액</th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(searchList)}" style="text-align:center;">
+      <td colspan="10">검색 결과가 없습니다.</td>
+    </tr>
+    <tr
+            th:each="account : ${ searchList }"
+    >
+      <td><input type='checkbox' id="checkedId" name='chkbox1' th:value="${account.id}"></td>
+      <td th:text="${ account.id }"></td>
+      <td th:text="${ account.accountTypeName.typeName }"></td>
+      <td th:text="${ account.name }"></td>
+      <td th:text="${ account.email }"></td>
+      <td th:text="${ #dates.format(account.registDate,'yyyy-MM-dd')}"></td>
+      <td th:text="${ account.payAmount }"></td>
+      <td th:text="${ account.mileage }"></td>
+      <td th:text="${ #dates.format(account.lastLogin,'yyyy-MM-dd') }"></td>
+      <td th:text="${ account.halfYearAccumulatedAmount }"></td>
+    </tr>
+  </table>
+  <table class="table_parents">
+    <tr>
+      <th style="width: 120px">
+        아이디
+        <button>↧</button>
+      </th>
+      <th style="width: 100px">
+        계정타입
+        <button>↧</button>
+      </th>
+      <th style="width: 80px">
+        이름
+        <button>↧</button>
+      </th>
+      <th style="width: 250px">
+        이메일
+        <button>↧</button>
+      </th>
+      <th style="width: 250px">
+        회원가입날짜
+        <button>↧</button>
+      </th>
+      <th style="width: 150px">
+        누적결제금액
+        <button>↧</button>
+      </th>
+      <th style="width: 100px">
+        적립금
+        <button>↧</button>
+      </th>
+      <th>
+        마지막로그인
+        <button>↧</button>
+      </th>
+      <th style="width: 170px">
+        반년누적금액
+        <button>↧</button>
+      </th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(accountList)}" style="text-align:center;">
+      <td colspan="9">검색 결과가 없습니다.</td>
+    </tr>
+    <tr
+      th:each="accounts : ${ accountList }"
+    >
+      <td th:text="${ accounts.id }"></td>
+      <td th:text="${ accounts.accountTypeName.typeName }"></td>
+      <td th:text="${ accounts.name }"></td>
+      <td th:text="${ accounts.email }"></td>
+      <td th:text="${ #dates.format(accounts.registDate,'yyyy-MM-dd') }"></td>
+      <td th:text="${ accounts.payAmount }"></td>
+      <td th:text="${ accounts.mileage }"></td>
+      <td th:text="${ #dates.format(accounts.lastLogin,'yyyy-MM-dd') }"></td>
+      <td th:text="${ accounts.halfYearAccumulatedAmount }"></td>
+    </tr>
+  </table>
+  <script>
+    function blacked(){
+
+
+      var reason = prompt("블랙 사유를 작성해주세요 ");
+      var checkedId = $('#checkedId').val();
+
+      $.ajax({
+        type:"GET",
+        url: "/admin/member/blacked2",
+        data:{ id : checkedId,
+              reason : reason},
+        success:function(response){
+          alert("구속시켰습니다.")
+        }
+      })
+
+    }
+
+    $(document).ready(function(){
+      $('.t_id1').click(function(){
+        alert('아이디 조회방법 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.t_pwd1').click(function(){
+        alert('비밀번호 조회방법 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.t_email1').click(function(){
+        alert('이메일 조회방법 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.t_phone1').click(function(){
+        alert('전화번호 조회방법 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.t_type1').click(function(){
+        alert('계정타입 조회방법 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.t_date1').click(function(){
+        alert('회원가입날짜 조회방법 클릭');a
+      });
+    });
+    $(document).ready(function(){
+      $('.t_money1').click(function(){
+        alert('누적결제금액조회방법 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.modify_member').click(function(){
+        alert('회원 업데이트 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.delete_member').click(function(){
+        alert('회원 삭제 클릭');
+      });
+    });
+    $(document).ready(function(){
+      $('.insert_member').click(function(){
+        alert('회원 등록 클릭');
+      });
+    });
+    function go_dormant(){
+      window.location.href = "/admin/member/dormant"
+    }
+    function go_blacked(){
+      window.location.href = "/admin/member/blacked"
+    }
+
+    function check_all1(form) {
+      var allcheck = $('[name="chkbox1"]', form);
+      $('input[name="chkbox1"]').prop('checked', allcheck.prop('checked'));
+    }
+  </script>
+</section>
+</body>
+</html>
